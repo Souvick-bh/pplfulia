@@ -1,5 +1,6 @@
 import History from "../Components/History"
 
+
 export default function HomeContent() {
 
     
@@ -8,7 +9,7 @@ export default function HomeContent() {
         <div className="flex flex-col ">
           <div className="flex flex-col items-center justify-center">
             <div>
-                <video src={require('../assets/videos/ppl.mp4')} autoPlay muted loop
+                <video src="/videos/ppl.mp4" autoPlay muted loop
                 preload="auto" playsInline
                 className="  " />
             </div>

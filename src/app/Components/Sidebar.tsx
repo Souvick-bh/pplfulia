@@ -4,7 +4,6 @@ import { TbLogin2 } from "react-icons/tb";
 import { IoHome,IoPeopleCircleOutline,IoInformationCircle } from "react-icons/io5";
 import { PiCardsBold } from "react-icons/pi";
 import { TiThMenu } from "react-icons/ti";
-import { style } from "framer-motion/client";
 
  
 

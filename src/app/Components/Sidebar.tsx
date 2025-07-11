@@ -29,14 +29,14 @@ export default function Sidebar() {
                 <div className="text-3xl sm:text-5xl"><TiThMenu  /></div>
                 
                 <div className={`transition-all duration-500 ease-in-out pl-3 items-center text-[#ffffff] text-lg sm:text-2xl text-shadow-lg/30  
-                         ${isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-1/2" }`} style={{minWidth:isActive? "100px" : "0px"}}>Menu</div>
+                         ${isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2" }`} style={{minWidth:isActive? "100px" : "0px"}}>Menu</div>
                 
             </div>
             {sidebarItems.map((item,index)=>(
                <div key={index} className="pt-5 flex flex-row  items-center cursor-pointer  ">
                     <div className="text-3xl sm:text-5xl">{item.icon} </div>
-                    <div className={`transition-all duration-500 ease-in-out pl-3  text-[#ffffff] text-lg sm:text-2xl text-shadow-lg/30  
-                         ${isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-1/2" }`} style={{minWidth:isActive? "100px" : "0px"}}>{item.name}</div>
+                    <div className={`transition-all duration-500 ease-in-out pl-3  text-[#ffffff] text-lg sm:text-2xl text-shadow-lg/90  
+                         ${isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2" }`} style={{minWidth:isActive? "100px" : "0px"}}>{item.name}</div>
                 </div>
             ))}
         </div>

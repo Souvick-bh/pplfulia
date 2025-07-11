@@ -13,12 +13,12 @@ export default function HomeContent() {
                 preload="auto" playsInline
                 className="  " />
             </div>
-            <div className="flex flex-col justify-center pl-8 pr-8 ">
+            <div className="flex flex-col justify-center pt-6 pl-8 pr-8 ">
                 <div className="text-[#ffffff] text-2xl">Wanna watch how a bunch of friends started thier own cricket league 
                 to keep the nostalgic memories alive</div>
             </div>
           </div>
-            <div className="justify-start items-start">
+            <div className="justify-start items-start pt-4">
                 <History />
             </div>
             

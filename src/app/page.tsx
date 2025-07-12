@@ -2,6 +2,7 @@ import Header from "./Components/Header";
 import { VT323 } from "next/font/google"
 import HomeContent from "./Pages/HomeContent";
 import Sidebar from "./Components/Sidebar";
+import Footer from "./Components/Footer"
 
 
 const vt323 = VT323({
@@ -18,10 +19,12 @@ export default function Home() {
       <div className="relative">
         <Header />
         <HomeContent />
+        <Footer />
       </div>
       <div className="absolute flex items-center">
         <Sidebar />
       </div>
+      
     </div>
   );
 }

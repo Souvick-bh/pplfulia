@@ -16,7 +16,7 @@ export default function About() {
                 <Sidebar />
             </div>
 
-            <div className=" relative ml-35 mr-15 sm:ml-50">
+            <div className=" relative ml-35 mr-6 sm:ml-50">
                 <div>
                     <div className="text-lg lg:text-2xl mt-20  ">What happens when a group of high school friends,
                         some with cricketing talent and most with too much free time,

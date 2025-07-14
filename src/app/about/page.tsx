@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState,useRef,useEffect } from "react";
 import { VT323 } from "next/font/google"
 import Sidebar from "../Components/Sidebar"
 import { FaSquareXTwitter,FaGithub,FaInstagram } from "react-icons/fa6";
@@ -13,10 +13,19 @@ export default function About() {
     const [aboutState, setAboutState] = useState(false);
     const [location,setLocation] = useState(0);
 
+    const divRef = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState(20);
+    useEffect(() => {
+            if (divRef.current) {
+            setWidth(divRef.current.offsetWidth);
+        }
+        }, []);
+
       function toggleAboutState() {
         setAboutState((prev)=> !prev);
-        setLocation(Math.floor(Math.random()*36)) ;
+        setLocation(Math.floor(Math.random()*width)) ;
       }
+        
 
 
     return(
@@ -31,13 +40,13 @@ export default function About() {
                   <div className="relative ml-35 mr-6 sm:ml-50">
 
 
-                    <div className="border-[#717273] border-2 mt-20 pt-3 pb-3 pl-2 rounded-3xl">
-                        <span  onClick={toggleAboutState} style={{ left: `${location}vh` }} className={`${aboutState?"bg-[#ea5e00]":"bg-[#000000]"} 
+                    <div ref={divRef} className="border-[#717273] border-2 mt-10 lg:mt-20 pt-3 pb-3 pl-2 rounded-3xl">
+                        <span  onClick={toggleAboutState} style={{ left: `${location}px` }} className={`${aboutState?"bg-[#ea5e00]":"bg-[#000000]"} 
                         ${aboutState?"text-[#000000] font-bold":"text-[#ffffff]"} relative  pt-2 pb-2 pl-4 pr-4 text-lg border-[#717273] border-2 rounded-2xl`}>About</span>
                     </div>
 
                     
-                    <div className="text-lg lg:text-2xl mt-20  ">What happens when a group of high school friends,
+                    <div className="text-lg lg:text-2xl mt-10 lg:mt-20 ">What happens when a group of high school friends,
                         some with cricketing talent and most with too much free time,
                         decide to start something epic? <span className="text-[#ea5e00]">Panchayet Premiere League</span> happens.</div>
                   </div>

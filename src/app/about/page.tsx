@@ -10,18 +10,24 @@ const vt323 = VT323({
 export default function About() {
 
     return(
-        <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-row `}>
-            
-            <div className="absolute flex items-center">
-                <Sidebar />
-            </div>
+        <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col `}>
 
-            <div className=" relative ml-35 mr-6 sm:ml-50">
-                <div>
+            <div className="flex flex-row">
+            
+                  <div className="absolute flex items-center">
+                      <Sidebar />
+                  </div>
+
+                  <div className="relative ml-35 mr-6 sm:ml-50">
                     <div className="text-lg lg:text-2xl mt-20  ">What happens when a group of high school friends,
                         some with cricketing talent and most with too much free time,
                         decide to start something epic? <span className="text-[#ea5e00]">Panchayet Premiere League</span> happens.</div>
-                </div>
+                  </div>
+
+            </div>
+
+            <div className="mt-15 ml-8 mr-6 flex flex-col">
+                
 
                 <div>
                     <h1 className="text-2xl lg:text-3xl mt-15 text-shadow-lg/30  text-shadow-[#ea5e00] ">From Gallis to Glory</h1>

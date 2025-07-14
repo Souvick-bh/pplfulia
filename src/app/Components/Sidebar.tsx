@@ -6,7 +6,7 @@ import { IoHome,IoPeopleCircleOutline,IoInformationCircle } from "react-icons/io
 import { PiCardsBold } from "react-icons/pi";
 import { TiThMenu } from "react-icons/ti";
 
- 
+
 
 export default function Sidebar() {
 

@@ -1,3 +1,5 @@
+"use client"
+import { useState } from "react";
 import { VT323 } from "next/font/google"
 import Sidebar from "../Components/Sidebar"
 import { FaSquareXTwitter,FaGithub,FaInstagram } from "react-icons/fa6";
@@ -8,24 +10,44 @@ const vt323 = VT323({
 })
 
 export default function About() {
+    const [aboutState, setAboutState] = useState(false);
+    const [location,setLocation] = useState(0);
+
+      function toggleAboutState() {
+        setAboutState((prev)=> !prev);
+        setLocation(Math.floor(Math.random()*36)) ;
+      }
+
 
     return(
-        <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-row `}>
-            
-            <div className="absolute flex items-center">
-                <Sidebar />
-            </div>
+        <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col `}>
 
-            <div className=" relative ml-35 mr-15 sm:ml-50">
-                <div>
-                    <div className="text-lg lg:text-2xl mt-20  ">What happens when a group of high school friends,
+            <div className="flex flex-row">
+            
+                  <div className="absolute flex items-center">
+                      <Sidebar />
+                  </div>
+
+                  <div className="relative ml-35 mr-6 sm:ml-50">
+
+                    <div className="border-[#717273] border-2 mt-20 pt-3 pb-3 pl-2 rounded-3xl">
+                        <span  onClick={toggleAboutState} style={{ left: `${location}vh` }} className={`${aboutState?"bg-[#ea5e00]":"bg-[#000000]"} 
+                        ${aboutState?"text-[#000000] font-bold":"text-[#ffffff]"} relative  pt-2 pb-2 pl-4 pr-4 text-lg border-[#717273] border-2 rounded-2xl`}>About</span>
+                    </div>
+
+                    <div className="text-lg lg:text-2xl mt-15  ">What happens when a group of high school friends,
                         some with cricketing talent and most with too much free time,
                         decide to start something epic? <span className="text-[#ea5e00]">Panchayet Premiere League</span> happens.</div>
-                </div>
+                  </div>
+
+            </div>
+
+            <div className="mt-15 ml-8 mr-6 flex flex-col">
+                
 
                 <div>
-                    <h1 className="text-2xl lg:text-3xl mt-15 text-shadow-lg/30  text-shadow-[#ea5e00] ">From Gallis to Glory</h1>
-                    <div className="text-lg lg:text-2xl mt-10 ">What started as a friendly neighborhood tournament quickly turned
+                    <h1 className="text-2xl lg:text-3xl mt-15 text-shadow-lg/30 text-center text-shadow-[#ea5e00] ">From Gallis to Glory</h1>
+                    <div className="text-lg lg:text-2xl mt-10 sm:ml-35">What started as a friendly neighborhood tournament quickly turned
                         into an annual festival of chaos, charisma, and cricket. We ave had:
                         <div className="flex flex-col items-center mt-10 text-[#ea5e00]"><div>Match-fixing allegations</div>
                         <div>Rain-interrupted matches</div>

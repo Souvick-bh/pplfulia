@@ -14,16 +14,23 @@ export default function About() {
     const [location,setLocation] = useState(0);
 
     const divRef = useRef<HTMLDivElement>(null);
+      const spanRef = useRef<HTMLSpanElement>(null);
     const [width, setWidth] = useState(20);
+      const [spanWidth, setSpanWidth] = useState(0);
+
     useEffect(() => {
             if (divRef.current) {
             setWidth(divRef.current.offsetWidth);
+            if(spanRef.current) {
+                setSpanWidth(spanRef.current.offsetWidth);
+            } 
         }
         }, []);
 
       function toggleAboutState() {
         setAboutState((prev)=> !prev);
-        setLocation(Math.floor(Math.random()*width)) ;
+        const maxLeft = Math.max(0, width - spanWidth);
+        setLocation(Math.floor(Math.random()*maxLeft)) ;
       }
         
 

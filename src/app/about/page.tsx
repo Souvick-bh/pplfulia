@@ -18,29 +18,29 @@ export default function About() {
 
             <div className=" relative ml-35 mr-15 sm:ml-50">
                 <div>
-                    <div className="text-2xl lg:text-3xl mt-20  ">What happens when a group of high school friends,
+                    <div className="text-lg lg:text-2xl mt-20  ">What happens when a group of high school friends,
                         some with cricketing talent and most with too much free time,
                         decide to start something epic? <span className="text-[#ea5e00]">Panchayet Premiere League</span> happens.</div>
                 </div>
 
                 <div>
-                    <h1 className="text-4xl lg:text-5xl mt-15 text-shadow-lg/30  text-shadow-[#ea5e00] ">From Gallis to Glory</h1>
-                    <div className="text-2xl lg:text-3xl mt-10 ">What started as a friendly neighborhood tournament quickly turned
+                    <h1 className="text-2xl lg:text-3xl mt-15 text-shadow-lg/30  text-shadow-[#ea5e00] ">From Gallis to Glory</h1>
+                    <div className="text-lg lg:text-2xl mt-10 ">What started as a friendly neighborhood tournament quickly turned
                         into an annual festival of chaos, charisma, and cricket. We ave had:
                         <div className="flex flex-col items-center mt-10 text-[#ea5e00]"><div>Match-fixing allegations</div>
                         <div>Rain-interrupted matches</div>
                         <div>MVP awards</div></div>
                     </div>
-                    <div className="text-2xl lg:text-3xl mt-10 ">And guess what? We are not just still going — we are growing! This year marks our <span className="text-[#ea5e00]">6th Season</span>,
+                    <div className="text-lg lg:text-2xl mt-10 ">And guess what? We are not just still going — we are growing! This year marks our <span className="text-[#ea5e00]">6th Season</span>,
                         and the spirit is crazier than ever. More teams, more sledging, and hopefully, fewer torn ligaments.</div>
                 </div>
 
-                <div className="text-3xl lg:text-4xl mt-20 ">
+                <div className="text-xl lg:text-3xl mt-20 ">
                     We are now building this website to preserve those memories, honor those classic moments, and give our beloved league the stage it deserves. Because one day, we will look back at this and say:
                     <span className="text-[#ea5e00]">Remember when we thought we were IPL stars?</span>
                 </div>
 
-                <div className="text-3xl lg:text-4xl mt-20 mb-30">
+                <div className="text-xl lg:text-3xl mt-20 mb-30">
                     Browse through old photos, match reports, bloopers, and the drama that only true PPL fans understand. Whether you are one of us or just here to laugh at us —
                     Welcome to Panchayet Premiere League.
                     Where friendship meets fierce competition... 
@@ -48,7 +48,7 @@ export default function About() {
 
                 
 
-                <div className="flex flex-row text-2xl md:text-4xl mb-40">
+                <div className="flex flex-row text-lg md:text-3xl mb-40">
                     <h1 className="pl-2 pr-2">The Dev : Souvick Bhowmick</h1>
                     <div className="flex flex-row justify-center items-center gap-4">
                         <a href='https://x.com/SouvickBho17054'>

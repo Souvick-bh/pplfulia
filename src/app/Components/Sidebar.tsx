@@ -1,6 +1,7 @@
 "use client"
+import Link from "next/link";
 import { useState } from "react";
-import { TbLogin2 } from "react-icons/tb";
+import { GrGallery } from "react-icons/gr";
 import { IoHome,IoPeopleCircleOutline,IoInformationCircle } from "react-icons/io5";
 import { PiCardsBold } from "react-icons/pi";
 import { TiThMenu } from "react-icons/ti";
@@ -15,8 +16,9 @@ export default function Sidebar() {
         { name: "Home", icon: <IoHome  />, path: "/" },
         { name: "Members", icon: <IoPeopleCircleOutline  />, path: "/players" },
         { name: "Seasons", icon: <PiCardsBold  />, path: "/history" },
+        { name: "Gallery", icon: <GrGallery />,path: "/gallery"},
         { name: "About", icon: <IoInformationCircle  />, path: "/about" },
-        { name: "Login", icon: <TbLogin2  />, path: "/login" }
+        
     ];
     function toggleSidebar() {
         setIsActive(!isActive);
@@ -32,10 +34,13 @@ export default function Sidebar() {
                 
             </div>
             {sidebarItems.map((item,index)=>(
-               <div key={index} className="pt-5 flex flex-row  items-center cursor-pointer  ">
-                    <div className="text-3xl sm:text-5xl">{item.icon} </div>
-                    <div className={`transition-all duration-500 ease-in-out pl-3  text-[#ffffff] text-lg sm:text-2xl text-shadow-lg/90  
-                         ${isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2" }`} style={{minWidth:isActive? "100px" : "0px"}}>{item.name}</div>
+               <div key={index} >
+                    <Link className="pt-5 flex flex-row  items-center cursor-pointer active:text-[#535558]" href={item.path}>
+                        <div className="text-3xl sm:text-5xl">{item.icon} </div>
+                        <div className={`transition-all duration-500 ease-in-out pl-3  text-[#ffffff] text-lg sm:text-2xl text-shadow-lg/90  
+                        ${isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2" }`} style={{minWidth:isActive? "100px" : "0px"}}>{item.name}</div>
+                    </Link>
+                    
                 </div>
             ))}
         </div>

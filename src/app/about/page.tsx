@@ -16,7 +16,7 @@ export default function About() {
 
       function toggleAboutState() {
         setAboutState((prev)=> !prev);
-        setLocation(Math.floor(Math.random()*150)) ;
+        setLocation(Math.floor(Math.random()*100)) ;
       }
         
 
@@ -33,7 +33,7 @@ export default function About() {
                   <div className="relative ml-35 mr-6 sm:ml-50">
 
                     <div className="flex justify-center">
-                        <div className="border-[#717273] w-60 border-2 mt-10 lg:mt-20 pt-3 pb-3 pl-2 rounded-3xl">
+                        <div className="border-[#717273] w-40 border-2 mt-10 lg:mt-20 pt-3 pb-3 pl-2 rounded-3xl">
                         <span  onClick={toggleAboutState} style={{ left: `${location}px` }} className={`${aboutState?"bg-[#ea5e00]":"bg-[#000000]"} 
                         ${aboutState?"text-[#000000] font-bold":"text-[#ffffff]"} relative  pt-2 pb-2 pl-4 pr-4 text-lg border-[#717273] border-2 rounded-2xl`}>About</span>
                         </div>

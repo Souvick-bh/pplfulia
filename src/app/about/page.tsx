@@ -1,5 +1,5 @@
 "use client"
-import { useState,useRef,useEffect } from "react";
+import { useState } from "react";
 import { VT323 } from "next/font/google"
 import Sidebar from "../Components/Sidebar"
 import { FaSquareXTwitter,FaGithub,FaInstagram } from "react-icons/fa6";
@@ -13,24 +13,10 @@ export default function About() {
     const [aboutState, setAboutState] = useState(false);
     const [location,setLocation] = useState(0);
 
-    const divRef = useRef<HTMLDivElement>(null);
-      const spanRef = useRef<HTMLSpanElement>(null);
-    const [width, setWidth] = useState(20);
-      const [spanWidth, setSpanWidth] = useState(0);
-
-    useEffect(() => {
-            if (divRef.current) {
-            setWidth(divRef.current.offsetWidth);
-            if(spanRef.current) {
-                setSpanWidth(spanRef.current.offsetWidth);
-            } 
-        }
-        }, []);
 
       function toggleAboutState() {
         setAboutState((prev)=> !prev);
-        const maxLeft = Math.max(0, width - spanWidth);
-        setLocation(Math.floor(Math.random()*maxLeft)) ;
+        setLocation(Math.floor(Math.random()*150)) ;
       }
         
 
@@ -46,11 +32,13 @@ export default function About() {
 
                   <div className="relative ml-35 mr-6 sm:ml-50">
 
-
-                    <div ref={divRef} className="border-[#717273] border-2 mt-10 lg:mt-20 pt-3 pb-3 pl-2 rounded-3xl">
+                    <div className="flex justify-center">
+                        <div className="border-[#717273] w-60 border-2 mt-10 lg:mt-20 pt-3 pb-3 pl-2 rounded-3xl">
                         <span  onClick={toggleAboutState} style={{ left: `${location}px` }} className={`${aboutState?"bg-[#ea5e00]":"bg-[#000000]"} 
                         ${aboutState?"text-[#000000] font-bold":"text-[#ffffff]"} relative  pt-2 pb-2 pl-4 pr-4 text-lg border-[#717273] border-2 rounded-2xl`}>About</span>
+                        </div>
                     </div>
+                    
 
                     
                     <div className="text-lg lg:text-2xl mt-10 lg:mt-20 ">What happens when a group of high school friends,
@@ -64,7 +52,7 @@ export default function About() {
                 
 
                 <div>
-                    <h1 className="text-2xl lg:text-3xl mt-15 text-shadow-lg/30 text-center text-shadow-[#ea5e00] ">From Gallis to Glory</h1>
+                    <h1 className="text-2xl lg:text-3xl mt-15 text-shadow-lg/30 text-shadow-[#ea5e00] text-center sm:ml-35">From Gallis to Glory</h1>
                     <div className="text-lg lg:text-2xl mt-10 sm:ml-35">What started as a friendly neighborhood tournament quickly turned
                         into an annual festival of chaos, charisma, and cricket. We ave had:
                         <div className="flex flex-col items-center mt-10 text-[#ea5e00]"><div>Match-fixing allegations</div>

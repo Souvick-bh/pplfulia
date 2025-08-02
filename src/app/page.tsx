@@ -17,8 +17,10 @@ export default function Home() {
   return (
     <div className={`${vt323.className} bg-[#000000] min-h-screen flex flex-row`}>
       <div className="relative">
-        <Header />
-        <HomeContent />
+        <div className="relative">
+          <HomeContent />
+          <div className="absolute top-0 right-0"><Header /></div>
+        </div>
         <Footer />
       </div>
       <div className="absolute flex items-center">

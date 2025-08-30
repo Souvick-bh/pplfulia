@@ -14,7 +14,7 @@ export default function Members() {
     return(
         <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center justify-center`}>
             <Link href="/">
-                <button className="absolute mt-5 ml-10 pt-2 pb-2 pl-4 pr-4 rounded-4xl cursor-pointer active:bg-[#1d1c1c] border-2 border-[#252921] top-0 left-0">
+                <button className="absolute mt-5 ml-10 pt-2 pb-2 pl-4 pr-4 rounded-4xl cursor-pointer bg-[#454545] active:bg-[#1d1c1c] border-2 border-[#252921] top-0 left-0">
                     <RiArrowGoBackLine />
                 </button>
             </Link>

@@ -8,7 +8,7 @@ export default function HomeContent() {
     return(
         <div className="flex flex-col ">
           <div className="flex flex-col lg:w-screen items-center justify-center">
-            <div className="mt-18 mb-8 ml-6 md:mt-0 md:mb-0">
+            <div className="mt-24 mb-2 ml-6 md:mt-0 md:mb-0">
                 <video src="/videos/ppl.mp4" autoPlay muted loop
                 preload="auto" playsInline
                 className="  " />

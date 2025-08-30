@@ -27,7 +27,7 @@ export default function History() {
                                 <FaArrowRight />
                                 <div className="bg-[#272727]  rounded-2xl p-2">
                                     <div className="text-xl md:text-2xl">Kasukabe Defence Group </div>
-                                    <div className="text-xl">was created on 21st March, 2020.</div>
+                                    <div className="text-lg md:text-xl">was created on 21st March, 2020.</div>
                                     
                                 </div>
                             </div>
@@ -35,39 +35,39 @@ export default function History() {
                             <div className="motion-line">
                                 <FaArrowRight />
                                 <div className="bg-[#272727]  rounded-2xl p-2">
-                                    <div className="text-2xl">PPL Season 1</div>
-                                    <div className="text-xl">22nd October 2020.</div>
+                                    <div className="text-xl md:text-2xl">PPL Season 1</div>
+                                    <div className="text-lg md:text-xl">22nd October 2020.</div>
                                 </div>
                             </div>
 
                             <div className="motion-line">
                                 <FaArrowRight />
                                 <div className="bg-[#272727]  rounded-2xl p-2">
-                                    <div className="text-2xl">PPL Season 2</div>
-                                    <div className="text-xl">11th October 2021.</div>
+                                    <div className="text-xl md:text-2xl">PPL Season 2</div>
+                                    <div className="text-lg md:text-xl">11th October 2021.</div>
                                 </div>
                             </div>
 
                             <div className="motion-line">
                                 <FaArrowRight />
                                 <div className="bg-[#272727]  rounded-2xl p-2">
-                                    <div className="text-2xl">PPL Season 3</div>
-                                    <div className="text-xl">1st October 2022.</div>
+                                    <div className="text-xl md:text-2xl">PPL Season 3</div>
+                                    <div className="text-lg md:text-xl">1st October 2022.</div>
                                 </div>
                             </div>
 
                             <div className="motion-line">
                                 <FaArrowRight />
                                 <div className="bg-[#272727]  rounded-2xl p-2">
-                                    <div className="text-2xl">PPL Season 4</div>
-                                    <div className="text-xl">20th October 2023.</div>
+                                    <div className="text-xl md:text-2xl">PPL Season 4</div>
+                                    <div className="text-lg md:text-xl">20th October 2023.</div>
                                 </div>
                             </div>
 
                             <div className="motion-line">
                                 <FaArrowRight />
                                 <div className="bg-[#272727]  rounded-2xl p-2">
-                                    <div className="text-2xl">PPL Season 5</div>
+                                    <div className="text-xl md:text-2xl">PPL Season 5</div>
                                     <div className="text-xl">9th October 2024</div>
                                 </div>
                             </div>

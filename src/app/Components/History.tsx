@@ -26,7 +26,7 @@ export default function History() {
                             <div className="motion-line">
                                 <FaArrowRight />
                                 <div className="bg-[#272727]  rounded-2xl p-2">
-                                    <div className="text-2xl">Kasukabe Defence Group </div>
+                                    <div className="text-xl md:text-2xl">Kasukabe Defence Group </div>
                                     <div className="text-xl">was created on 21st March, 2020.</div>
                                     
                                 </div>

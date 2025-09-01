@@ -39,33 +39,33 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
     fetchImages();
   }, [refreshTrigger]);
 
-  const deleteImage = async (image: CricketImage) => {
-    try {
-      // Extract filename from URL
-      const urlParts = image.image_url.split('/');
-      const fileName = urlParts[urlParts.length - 1];
+  // const deleteImage = async (image: CricketImage) => {
+  //   try {
+  //     // Extract filename from URL
+  //     const urlParts = image.image_url.split('/');
+  //     const fileName = urlParts[urlParts.length - 1];
 
-      // Delete from storage
-      const { error: storageError } = await supabase.storage
-        .from('gallery')
-        .remove([fileName]);
+  //     // Delete from storage
+  //     const { error: storageError } = await supabase.storage
+  //       .from('gallery')
+  //       .remove([fileName]);
 
-      if (storageError) throw storageError;
+  //     if (storageError) throw storageError;
 
-      // Delete from database
-      // const { error: dbError } = await supabase
-      //   .from('cricket_images')
-      //   .delete()
-      //   .eq('id', image.id);
+  //     // Delete from database
+  //     // const { error: dbError } = await supabase
+  //     //   .from('cricket_images')
+  //     //   .delete()
+  //     //   .eq('id', image.id);
 
-      // if (dbError) throw dbError;
+  //     // if (dbError) throw dbError;
 
-      fetchImages();
-    } catch (error) {
-      console.error('Delete error:', error);
+  //     fetchImages();
+  //   } catch (error) {
+  //     console.error('Delete error:', error);
       
-    }
-  };
+  //   }
+  // };
 
   const getFilteredImages = () => {
     if (selectedSeason === 'all') return images;

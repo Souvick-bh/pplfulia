@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useState } from 'react'
 import ImageUpload from '../Components/ImageUploader'
 import ImageGallery from '../Components/GalleryComp'
-import Uploading from '../Components/Uploading'
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { VT323 } from "next/font/google"
 const vt323 = VT323({

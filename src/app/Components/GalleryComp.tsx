@@ -16,7 +16,7 @@ interface ImageGalleryProps {
 const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
   const [images, setImages] = useState<CricketImage[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedSeason, setSelectedSeason] = useState<string>('all');
+  const selectedSeason = 'all';
 
   const fetchImages = async () => {
     try {
@@ -53,12 +53,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
       if (storageError) throw storageError;
 
       // Delete from database
-      const { error: dbError } = await supabase
-        .from('cricket_images')
-        .delete()
-        .eq('id', image.id);
+      // const { error: dbError } = await supabase
+      //   .from('cricket_images')
+      //   .delete()
+      //   .eq('id', image.id);
 
-      if (dbError) throw dbError;
+      // if (dbError) throw dbError;
 
       fetchImages();
     } catch (error) {
@@ -72,9 +72,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
     return images.filter(img => img.season === parseInt(selectedSeason));
   };
 
-  const getImageCountBySeason = (season: number) => {
-    return images.filter(img => img.season === season).length;
-  };
+  // const getImageCountBySeason = (season: number) => {
+  //   return images.filter(img => img.season === season).length;
+  // };
 
   if (loading) {
     return <div className="text-center p-8">Loading images...</div>;

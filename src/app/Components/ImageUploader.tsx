@@ -9,7 +9,7 @@ interface ImageUploadProps {
 
 const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadSuccess }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [season, setSeason] = useState<string>('');
+  const [season, setSeason] = useState<string>('1');
   const [uploading, setUploading] = useState(false);
 
 
@@ -30,11 +30,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadSuccess }) => {
       const fileExt = selectedFile.name.split('.').pop();
       const fileName = `season-${season}-${Date.now()}.${fileExt}`;
       
-      // const { data: uploadData, error: uploadError } = await supabase.storage
-      //   .from('gallery')
-      //   .upload(fileName, selectedFile);
+      const {error: uploadError } = await supabase.storage
+        .from('gallery')
+        .upload(fileName, selectedFile);
 
-      // if (uploadError) throw uploadError;
+      if (uploadError) throw uploadError;
 
       // Get public URL
       const { data: { publicUrl } } = supabase.storage

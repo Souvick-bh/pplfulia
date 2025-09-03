@@ -1,6 +1,5 @@
 "use client"
 import Link from 'next/link'
-import { useState } from 'react'
 import ImageGallery from '../Components/GalleryComp'
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { VT323 } from "next/font/google"

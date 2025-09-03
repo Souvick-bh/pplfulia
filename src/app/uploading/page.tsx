@@ -12,7 +12,7 @@ function Uploading() {
     const [refreshTrigger, setRefreshTrigger] = useState(0);
     
       const handleUploadSuccess = () => {
-        setRefreshTrigger(prev => prev + 1);
+        setRefreshTrigger(refreshTrigger + 1);
       };
   return (
     <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center  pt-12`}>

@@ -5,10 +5,9 @@ import {
   DraggableCardContainer,
 } from "@/components/ui/draggable-card";
 
-import { BackgroundLines } from "@/components/ui/background-lines";
-
 import  supabase  from "../../api/client"
-import { div } from "framer-motion/client";
+// import { div } from "framer-motion/client";
+
 interface CricketImage {
   id: string;
   season: number;
@@ -80,11 +79,6 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
     if (selectedSeason === 'all') return images;
     return images.filter(img => img.season === parseInt(selectedSeason));
   };
-
-  const handleSeason = (s:number) => {
-    setSeasonNo(s);
-  }
-
 
 
   // const getImageCountBySeason = (season: number) => {

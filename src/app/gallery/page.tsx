@@ -1,7 +1,6 @@
 "use client"
 import Link from 'next/link'
 import { useState } from 'react'
-import ImageUpload from '../Components/ImageUploader'
 import ImageGallery from '../Components/GalleryComp'
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { VT323 } from "next/font/google"
@@ -14,9 +13,9 @@ export default function Gallery() {
 
       const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  const handleUploadSuccess = () => {
-    setRefreshTrigger(prev => prev + 1);
-  };
+//   const handleUploadSuccess = () => {
+//     setRefreshTrigger(prev => prev + 1);
+//   };
 
     return(
         <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center  pt-12`}>
@@ -31,10 +30,6 @@ export default function Gallery() {
                     Upload
                 </div>
             </Link>
-
-            {/* <div className="flex justify-center">
-          <ImageUpload onUploadSuccess={handleUploadSuccess} />
-        </div> */}
         
         <ImageGallery refreshTrigger={refreshTrigger} />
             

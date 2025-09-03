@@ -10,7 +10,7 @@ import { TiThMenu } from "react-icons/ti";
 
 export default function Sidebar() {
 
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(true);
 
     const sidebarItems = [
         { name: "Home", icon: <IoHome  />, path: "/" },
@@ -26,18 +26,18 @@ export default function Sidebar() {
 
     return(
         <div className="flex flex-col mt-8 mr-4 ml-4  text-[#ffffff] duration-300 ease-in-out">
-            <div onClick={toggleSidebar} className="cursor-pointer flex flex-row items-center text-md">
-                <div className="text-2xl md:text-3xl"><TiThMenu  /></div>
+            <div onClick={toggleSidebar} className="cursor-pointer flex flex-row items-center text-md active:text-[#535558]">
+                <div className="transition-all duration-500 text-2xl md:text-3xl active:text-[#535558]"><TiThMenu  /></div>
                 
-                <div className={`transition-all duration-500 ease-in-out pl-3 items-center text-[#ffffff] text-2xl md:text-3xl text-shadow-lg/30  
+                <div className={`transition-all duration-500 ease-in-out pl-3 items-center text-[#ffffff] text-2xl md:text-3xl text-shadow-lg/30 active:text-[#535558] 
                          ${isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2" }`} style={{minWidth:isActive? "100px" : "0px"}}>Menu</div>
                 
             </div>
             {sidebarItems.map((item,index)=>(
                <div key={index} >
                     <Link className="pt-4 md:pt-6 flex flex-row items-center cursor-pointer active:text-[#535558]" href={item.path}>
-                        <div className="text-2xl md:text-3xl">{item.icon} </div>
-                        <div className={`transition-all duration-500 ease-in-out pl-3  text-[#ffffff] text-2xl md:text-3xl text-shadow-lg/90  
+                        <div className="transition-all duration-500 text-2xl md:text-3xl">{item.icon} </div>
+                        <div className={`transition-all duration-500 ease-in-out pl-3  text-[#ffffff] text-2xl md:text-3xl text-shadow-lg/90 active:text-[#535558]  
                         ${isActive ? "opacity-100 translate-x-0" : "opacity-0 translate-x-2" }`} style={{minWidth:isActive? "100px" : "0px"}}>{item.name}</div>
                     </Link>
                     

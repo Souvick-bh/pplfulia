@@ -1,6 +1,14 @@
 "use client"
 import { useEffect, useState } from "react"
+import {
+  DraggableCardBody,
+  DraggableCardContainer,
+} from "@/components/ui/draggable-card";
+
+import { BackgroundLines } from "@/components/ui/background-lines";
+
 import  supabase  from "../../api/client"
+import { div } from "framer-motion/client";
 interface CricketImage {
   id: string;
   season: number;
@@ -16,6 +24,7 @@ interface ImageGalleryProps {
 const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
   const [images, setImages] = useState<CricketImage[]>([]);
   const [loading, setLoading] = useState(true);
+  const [seasonNo,setSeasonNo] = useState(1);
   const selectedSeason = 'all';
 
   const fetchImages = async () => {
@@ -37,7 +46,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
 
   useEffect(() => {
     fetchImages();
-  }, [refreshTrigger]);
+  }, [refreshTrigger,seasonNo]);
 
   // const deleteImage = async (image: CricketImage) => {
   //   try {
@@ -72,6 +81,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
     return images.filter(img => img.season === parseInt(selectedSeason));
   };
 
+  const handleSeason = (s:number) => {
+    setSeasonNo(s);
+  }
+
+
+
   // const getImageCountBySeason = (season: number) => {
   //   return images.filter(img => img.season === season).length;
   // };
@@ -80,44 +95,37 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
     return <div className="text-center p-8">Loading images...</div>;
   }
 
-          // <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
-          //                     <div className="text-center text-white space-y-2">
-          //                       <p className="text-sm font-medium">Season {image.season}</p>
-                              
-          //                     </div>
-          //                   </div>
 
   return (
-    <div className="w-full">
-        <div className="text-center mt-8 text-3xl font-medium text-[#ea5e00]">Gallery</div>
-      <div>
-        <div>
-          
-
-          <div className="mt-6">
-            {getFilteredImages().length === 0 ? (
-              <div className="text-center p-8 text-muted-foreground">
-                No images found for this selection
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                {getFilteredImages().map((image) => (
-                  <div key={image.id} className="">
-                    <div className=" mt-8 mb-8 ml-8 mr-8  overflow-hidden rounded-lg  bg-transparent">
-                      <img
-                        src={image.image_url}
-                        alt={image.image_name}
-                        className="max-w-40 max-h-30 object-cover rounded-2xl transition-transform hover:scale-105"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+    <div  className="w-full h-auto px-4 flex bg-[#000000] items-center flex-col">
+      <div className={`flex flex-row pt-1 pb-1 pr-4 pl-4  justify-center space-x-4 text-[#ffffff] border-2 border-[#252525] w-50 rounded-lg mt-5`}>
+        <button onClick={()=>setSeasonNo(1)} className={seasonNo==1?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S1</button>
+        <button onClick={()=>setSeasonNo(2)} className={seasonNo==2?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S2</button>
+        <button onClick={()=>setSeasonNo(3)} className={seasonNo==3?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S3</button>
+        <button onClick={()=>setSeasonNo(4)} className={seasonNo==4?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S4</button>
+        <button onClick={()=>setSeasonNo(5)} className={seasonNo==5?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S5</button>
+      </div>
+      <div className="">
+        <div className="text-center mt-5">Season {seasonNo}</div>
+        <div className="bg-[#000000]">
+          <DraggableCardContainer className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-w-screen justify-center overflow-clip">
+            <p className="absolute top-1/2 mx-auto max-w-sm text-center text-2xl font-black text-neutral-400 md:text-4xl dark:text-neutral-800">
+              If its your first day at Fight Club, you have to fight.
+            </p>
+            {getFilteredImages().map((image) => image.season == seasonNo ? (
+            <DraggableCardBody key={image.id} className="max-w-60 max-h-60 bg-transparent">
+            <img
+                src={image.image_url}
+                alt={image.image_name}
+                className="w-full h-auto pointer-events-none relative z-10 object-cover rounded-2xl border-4 border-[#ffffff]"
+                />
+            </DraggableCardBody>
+             ):(null))}
+          </DraggableCardContainer>
         </div>
       </div>
-    </div>
+
+    </div >
   );
 };
 

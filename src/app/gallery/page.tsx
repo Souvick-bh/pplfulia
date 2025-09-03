@@ -25,18 +25,21 @@ export default function Gallery() {
                     <RiArrowGoBackLine />
                 </button>
             </Link>
-            {/* <div className='mt-8 mb-8 border-[#272727] border-2 pt-6 pb-8 pl-12 pr-12 rounded-4xl '>
-                <Uploading />
-            </div> */}
+            
+            <Link href="/uploading">
+                <div className=' absolute mt-5 mr-5 top-0 right-0 pt-1 pb-1 pl-4 pr-4 rounded-4xl cursor-pointer bg-[#454545] active:bg-[#1d1c1c] border-2 border-[#252921] '>
+                    Upload
+                </div>
+            </Link>
 
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
           <ImageUpload onUploadSuccess={handleUploadSuccess} />
-        </div>
+        </div> */}
         
         <ImageGallery refreshTrigger={refreshTrigger} />
             
-            <h1 className="text-4xl">Very Soon...</h1>
-            <h1 className="text-2xl">Cause, we believe in fast shipments</h1>
+            {/* <h1 className="text-4xl">Very Soon...</h1>
+            <h1 className="text-2xl">Cause, we believe in fast shipments</h1> */}
         </div>
     )
 }

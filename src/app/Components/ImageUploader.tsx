@@ -54,7 +54,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadSuccess }) => {
 
       // Reset form
       setSelectedFile(null);
-      setSeason('');
+      
       const fileInput = document.getElementById('image-upload') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
       

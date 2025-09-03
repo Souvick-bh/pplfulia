@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 // import {
 //   DraggableCardBody,
 //   DraggableCardContainer,
@@ -24,7 +24,6 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
   const [images, setImages] = useState<CricketImage[]>([]);
   const [loading, setLoading] = useState(true);
   const [seasonNo,setSeasonNo] = useState(1);
-    const divRef = useRef<HTMLDivElement | null>(null);
   const selectedSeason = 'all';
 
   const fetchImages = async () => {
@@ -102,10 +101,6 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
   //            ):(null))}
   //         </DraggableCardContainer>
 
-  function handleClick() {
-    divRef.current?.focus();
-  }
-
   if (loading) {
     return <div className="text-center p-8">Loading images...</div>;
   }
@@ -123,7 +118,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
         <div className="">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 w-full items-center justify-center">
             {getFilteredImages().map((image) => image.season == seasonNo ? (
-            <div key={image.id} ref={divRef} tabIndex={0} onClick={handleClick} className="w-62 h-62 bg-[#4f4f4f] rounded-xl flex justify-center items-center border-2 border-[#252525] focus:-translate-x-2 focus:-translate-y-2 transition-all duration-300 shadow-[6px_6px_2px_0px_rgba(255,255,255,0.9)]">
+            <div key={image.id} tabIndex={0} className="w-62 h-62 bg-[#4f4f4f] rounded-xl flex justify-center items-center border-2 border-[#252525] focus:-translate-x-2 focus:-translate-y-2 transition-all duration-300 shadow-[6px_6px_2px_0px_rgba(255,255,255,0.9)]">
             <img
                 src={image.image_url}
                 alt={image.image_name}

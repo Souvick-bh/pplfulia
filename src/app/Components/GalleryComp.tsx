@@ -1,9 +1,9 @@
 "use client"
 import { useEffect, useState, useRef } from "react"
-import {
-  DraggableCardBody,
-  DraggableCardContainer,
-} from "@/components/ui/draggable-card";
+// import {
+//   DraggableCardBody,
+//   DraggableCardContainer,
+// } from "@/components/ui/draggable-card";
 
 import  supabase  from "../../api/client"
 // import { div } from "framer-motion/client";

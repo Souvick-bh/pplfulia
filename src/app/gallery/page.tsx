@@ -11,7 +11,8 @@ const vt323 = VT323({
 
 export default function Gallery() {
 
-      const [refreshTrigger, setRefreshTrigger] = useState(0);
+      //const [refreshTrigger, setRefreshTrigger] = useState(0);
+      const refreshTrigger = 0;
 
 //   const handleUploadSuccess = () => {
 //     setRefreshTrigger(prev => prev + 1);

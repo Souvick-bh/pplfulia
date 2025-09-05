@@ -15,7 +15,7 @@ export default function Home() {
  
 
   return (
-    <div className={`${vt323.className} bg-[#000000] min-h-screen flex flex-row`}>
+    <div className={`${vt323.className} bg-[#000000] min-h-screen flex flex-row overflow-hidden`}>
       <div className="relative">
         <div className="relative">
           <HomeContent />

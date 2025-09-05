@@ -1,4 +1,5 @@
-import History from "../Components/History"
+
+import HistoryFramer from "../Components/HistoryFramer"
 
 
 export default function HomeContent() {
@@ -6,7 +7,7 @@ export default function HomeContent() {
     
 
     return(
-        <div className="flex flex-col ">
+        <div className="flex flex-col w-screen">
           <div className="flex flex-col lg:w-screen items-center justify-center">
             <div className="mt-24 mb-2 ml-6 sm:mt-0 sm:mb-0">
                 <video src="/videos/ppl.mp4" autoPlay muted loop
@@ -18,8 +19,8 @@ export default function HomeContent() {
                 to keep the nostalgic memories alive</div>
             </div>
           </div>
-            <div className="justify-start items-start pt-4">
-                <History />
+            <div className="flex items-center justify-center pt-4">
+                <HistoryFramer />
             </div>
             
         </div>

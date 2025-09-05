@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
+import Footer from "./Footer";
 // import {
 //   DraggableCardBody,
 //   DraggableCardContainer,
@@ -114,7 +115,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
         <button onClick={()=>setSeasonNo(4)} className={seasonNo==4?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S4</button>
         <button onClick={()=>setSeasonNo(5)} className={seasonNo==5?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S5</button>
       </div>
-      <div className="flex justify-center items-center ml-5 mr-5">
+      <div className="flex justify-center items-center ml-5 mr-5 mb-12">
         <div className="">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 w-full items-center justify-center">
             {getFilteredImages().map((image) => image.season == seasonNo ? (
@@ -129,7 +130,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
           </div>
         </div>
       </div>
-
+      <Footer />
     </div >
   );
 };

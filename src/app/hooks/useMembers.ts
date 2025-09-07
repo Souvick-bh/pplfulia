@@ -7,7 +7,7 @@ import { Profile } from './useProfile';
 export const useMembers = () => {
   const [members, setMembers] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null | any>(null);
   const { user } = useAuth();
 
   useEffect(() => {

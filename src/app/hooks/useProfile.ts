@@ -19,7 +19,7 @@ export interface Profile {
 export const useProfile = (userId?: string) => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null | any>(null);
   const { user } = useAuth();
 
   const targetUserId = userId || user?.id;

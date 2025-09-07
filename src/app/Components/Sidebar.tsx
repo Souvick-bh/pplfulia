@@ -8,11 +8,11 @@ export default function Sidebar() {
     const [isActive, setIsActive] = useState(true);
 
     const sidebarItems = [
-        { name: "Home", icon: <img src="/icons/home.jpg" />, path: "/" },
-        { name: "Members", icon:  <img src="/icons/members.jpg"  />, path: "/members" },
-        { name: "Blogs", icon:  <img src="/icons/blog.jpg" />, path: "/seasons" },
-        { name: "Gallery", icon:  <img src="/icons/gallery.jpg" />,path: "/gallery"},
-        { name: "About", icon:  <img src="/icons/about.jpg"  />, path: "/about" },
+        { name: "Home",     icon: <img src="/icons/home.jpg" />,    path: "/" },
+        { name: "Members",  icon: <img src="/icons/members.jpg" />, path: "/members" },
+        { name: "Blogs",    icon: <img src="/icons/blog.jpg" />,    path: "/seasons" },
+        { name: "Gallery",  icon: <img src="/icons/gallery.jpg" />, path: "/gallery"},
+        { name: "About",    icon: <img src="/icons/about.jpg"  />,  path: "/about" },
         
     ];
     function toggleSidebar() {

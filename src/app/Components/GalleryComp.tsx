@@ -1,13 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import Footer from "./Footer";
-// import {
-//   DraggableCardBody,
-//   DraggableCardContainer,
-// } from "@/components/ui/draggable-card";
-
 import  supabase  from "../../api/client"
-// import { div } from "framer-motion/client";
 
 interface CricketImage {
   id: string;
@@ -81,26 +75,6 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
     return images.filter(img => img.season === parseInt(selectedSeason));
   };
 
-
-  // const getImageCountBySeason = (season: number) => {
-  //   return images.filter(img => img.season === season).length;
-  // };
-
-
-  // <DraggableCardContainer className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-w-screen justify-center overflow-clip">
-  //           <p className="absolute top-1/2 mx-auto max-w-sm text-center text-2xl font-black text-neutral-400 md:text-4xl dark:text-neutral-800">
-  //             If its your first day at Fight Club, you have to fight.
-  //           </p>
-  //           {getFilteredImages().map((image) => image.season == seasonNo ? (
-  //           <DraggableCardBody key={image.id} className="max-w-60 max-h-60 bg-transparent">
-  //           <img
-  //               src={image.image_url}
-  //               alt={image.image_name}
-  //               className="w-full h-auto pointer-events-none relative z-10 object-cover rounded-2xl border-4 border-[#ffffff]"
-  //               />
-  //           </DraggableCardBody>
-  //            ):(null))}
-  //         </DraggableCardContainer>
 
   if (loading) {
     return <div className="text-center p-8">Loading images...</div>;

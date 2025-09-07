@@ -7,7 +7,7 @@ import { FaSquareXTwitter,FaGithub,FaInstagram } from "react-icons/fa6";
 const vt323 = VT323({
       subsets:["latin"],
       weight: "400",
-})
+});
 
 export default function About() {
     const [aboutState, setAboutState] = useState(false);

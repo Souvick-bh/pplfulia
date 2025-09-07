@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion"
-// import { BackgroundLines } from "@/components/ui/background-lines";
 
 export default function HistoryFramer() {
     const [showHistory, setShowHistory] = useState(false);

@@ -39,7 +39,7 @@ const Auth = () => {
             email,
             password,
             options: {
-                emailRedirectTo: `${window.location.origin}/`,
+                emailRedirectTo: `https://pplfulia.vercel.app/`,
                 data: {
                 full_name: fullName,
                 },

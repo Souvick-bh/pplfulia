@@ -132,16 +132,16 @@ const Profile = () => {
   }
 
   return(
-    <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center`}>
+    <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center pr-5 pl-5`}>
         <Link href="/">
             <button className="absolute mt-5 ml-5 md:ml-10 pt-2 pb-2 pl-4 pr-4 rounded-4xl cursor-pointer bg-[#454545] active:bg-[#1d1c1c] border-2 border-[#252921] top-0 left-0">
                 <RiArrowGoBackLine />
             </button>
         </Link>
-        <div className="border-2 border-[#252525] max-w-3xl mt-12 pt-8 pb-8 pr-12 pl-12 rounded-2xl space-y-6">
+        <div className="border-2 border-[#252525] max-w-3xl mt-16 pt-8 pb-8 pr-8 pl-8 rounded-2xl space-y-6">
         <div className="shadow-cricket">
           <div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-4">
               <span className='text-[#ea5e00] text-xl'>My Profile</span>
               {!isEditing ? (
                 <button className='border-1 border-[#252525] py-1 px-3 rounded-lg active:bg-[#3f3f3f]' onClick={handleEdit} >
@@ -166,16 +166,16 @@ const Profile = () => {
             
             <div className="flex items-center space-x-6">
               <div className="relative">
-                <div className="relative flex  h-24 w-24 justify-center items-center border-1 border-[#252525] rounded-[50%] overflow-hidden">
+                <div className="relative flex  h-28 w-28 justify-center items-center border-1 border-[#252525] rounded-[50%] overflow-hidden">
                     <div className="absolute text-2xl">
                     {profile.display_name?.[0] || user?.email?.[0]?.toUpperCase()}
-                  </div>
-                  <img className='absolute ' src={profile.avatar_url || undefined} />
-                  
+                    </div>
+                    <img className={`absolute rounded-[50%] border-4 ${profile.role=='owner'?'border-[#F4A004]':profile.role=='player'?'border-[#beee62]':'border-[#7e52a0]'} `} src={profile.avatar_url || undefined} />
+                    
                 </div>
                 {isEditing && (
                   <button
-                    className="absolute -bottom-3 left-7 h-8 w-8 rounded-full p-0"
+                    className="absolute -top-4 rounded-[50%]  h-28 w-28 p-0"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={uploading}
                   >
@@ -195,12 +195,12 @@ const Profile = () => {
                   <h2 className="text-2xl font-bold">
                     {profile.display_name || 'Anonymous Cricket Fan'}
                   </h2>
-                  <div className={`flex bg-transparent items-center gap-1 ${getRoleColor(profile.role)}`}>
+                  {/* <div className={`flex bg-transparent items-center gap-1 ${getRoleColor(profile.role)}`}>
                     {profile.role.charAt(0).toUpperCase() + profile.role.slice(1)}
                     {getRoleIcon(profile.role)}
-                  </div>
+                  </div> */}
                 </div>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex flex-col justify-start gap-4 text-sm text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Heart className="h-4 w-4" />
                     {profile.likes_count || 0} likes
@@ -251,27 +251,29 @@ const Profile = () => {
                 )}
               </div>
 
-              <div className="space-x-2 flex flex-row items-start">
-                <label htmlFor="bio">Bio :</label>
+              <div className="space-x-2 flex flex-row justify-start">
+                {profile.bio?(<label className='' htmlFor="bio">#</label>):(<label htmlFor="bio"></label>)}
                 {isEditing ? (
-                  <textarea className='text-center rounded-2xl min-w-73 overflow-hidden border-1 border-[#252525]'
-                    id="bio"
-                    value={formData.bio}
-                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                    placeholder="Tell us about yourself..."
-                    rows={3}
-                  />
+                        <textarea className='text-center rounded-2xl w-55 overflow-hidden border-1 border-[#252525]'
+                            id="bio"
+                            value={formData.bio}
+                            onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                            placeholder="Tell us about yourself..."
+                            rows={3}
+                        />
+                   
+                  
                 ) : (
-                  <p className="bg-transparent max-w-60 rounded-2xl ">
-                    {profile.bio || 'No bio available'}
+                  <p className="bg-transparent max-w-60 rounded-2xl">
+                    {profile.bio || 'Add bio to show who you are!'}
                   </p>
                 )}
               </div>
 
-              <div className="space-x-2 flex flex-row items-start">
-                <label htmlFor="achievements">Achievements :</label>
+              <div className="space-x-2 flex flex-row justify-start">
+                {profile.achievements?(<label htmlFor="achievements">#</label>):(<label htmlFor="achievements"></label>)}
                 {isEditing ? (
-                  <textarea className='text-center rounded-2xl w-60 border-1 border-[#252525]'
+                  <textarea className='text-center rounded-2xl w-55 border-1 border-[#252525]'
                     id="achievements"
                     value={formData.achievements}
                     onChange={(e) => setFormData({ ...formData, achievements: e.target.value })}

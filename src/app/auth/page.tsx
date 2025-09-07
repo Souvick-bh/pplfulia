@@ -19,6 +19,8 @@ const Auth = () => {
   const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
+  const [wrongPassword,setWrongPassword] = useState(false);
+
   
 
   const router = useRouter();
@@ -55,7 +57,9 @@ const Auth = () => {
             password,
             });
 
-            if (error) throw error;
+            if (error) {
+                setWrongPassword(true);
+            };
             
             router.replace('/profile');
         } 
@@ -93,8 +97,14 @@ const Auth = () => {
             <div className="text-center text-xl md:text-2xl mb-4">
                 {isSignUp?'Become A Part Of PPL':'Welcome Buddy'}
             </div>
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
                 {isSignUp?'Create your account':'Sign in to your club account'}
+            </div>
+
+            <div className="text-center mb-4">
+                {wrongPassword?(
+                    <div className="text-red-500 font-medium">Enter correct password</div>
+                ):(null)}
             </div>
             {/* <button className="pt-1 pb-1 pl-3 pr-3 mb-12 rounded-xl border-1 border-[#292929]" onClick={handleGoogleAuth}>Continue with Google</button> */}
 

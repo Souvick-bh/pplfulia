@@ -72,7 +72,7 @@ export default function Members() {
 
             <Link href="/auth">
                 <button className="absolute top-0 right-5 md:right-10 mt-5 ml-5 md:ml-10 pt-1 pb-1 pl-4 pr-4 rounded-4xl cursor-pointer bg-[#454545] active:bg-[#1d1c1c] border-2 border-[#252921]">
-                    Log-in
+                    {user ? 'Profile' : 'Join Us'}
                 </button>
             </Link>
 

@@ -3,6 +3,8 @@
 import ImageUpload from '../Components/ImageUploader'
 import React,{useState} from 'react'
 import Link from 'next/link'
+import { useProfile } from '../hooks/useProfile'
+
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { VT323 } from "next/font/google"
 const vt323 = VT323({
@@ -10,8 +12,11 @@ const vt323 = VT323({
       weight: "400",
 })
 
+
+
 function Uploading() {
     const [refreshTrigger, setRefreshTrigger] = useState(0);
+    const {profile} = useProfile();
     
       const handleUploadSuccess = () => {
         setRefreshTrigger(refreshTrigger + 1);
@@ -23,7 +28,14 @@ function Uploading() {
                     <RiArrowGoBackLine />
                 </button>
             </Link>
-        <ImageUpload  onUploadSuccess={handleUploadSuccess} />
+            {!profile?(
+              <div >Log in first</div>
+            ):profile.role === 'owner' || profile.role ===  'player'?(
+              <ImageUpload  onUploadSuccess={handleUploadSuccess} />
+            ):(
+              <div >You need to be a Player or Owner to upload images.</div>
+            )}
+        
     </div>
   )
 }

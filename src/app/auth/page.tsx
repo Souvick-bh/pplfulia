@@ -19,7 +19,8 @@ const Auth = () => {
   const [fullName, setFullName] = useState('');
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const [wrongPassword,setWrongPassword] = useState(false);
+  const [wrong,setWrong] = useState(false);
+  const [notice,setNotice] = useState('');
 
   
 
@@ -37,6 +38,16 @@ const Auth = () => {
 
         try {
         if (isSignUp) {
+            if(fullName.trim().length < 3) {
+                setNotice('Put name you Bitch')
+                setWrong(true)
+                return;
+            }
+            if(password.trim().length < 6) {
+                setNotice('Password should contain more chars')
+                setWrong(true)
+                return;
+            }
             const { error } = await supabase2.auth.signUp({
             email,
             password,
@@ -58,7 +69,9 @@ const Auth = () => {
             });
 
             if (error) {
-                setWrongPassword(true);
+                setNotice('Incorrect password')
+                setWrong(true);
+                return
             };
             
             router.replace('/profile');
@@ -69,6 +82,15 @@ const Auth = () => {
         setLoading(false);
         }
     };
+
+    const hendlePasswordReset = async() => {
+        const {  error } = await supabase2.auth.resetPasswordForEmail(email, {
+            redirectTo: 'https://pplfulia.vercel.app/forget',
+        })
+        if (error) {
+            console.log(error);
+        }
+    }
 
 //   const handleGoogleAuth = async () => {
 //     try {
@@ -97,22 +119,22 @@ const Auth = () => {
             <div className="text-center text-xl md:text-2xl mb-4">
                 {isSignUp?'Become A Part Of PPL':'Welcome Buddy'}
             </div>
-            <div className="text-center mb-8">
+            <div className="text-center mb-4">
                 {isSignUp?'Create your account':'Sign in to your club account'}
             </div>
 
-            <div className="text-center mb-4">
-                {wrongPassword?(
-                    <div className="text-red-500 font-medium">Enter correct password</div>
+            <div className="text-center">
+                {wrong?(
+                    <div className="text-red-500 font-medium mb-4">{notice}</div>
                 ):(null)}
             </div>
-            {/* <button className="pt-1 pb-1 pl-3 pr-3 mb-12 rounded-xl border-1 border-[#292929]" onClick={handleGoogleAuth}>Continue with Google</button> */}
 
-            <form onSubmit={handleAuth} className="flex flex-col justify-center">
+            <form onSubmit={handleAuth} className="flex flex-col justify-center items-center">
                 {isSignUp && (
                     <div className="pt-1 pb-1 pl-3 pr-3 mb-4 rounded-xl border-1 border-[#292929]">
-                        <input  type="text" placeholder="Enter Full Name"
-                          required={isSignUp} value={fullName} onChange={(e)=>setFullName(e.target.value)}/>
+                        <input  type="text" placeholder="Enter Full Name" className="text-center"
+                          required={isSignUp} value={fullName} 
+                          onChange={(e)=> setFullName(e.target.value)}/>
                     </div>
                 )}
 
@@ -127,7 +149,7 @@ const Auth = () => {
                       required value={password} onChange={(e)=>setPassword(e.target.value)}/>
                 </div>
 
-                <button className=" pt-1 pb-1 pl-3 pr-3 mb-4 rounded-xl border-1 border-[#292929] text-center active:bg-[#3f3f3f]">
+                <button className=" pt-1 pb-1 pl-3 pr-3 w-fit mb-4 rounded-xl border-1 border-[#292929] text-center active:bg-[#3f3f3f]">
                     {loading?'Please wait...':isSignUp?'Create account':'Sign in'}
                 </button>
             </form>
@@ -137,6 +159,11 @@ const Auth = () => {
                     {isSignUp?'Already have an account? Sign in'
                     : "Don't have an account? Sign up"}
                 </button>
+                    {!isSignUp && (
+                        <button className="text-[#ea5e00]" onClick={()=>hendlePasswordReset}>
+                        Forget Password !
+                    </button>
+                )}
             </div>
         </div>
 

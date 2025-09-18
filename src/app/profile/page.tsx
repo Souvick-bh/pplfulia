@@ -6,6 +6,7 @@ import {RiArrowGoBackLine} from 'react-icons/ri'
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import {Heart} from "lucide-react"
+import { supabase2 } from '@/api/user';
 
 import { VT323 } from "next/font/google";
 const vt323 = VT323({
@@ -14,7 +15,7 @@ const vt323 = VT323({
 });
 
 const Profile = () => {
-  const { user,signOut } = useAuth();
+  const { user } = useAuth();
   const { profile, loading, updateProfile, uploadAvatar } = useProfile();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -62,9 +63,12 @@ const Profile = () => {
     }
   };
 
-  function handleSignOut() {
-    signOut();
+  async function handleSignOut() {
+    const {error} = await supabase2.auth.signOut()
     router.replace('/auth');
+    if (error) {
+      console.log(error)
+    }
   }
 
   const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -34,6 +34,7 @@ const Auth = () => {
 
    const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault();
+        
         setLoading(true);
 
         try {
@@ -83,14 +84,15 @@ const Auth = () => {
         }
     };
 
-    const hendlePasswordReset = async() => {
-        const {  error } = await supabase2.auth.resetPasswordForEmail(email, {
-            redirectTo: 'https://pplfulia.vercel.app/forget',
-        })
-        if (error) {
-            console.log(error);
-        }
-    }
+    // const hendlePasswordReset = async() => {
+    //     setForgetP(true)
+    //     const {  error } = await supabase2.auth.resetPasswordForEmail(email, {
+    //         redirectTo: 'https://pplfulia.vercel.app/forget',
+    //     })
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    // }
 
 //   const handleGoogleAuth = async () => {
 //     try {
@@ -138,11 +140,13 @@ const Auth = () => {
                     </div>
                 )}
 
-                <div className="flex justify-center">
-                    <input className="pt-1 pb-1 pl-3 pr-3 mb-4 rounded-xl border-1 border-[#292929] text-center" type="email" placeholder="Enter your email"
-                    
-                    required value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                </div>
+                
+                    <div className="flex justify-center">
+                        <input className="pt-1 pb-1 pl-3 pr-3 mb-4 rounded-xl border-1 border-[#292929] text-center" type="email" placeholder="Enter your email"
+                        
+                        required value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    </div>
+                
 
                 <div className="flex justify-center">
                     <input className="pt-1 pb-1 pl-3 pr-3 mb-4 rounded-xl border-1 border-[#292929] text-center" type="password" placeholder="Enter your password"
@@ -154,16 +158,12 @@ const Auth = () => {
                 </button>
             </form>
 
-            <div>
+            <div className="flex flex-col">
                 <button className="text-[#ea5e00]" onClick={()=>setIsSignUp(!isSignUp)}>
                     {isSignUp?'Already have an account? Sign in'
                     : "Don't have an account? Sign up"}
                 </button>
-                    {!isSignUp && (
-                        <button className="text-[#ea5e00]" onClick={()=>hendlePasswordReset}>
-                        Forget Password !
-                    </button>
-                )}
+                    
             </div>
         </div>
 

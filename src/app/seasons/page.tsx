@@ -19,8 +19,9 @@ export default function Seasons() {
                     <RiArrowGoBackLine />
                 </button>
             </Link>
-            <h1 className="text-4xl">Very Soon...</h1>
-            <h1 className="text-2xl">Cause, we believe in fast shipments</h1>
+            <h1 className="text-2xl">we believe in fast shipments</h1>
+            <h1 className="text-xl">Dev ? feel free to contribute :</h1>
+            <a href="https://github.com/Souvick-bh/pplfulia" className='text-[#2cdace]'>https://github.com/Souvick-bh/pplfulia</a>
         </div>
     )
 }

@@ -8,7 +8,7 @@ const vt323 = VT323({
       weight: "400",
 });
 
-function page() {
+function ForgetPassword() {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const [notice,setNotice] = useState('')
@@ -46,4 +46,4 @@ function page() {
   )
 }
 
-export default page
+export default ForgetPassword

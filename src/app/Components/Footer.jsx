@@ -8,30 +8,40 @@ const socials = [
         name: "YouTube",
         href: "https://youtube.com/@pplfulia?si=NnMmQRHxSrm-vqpo",
         icon: IoLogoYoutube,
-        glowColor: "hover:text-red-500 hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.4)]",
+        // Brand-specific accent styling for mobile & desktop
+        iconColor: "text-red-500",
+        borderColor: "border-red-500/30 md:border-neutral-800/90",
+        bgColor: "bg-red-950/20 md:bg-neutral-950/40",
+        glow: "hover:border-red-500/60 hover:shadow-[0_0_25px_rgba(239,68,68,0.35)]",
     },
     {
         name: "Instagram",
         href: "https://www.instagram.com/pplfulia/profilecard/?igsh=MXNuaHNzaDlyaXB1dg==",
         icon: IoLogoInstagram,
-        glowColor: "hover:text-pink-500 hover:border-pink-500/50 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)]",
+        iconColor: "text-pink-500",
+        borderColor: "border-pink-500/30 md:border-neutral-800/90",
+        bgColor: "bg-pink-950/20 md:bg-neutral-950/40",
+        glow: "hover:border-pink-500/60 hover:shadow-[0_0_25px_rgba(236,72,153,0.35)]",
     },
     {
         name: "Facebook",
         href: "https://www.facebook.com/profile.php?id=61566263444046&mibextid=ZbWKwL",
         icon: IoLogoFacebook,
-        glowColor: "hover:text-blue-500 hover:border-blue-500/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.4)]",
+        iconColor: "text-blue-500",
+        borderColor: "border-blue-500/30 md:border-neutral-800/90",
+        bgColor: "bg-blue-950/20 md:bg-neutral-950/40",
+        glow: "hover:border-blue-500/60 hover:shadow-[0_0_25px_rgba(59,130,246,0.35)]",
     },
 ];
 
 export default function Footer() {
     return (
-        <footer className="relative w-full pt-10 pb-16 flex flex-col items-center justify-center overflow-hidden">
+        <footer className="relative w-full pt-10 pb-12 px-4 flex flex-col items-center justify-center overflow-x-hidden">
             {/* Ambient Red Glow Backdrop */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-32 bg-red-600/10 blur-[130px] pointer-events-none rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 sm:w-[500px] h-28 bg-red-600/15 blur-[90px] sm:blur-[120px] pointer-events-none rounded-full" />
 
             {/* Glowing Top Divider Line */}
-            <div className="w-full max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-red-800/40 to-transparent mb-12" />
+            <div className="w-full max-w-xl h-[1px] bg-gradient-to-r from-transparent via-red-800/40 to-transparent mb-8 sm:mb-10" />
 
             {/* Header Text */}
             <motion.div
@@ -39,17 +49,17 @@ export default function Footer() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="flex items-center gap-3 mb-8"
+                className="flex items-center gap-2.5 mb-6 sm:mb-8"
             >
                 <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-                <h2 className="text-xs font-mono tracking-[0.4em] uppercase text-neutral-400">
+                <h2 className="text-[11px] sm:text-xs font-mono tracking-[0.3em] sm:tracking-[0.4em] uppercase text-neutral-400">
                     Connect With Us
                 </h2>
                 <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
             </motion.div>
 
-            {/* Floating Unboxed Icons */}
-            <div className="flex items-center gap-6 z-10">
+            {/* Social Buttons Container */}
+            <div className="flex items-center justify-center gap-5 sm:gap-8 z-10 w-full max-w-sm">
                 {socials.map((social, index) => {
                     const Icon = social.icon;
                     return (
@@ -62,20 +72,38 @@ export default function Footer() {
                             initial={{ opacity: 0, y: 15 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.4 }}
-                            whileHover={{ y: -6, scale: 1.12 }}
-                            whileTap={{ scale: 0.95 }}
-                            className={`group relative flex items-center justify-center w-14 h-14 rounded-full border border-neutral-800/90 bg-neutral-950/40 text-neutral-400 backdrop-blur-sm transition-all duration-300 ${social.glowColor}`}
+                            transition={{ delay: index * 0.08, duration: 0.4 }}
+                            whileHover={{ y: -5, scale: 1.08 }}
+                            whileTap={{ scale: 0.92 }}
+                            className="flex flex-col items-center gap-2 group"
                         >
-                            <Icon className="text-2xl transition-transform duration-300 group-hover:scale-110" />
+                            <div
+                                className={`
+                                    flex items-center justify-center
+                                    w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-full
+                                    border backdrop-blur-md
+                                    transition-all duration-300
+                                    active:scale-95 active:bg-neutral-900
+                                    ${social.borderColor}
+                                    ${social.bgColor}
+                                    ${social.glow}
+                                `}
+                            >
+                                <Icon className={`text-2xl sm:text-3xl ${social.iconColor} transition-transform duration-300 group-hover:scale-110`} />
+                            </div>
+                            
+                            {/* Mobile-friendly Label */}
+                            <span className="text-[10px] sm:text-xs font-mono text-neutral-400 group-hover:text-white transition-colors">
+                                {social.name}
+                            </span>
                         </motion.a>
                     );
                 })}
             </div>
 
             {/* Minimal Copyright Tagline */}
-            <p className="mt-12 text-[11px] font-mono tracking-[0.25em] text-neutral-600 uppercase">
-                © {new Date().getFullYear()} PPL Fulia <span className="text-red-900">•</span> All Rights Reserved
+            <p className="mt-10 sm:mt-12 text-[10px] sm:text-[11px] font-mono tracking-[0.2em] sm:tracking-[0.25em] text-neutral-400 uppercase text-center">
+                © {new Date().getFullYear()} PPL Fulia <span className="text-red-600">•</span> All Rights Reserved
             </p>
         </footer>
     );

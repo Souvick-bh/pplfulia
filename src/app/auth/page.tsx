@@ -3,14 +3,7 @@ import React,{useEffect, useState} from "react"
 import { useRouter } from "next/navigation";
 import { supabase2 } from "@/api/user"
 import { useAuth } from "../contexts/AuthContext"
-import Link from "next/link";
-import {RiArrowGoBackLine} from 'react-icons/ri'
 
-import { VT323 } from "next/font/google"
-const vt323 = VT323({
-      subsets:["latin"],
-      weight: "400",
-})
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -84,38 +77,11 @@ const Auth = () => {
         }
     };
 
-    // const hendlePasswordReset = async() => {
-    //     setForgetP(true)
-    //     const {  error } = await supabase2.auth.resetPasswordForEmail(email, {
-    //         redirectTo: 'https://pplfulia.vercel.app/forget',
-    //     })
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-//   const handleGoogleAuth = async () => {
-//     try {
-//       const { error } = await supabase2.auth.signInWithOAuth({
-//         provider: 'google',
-//         options: {
-//           redirectTo: `${window.location.origin}/`,
-//         },
-//       });
-
-//       if (error) throw error;
-//     } catch (error: any) {
-//         if(error) throw error;
-//     }
-//   };   
+  
 
   return(
-    <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center justify-center`}>
-        <Link href="/">
-            <button className="absolute mt-5 ml-5 md:ml-10 pt-2 pb-2 pl-4 pr-4 rounded-4xl cursor-pointer bg-[#454545] active:bg-[#1d1c1c] border-2 border-[#252921] top-0 left-0">
-                <RiArrowGoBackLine />
-            </button>
-        </Link>
+    <div className={` bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center justify-center`}>
+        
         <div className="flex flex-col justify-center border-2 border-[#252525] pt-12 pb-12 pl-12 pr-12 rounded-2xl text-lg md:text-xl">
 
             <div className="text-center text-xl md:text-2xl mb-4">

@@ -1,7 +1,6 @@
-"use client"
-import { useEffect, useState } from "react"
-import Footer from "./Footer";
-import  supabase  from "../../api/client"
+"use client";
+import { useEffect, useState } from "react";
+import supabase from "../../api/client";
 
 interface CricketImage {
   id: string;
@@ -18,21 +17,19 @@ interface ImageGalleryProps {
 const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
   const [images, setImages] = useState<CricketImage[]>([]);
   const [loading, setLoading] = useState(true);
-  const [seasonNo,setSeasonNo] = useState(1);
-  const selectedSeason = 'all';
+  const [seasonNo, setSeasonNo] = useState(1);
 
   const fetchImages = async () => {
     try {
       const { data, error } = await supabase
-        .from('cricket_images')
-        .select('*')
-        .order('uploaded_at', { ascending: false });
+        .from("cricket_images")
+        .select("*")
+        .order("uploaded_at", { ascending: false });
 
       if (error) throw error;
       setImages(data || []);
     } catch (error) {
-      console.error('Error fetching images:', error);
-      
+      console.error("Error fetching images:", error);
     } finally {
       setLoading(false);
     }
@@ -40,72 +37,70 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
 
   useEffect(() => {
     fetchImages();
-  }, [refreshTrigger,seasonNo]);
+  }, [refreshTrigger, seasonNo]);
 
-  // const deleteImage = async (image: CricketImage) => {
-  //   try {
-  //     // Extract filename from URL
-  //     const urlParts = image.image_url.split('/');
-  //     const fileName = urlParts[urlParts.length - 1];
-
-  //     // Delete from storage
-  //     const { error: storageError } = await supabase.storage
-  //       .from('gallery')
-  //       .remove([fileName]);
-
-  //     if (storageError) throw storageError;
-
-  //     // Delete from database
-  //     // const { error: dbError } = await supabase
-  //     //   .from('cricket_images')
-  //     //   .delete()
-  //     //   .eq('id', image.id);
-
-  //     // if (dbError) throw dbError;
-
-  //     fetchImages();
-  //   } catch (error) {
-  //     console.error('Delete error:', error);
-      
-  //   }
-  // };
-
-  const getFilteredImages = () => {
-    if (selectedSeason === 'all') return images;
-    return images.filter(img => img.season === parseInt(selectedSeason));
-  };
-
+  const filteredImages = images.filter((img) => img.season === seasonNo);
 
   if (loading) {
-    return <div className="text-center p-8">Loading images...</div>;
+    return (
+      <div className="flex justify-center items-center py-20 text-zinc-500 font-mono text-sm">
+        Loading gallery...
+      </div>
+    );
   }
 
   return (
-    <div  className="w-full h-auto flex bg-[#000000] items-center flex-col">
-      <div className={`flex flex-row pt-1 pb-1 pr-4 pl-4 justify-center space-x-4 text-[#ffffff] border-2 border-[#252525] w-50 rounded-lg mt-5 mb-10`}>
-        <button onClick={()=>setSeasonNo(1)} className={seasonNo==1?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S1</button>
-        <button onClick={()=>setSeasonNo(2)} className={seasonNo==2?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S2</button>
-        <button onClick={()=>setSeasonNo(3)} className={seasonNo==3?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S3</button>
-        <button onClick={()=>setSeasonNo(4)} className={seasonNo==4?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S4</button>
-        <button onClick={()=>setSeasonNo(5)} className={seasonNo==5?`bg-[#333333] pr-2 pl-2 rounded-md`:`bg-[#000000]`}>S5</button>
+    <div className="w-full max-w-7xl flex flex-col items-center">
+      {/* Season Pill Selector */}
+      <div className="flex flex-wrap justify-center gap-2 p-1.5 bg-zinc-950 border border-zinc-900 rounded-full mb-10">
+        {[1, 2, 3, 4, 5].map((s) => (
+          <button
+            key={s}
+            onClick={() => setSeasonNo(s)}
+            className={`px-5 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              seasonNo === s
+                ? "bg-[#ea5e00] text-black font-bold shadow-md shadow-[#ea5e00]/20"
+                : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+            }`}
+          >
+            Season {s}
+          </button>
+        ))}
       </div>
-      <div className="flex justify-center items-center ml-5 mr-5 mb-12">
-        <div className="">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 w-full items-center justify-center">
-            {getFilteredImages().map((image) => image.season == seasonNo ? (
-            <div key={image.id} tabIndex={0} className="w-62 h-62 bg-[#4f4f4f] rounded-xl flex justify-center items-center border-2 border-[#252525] focus:-translate-x-2 focus:-translate-y-2 transition-all duration-300 shadow-[6px_6px_2px_0px_rgba(255,255,255,0.9)]">
-            <img
-                src={image.image_url}
-                alt={image.image_name}
-                className="max-w-60 max-h-60 rounded-2xl border-3 border-[#252525]"
-                />
-            </div>
-             ):(null))}
-          </div>
+
+      {/* Pinterest-style Masonry Column Layout */}
+      {filteredImages.length === 0 ? (
+        <div className="text-zinc-600 py-16 text-center font-mono">
+          No photos uploaded for Season {seasonNo} yet.
         </div>
-      </div>
-      <Footer />
-    </div >
+      ) : (
+        <div className="w-full columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+          {filteredImages.map((image) => (
+            <div
+              key={image.id}
+              className="break-inside-avoid relative group rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-900 cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-black/50"
+            >
+              <img
+                src={image.image_url}
+                alt={image.image_name || `PPL Season ${image.season}`}
+                className="w-full h-auto object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+
+              {/* Hover Dark Overlay & Title */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-end">
+                <span className="text-xs font-mono text-[#ea5e00] mb-0.5">
+                  S{image.season}
+                </span>
+                <p className="text-sm font-medium text-white truncate">
+                  {image.image_name || "PPL Highlight"}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

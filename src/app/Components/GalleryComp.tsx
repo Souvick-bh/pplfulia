@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import supabase from "../../api/client";
+import { logVisits } from "@/api/logVisits";
 
 interface CricketImage {
   id: string;

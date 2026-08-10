@@ -34,13 +34,6 @@ type RoleStyle = {
 
 type ToggleLike = (targetUserId: string, currentlyLiked: boolean) => void;
 
-// ---------------------------------------------------------------------------
-// Role styling — antique gold / felt green / periwinkle violet, layered on
-// top of a single reddish "pulse" accent that runs through the whole page
-// (ticker's live dot, the Likes counter, the top edge of every card, the
-// hit button) so the club has one consistent signal color for "activity".
-// ---------------------------------------------------------------------------
-
 const SIGNAL = "#E1483F"; // the reddish thread
 
 const ROLE_STYLES: Record<RoleKey, RoleStyle> = {
@@ -82,16 +75,6 @@ function formatJoined(dateString: string) {
   });
 }
 
-// ---------------------------------------------------------------------------
-// Member card — used for everyone. The top 3 (isPodium) get a taller,
-// stepped, crowned treatment; everyone else gets the same card at a
-// uniform size. One component, two sizes — not two different layouts.
-//
-// Compact pass: avatar, name, and role badge now share a single header
-// row instead of three stacked blocks, and achievements collapse from a
-// bordered callout into one truncated line with an icon — same
-// information, roughly half the vertical footprint.
-// ---------------------------------------------------------------------------
 
 function MemberCard({
   member,

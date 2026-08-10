@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { supabase2 } from '@/api/user';
 import { useAuth } from '../contexts/AuthContext';
 import { Profile } from './useProfile';
+import { logVisits } from '@/api/logVisits';
 
 export const useMembers = () => {
   const [members, setMembers] = useState<Profile[]>([]);

@@ -1,5 +1,5 @@
 "use client";
-
+import { useEffect, useState } from 'react';
 import { motion } from "framer-motion";
 import { IoLogoYoutube, IoLogoInstagram, IoLogoFacebook } from "react-icons/io5";
 
@@ -35,6 +35,18 @@ const socials = [
 ];
 
 export default function Footer() {
+    const [visits, setVisits] = useState(null);
+
+    useEffect(() => {
+        fetch('/api/visit')
+            .then((res) => {
+                if (!res.ok) throw new Error('API Error');
+                return res.json();
+            })
+            .then((data) => setVisits(data.visits))
+            .catch((err) => console.error("Failed to fetch visit count:", err));
+    }, []);
+
     return (
         <footer className="relative w-full pt-10 pb-12 px-4 flex flex-col items-center justify-center overflow-x-hidden">
             {/* Ambient Red Glow Backdrop */}
@@ -100,6 +112,21 @@ export default function Footer() {
                     );
                 })}
             </div>
+
+            <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="mt-8 z-10 flex flex-col items-center px-5 py-2.5 rounded-xl border border-neutral-800/80 bg-neutral-950/60 backdrop-blur-md shadow-inner"
+            >
+                <span className="text-[10px] font-mono tracking-[0.2em] text-neutral-500 uppercase">
+                    Monthly Visits
+                </span>
+                <span className="text-xl sm:text-2xl font-mono font-bold text-red-500 tracking-wider">
+                    {visits !== null ? visits.toLocaleString() : '...'}
+                </span>
+            </motion.div>
 
             {/* Minimal Copyright Tagline */}
             <p className="mt-10 sm:mt-12 text-[10px] sm:text-[11px] font-mono tracking-[0.2em] sm:tracking-[0.25em] text-neutral-400 uppercase text-center">

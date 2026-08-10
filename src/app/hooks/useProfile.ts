@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase2 } from '@/api/user';
 import { useAuth } from '../contexts/AuthContext';
+import { logVisits } from '@/api/logVisits';
 
 export interface Profile {
   id: string;
@@ -35,6 +36,7 @@ export const useProfile = (userId?: string) => {
 
   const fetchProfile = async () => {
     try {
+      logVisits();
       setLoading(true);
       setError(null);
 

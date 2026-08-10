@@ -121,7 +121,7 @@ export default function Footer() {
                 className="mt-8 z-10 flex flex-col items-center px-5 py-2.5 rounded-xl border border-neutral-800/80 bg-neutral-950/60 backdrop-blur-md shadow-inner"
             >
                 <span className="text-[10px] font-mono tracking-[0.2em] text-neutral-500 uppercase">
-                    Monthly Visits
+                    Total Visits
                 </span>
                 <span className="text-xl sm:text-2xl font-mono font-bold text-red-500 tracking-wider">
                     {visits !== null ? visits.toLocaleString() : '...'}

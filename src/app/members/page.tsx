@@ -33,33 +33,34 @@ type RoleStyle = {
 };
 
 type ToggleLike = (targetUserId: string, currentlyLiked: boolean) => void;
-
-const SIGNAL = "#E1483F"; // the reddish thread
+const SIGNAL = "#FF3B30";
 
 const ROLE_STYLES: Record<RoleKey, RoleStyle> = {
   owner: {
-    label: "Owner",
+    label: "OWNER",
     icon: "/icons/richmonkey.jpg",
-    text: "text-[#C9A227]",
-    border: "border-[#C9A227]/40",
-    bg: "bg-[#C9A227]/10",
-    glow: "shadow-[0_0_40px_-10px_rgba(201,162,39,0.35)]",
+    text: "text-black",
+    border: "border-black",
+    bg: "bg-yellow-300",
+    glow: "",
   },
+
   player: {
-    label: "Player",
+    label: "PLAYER",
     icon: "/icons/playermonkey.jpg",
-    text: "text-[#8FBF52]",
-    border: "border-[#8FBF52]/40",
-    bg: "bg-[#8FBF52]/10",
-    glow: "shadow-[0_0_40px_-10px_rgba(143,191,82,0.35)]",
+    text: "text-black",
+    border: "border-black",
+    bg: "bg-green-300",
+    glow: "",
   },
+
   member: {
-    label: "Member",
+    label: "MEMBER",
     icon: "/icons/membermonkey.jpg",
-    text: "text-[#8B85EE]",
-    border: "border-[#8B85EE]/40",
-    bg: "bg-[#8B85EE]/10",
-    glow: "shadow-[0_0_40px_-10px_rgba(139,133,238,0.35)]",
+    text: "text-black",
+    border: "border-black",
+    bg: "bg-blue-300",
+    glow: "",
   },
 };
 
@@ -113,106 +114,250 @@ function MemberCard({
 
   return (
     <li
-      className={`roster-card-in group relative flex flex-col justify-between overflow-hidden border ${roleInfo.border} bg-[#0D0E10] p-4 transition-all duration-500 motion-safe:hover:scale-[1.015] ${roleInfo.glow} ${orderClass} ${stepClass}`}
-      style={{ animationDelay: `${Math.min(rank - 1, 11) * 60}ms` }}
-    >
-      {/* Reddish pulse line — the connective thread across every card */}
-      <span
-        className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#E1483F]/50 to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-100 group-hover:via-[#E1483F]/80"
-        aria-hidden="true"
-      />
+  className="
+  group
+  relative
+  flex
+  flex-col
+  justify-between
+  bg-white
+  border-4
+  border-black
+  p-5
+  shadow-[8px_8px_0_#000]
+  transition-all
+  duration-200
+  hover:-translate-y-1
+  hover:shadow-[12px_12px_0_#000]
+  "
+>
 
-      <div>
-        <div className="mb-3 flex items-center gap-3">
-          <div
-            className={`relative ${avatarClass} shrink-0 overflow-hidden rounded-full border border-[#232428] bg-[#111214]`}
-          >
-            {member.avatar_url ? (
-              <img
-                src={member.avatar_url}
-                alt={member.display_name ?? "Member"}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <span className="flex h-full w-full items-center justify-center font-mono text-sm uppercase text-[#6E7075]">
-                {member.display_name?.[0] ?? "?"}
-              </span>
-            )}
-            {rank === 1 && (
-              <Crown
-                className="absolute -top-1 left-1/2 h-3.5 w-3.5 -translate-x-1/2 text-[#C9A227]"
-                aria-hidden="true"
-              />
-            )}
-          </div>
+<div>
 
-          <div className="min-w-0 flex-1">
-            <h3 className="truncate text-[15px] font-medium leading-tight text-[#EDEAE2] transition-colors duration-300 group-hover:text-[#F6DAD6]">
-              {member.display_name || "Anonymous Fan"}
-            </h3>
-            <div
-              className={`mt-1 inline-flex items-center gap-1 border px-1.5 py-[1px] font-mono text-[10px] uppercase tracking-wider ${roleInfo.border} ${roleInfo.bg} ${roleInfo.text}`}
-            >
-              <img src={roleInfo.icon} alt="" className="h-2.5 w-2.5 rounded-full" />
-              {roleInfo.label}
-            </div>
-          </div>
+<div className="flex items-center gap-4">
 
-          <span
-            className={`${rankNumClass} shrink-0 italic text-[#232428]`}
-            style={{ fontFamily: "'Fraunces', ui-serif, Georgia, serif" }}
-            aria-hidden="true"
-          >
-            {String(rank).padStart(2, "0")}
-          </span>
-        </div>
 
-        {member.bio ? (
-          <p className="mb-3 line-clamp-2 text-xs leading-snug text-[#8B8D93]">
-            {member.bio}
-          </p>
-        ) : (
-          <p className="mb-3 text-xs italic text-[#4C4E52]">No bio provided.</p>
-        )}
+<div
+className="
+h-16
+w-16
+border-4
+border-black
+bg-yellow-200
+overflow-hidden
+"
+>
 
-        {member.achievements && (
-          <p
-            className="mb-3 flex items-center gap-1.5 text-[11px] text-[#8B8D93]"
-            title={member.achievements}
-          >
-            <Award className="h-3 w-3 shrink-0 text-[#4C4E52]" aria-hidden="true" />
-            <span className="min-w-0 flex-1 truncate">{member.achievements}</span>
-          </p>
-        )}
-      </div>
+{member.avatar_url ? (
 
-      <div className="flex items-center justify-between border-t border-[#1A1B1E] pt-3 font-mono text-[11px] text-[#6E7075]">
-        <span className="flex items-center gap-1.5">
-          <Heart className="h-3 w-3" />
-          {member.likes_count ?? 0} Likes
-        </span>
+<img
+src={member.avatar_url}
+alt=""
+className="
+h-full
+w-full
+object-cover
+"
+/>
 
-        {canLike ? (
-          <button
-            type="button"
-            onClick={() => onToggleLike(member.user_id, liked)}
-            aria-label={liked ? "Remove hit" : "Give a hit"}
-            className={`flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-wider transition-all active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090B] ${
-              liked
-                ? "border-[#E1483F]/50 bg-[#E1483F]/10 text-[#E1483F] focus-visible:ring-[#E1483F]/70"
-                : "border-[#232428] text-[#8B8D93] hover:border-[#E1483F]/40 hover:text-[#EDEAE2] focus-visible:ring-[#3A3B3F]"
-            }`}
-          >
-            <Heart className={`h-2.5 w-2.5 ${liked ? "fill-current" : ""}`} />
-            {liked ? "Hit" : "Like"}
-          </button>
-        ) : !isAuthenticated ? (
-          <span className="text-[10px] uppercase text-[#4C4E52]">
-            Joined {formatJoined(member.created_at)}
-          </span>
-        ) : null}
-      </div>
-    </li>
+):
+
+(
+<div
+className="
+flex
+h-full
+items-center
+justify-center
+font-black
+text-2xl
+"
+>
+{member.display_name?.[0] ?? "?"}
+</div>
+)
+
+}
+
+</div>
+
+
+
+<div>
+
+<h3
+className="
+text-xl
+font-black
+uppercase
+tracking-tight
+"
+>
+{member.display_name || "Anonymous"}
+</h3>
+
+
+<div
+className={`
+inline-flex
+items-center
+gap-2
+mt-2
+px-2
+py-1
+border-2
+border-black
+font-black
+text-xs
+uppercase
+${roleInfo.bg}
+`}
+>
+
+<img
+src={roleInfo.icon}
+className="h-4 w-4"
+/>
+
+{roleInfo.label}
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+{member.bio ? (
+
+<p
+className="
+mt-5
+font-medium
+text-sm
+leading-relaxed
+"
+>
+{member.bio}
+</p>
+
+):
+
+(
+<p
+className="
+mt-5
+italic
+text-gray-500
+"
+>
+No bio.
+</p>
+)
+
+}
+
+
+{
+member.achievements && (
+
+<div
+className="
+mt-4
+border-l-4
+border-black
+pl-3
+font-bold
+text-sm
+"
+>
+
+🏆 {member.achievements}
+
+</div>
+
+)
+
+}
+
+
+</div>
+
+
+
+<div
+className="
+mt-6
+flex
+items-center
+justify-between
+border-t-4
+border-black
+pt-4
+"
+>
+
+
+<div
+className="
+font-black
+uppercase
+text-sm
+"
+>
+
+❤️ {member.likes_count ?? 0}
+
+</div>
+
+
+
+{
+canLike && (
+
+<button
+
+onClick={()=>onToggleLike(member.user_id,liked)}
+
+className={`
+border-4
+border-black
+px-4
+py-2
+font-black
+uppercase
+text-xs
+transition
+active:translate-x-1
+active:translate-y-1
+
+${
+liked
+?
+"bg-red-400"
+:
+"bg-white hover:bg-yellow-300"
+}
+
+`}
+>
+
+{liked ? "Liked" : "Like"}
+
+</button>
+
+
+)
+
+}
+
+
+</div>
+
+
+</li>
   );
 }
 
@@ -247,7 +392,13 @@ export default function Members() {
   const tickerSource = members.slice(0, Math.min(members.length, 10));
 
   return (
-    <div className="relative min-h-screen w-full bg-[#08090B] font-sans text-[#EDEAE2]">
+    <div
+className="
+min-h-screen
+bg-[#f5f0e8]
+text-black
+"
+>
       {/* Ambient grain — the one texture flourish, kept very quiet */}
       <div
         className="pointer-events-none fixed inset-0 z-40 opacity-[0.035]"
@@ -300,33 +451,70 @@ export default function Members() {
               Club Roster &amp; Leaderboard
             </span>
             <h1
-              className="text-5xl italic leading-[0.95] sm:text-7xl"
-              style={{ fontFamily: "'Fraunces', ui-serif, Georgia, serif" }}
-            >
-              The <span className="not-italic font-normal text-[#4C4E52]">Community</span>
+              className="
+              text-6xl
+              md:text-8xl
+              font-black
+              uppercase
+              tracking-tighter
+              "
+              >
+              THE
+              <br/>
+              COMMUNITY
             </h1>
           </div>
 
-          <dl className="flex gap-8 font-mono text-xs text-[#6E7075] sm:gap-12">
-            <div>
-              <dt className="uppercase tracking-[0.2em]">Members</dt>
-              <dd className="mt-1 text-2xl tabular-nums text-[#EDEAE2]">
-                {members.length}
-              </dd>
+          <dl
+            className="
+            grid
+            grid-cols-3
+            gap-4
+            "
+            >
+
+            <div
+            className="
+            border-4
+            border-black
+            bg-yellow-300
+            p-4
+            shadow-[5px_5px_0_black]
+            "
+            >
+
+            <dt className="font-black text-xs">
+            MEMBERS
+            </dt>
+
+            <dd className="text-4xl font-black">
+            {members.length}
+            </dd>
+
             </div>
-            <div>
-              <dt className="uppercase tracking-[0.2em]">Likes Logged</dt>
-              <dd className="mt-1 text-2xl tabular-nums text-[#E1483F]">
-                {totalLikes}
-              </dd>
+
+
+            <div
+            className="
+            border-4
+            border-black
+            bg-red-300
+            p-4
+            shadow-[5px_5px_0_black]
+            "
+            >
+
+            <dt className="font-black text-xs">
+            LIKES
+            </dt>
+
+            <dd className="text-4xl font-black">
+            {totalLikes}
+            </dd>
+
             </div>
-            <div className="max-w-[10rem]">
-              <dt className="uppercase tracking-[0.2em]">Most Loved</dt>
-              <dd className="mt-1 truncate text-2xl text-[#C9A227]">
-                {topMember?.display_name || "—"}
-              </dd>
-            </div>
-          </dl>
+
+            </dl>
         </header>
 
         {/* Empty state */}
@@ -381,31 +569,59 @@ export default function Members() {
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,500&display=swap');
+  .roster-ticker-track {
+    animation: roster-ticker 28s linear infinite;
+  }
 
-        .roster-ticker-track {
-          animation: roster-ticker 34s linear infinite;
-        }
-        @keyframes roster-ticker {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
+  @keyframes roster-ticker {
+    from {
+      transform: translateX(0);
+    }
 
-        .roster-card-in {
-          animation: roster-card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-        @keyframes roster-card-in {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 
-        @media (prefers-reduced-motion: reduce) {
-          .roster-ticker-track,
-          .roster-card-in {
-            animation: none;
-          }
-        }
-      `}</style>
+
+  /* Brutalist card entrance */
+  .roster-card-in {
+    animation: brutal-card-in 0.35s ease-out both;
+  }
+
+
+  @keyframes brutal-card-in {
+    from {
+      opacity: 0;
+      transform: translate(8px, 8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(0,0);
+    }
+  }
+
+
+  /* Sharp hover movement */
+  .roster-card-in:hover {
+    transform: translate(-3px,-3px);
+  }
+
+
+  /* Remove animation for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+
+    .roster-ticker-track,
+    .roster-card-in {
+
+      animation: none;
+      transition: none;
+
+    }
+
+  }
+`}</style>
     </div>
   );
 }

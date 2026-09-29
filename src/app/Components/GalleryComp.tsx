@@ -1,7 +1,8 @@
 "use client";
+
 import { useEffect, useState } from "react";
+
 import supabase from "../../api/client";
-import { logVisits } from "@/api/logVisits";
 
 interface CricketImage {
   id: string;
@@ -15,12 +16,16 @@ interface ImageGalleryProps {
   refreshTrigger?: number;
 }
 
-const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
+const seasons = [1, 2, 3, 4, 5, 6];
+
+const rotations = ["rotate-1", "-rotate-1", "rotate-2", "-rotate-2"];
+
+export default function ImageGallery({ refreshTrigger }: ImageGalleryProps) {
   const [images, setImages] = useState<CricketImage[]>([]);
   const [loading, setLoading] = useState(true);
   const [seasonNo, setSeasonNo] = useState(1);
 
-  const fetchImages = async () => {
+  async function fetchImages() {
     try {
       const { data, error } = await supabase
         .from("cricket_images")
@@ -28,81 +33,264 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ refreshTrigger }) => {
         .order("uploaded_at", { ascending: false });
 
       if (error) throw error;
+
       setImages(data || []);
     } catch (error) {
-      console.error("Error fetching images:", error);
+      console.log(error);
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     fetchImages();
-  }, [refreshTrigger, seasonNo]);
+  }, [refreshTrigger]);
 
-  const filteredImages = images.filter((img) => img.season === seasonNo);
+  function downloadImage(url: string) {
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.download = "PPL-memory.jpg";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+  }
+
+  const filteredImages = images.filter((image) => image.season === seasonNo);
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20 text-zinc-500 font-mono text-sm">
-        Loading gallery...
+      <div
+        className="
+flex
+justify-center
+py-20
+"
+      >
+        <div
+          className="
+bg-[#FFD93D]
+border-4
+border-black
+px-8
+py-4
+font-black
+shadow-[6px_6px_0_#111]
+"
+        >
+          LOADING...
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-7xl flex flex-col items-center">
-      {/* Season Pill Selector */}
-      <div className="flex flex-wrap justify-center gap-2 p-1.5 bg-zinc-950 border border-zinc-900 rounded-full mb-10">
-        {[1, 2, 3, 4, 5].map((s) => (
-          <button
-            key={s}
-            onClick={() => setSeasonNo(s)}
-            className={`px-5 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-              seasonNo === s
-                ? "bg-[#ea5e00] text-black font-bold shadow-md shadow-[#ea5e00]/20"
-                : "text-zinc-400 hover:text-white hover:bg-zinc-900"
-            }`}
+    <section
+      className="
+bg-[#F4EBD0]
+px-6
+py-16
+min-h-screen
+"
+    >
+      <div
+        className="
+max-w-7xl
+mx-auto
+"
+      >
+        {/* HEADER */}
+
+        <div className="mb-14">
+          <p
+            className="
+font-mono
+font-bold
+tracking-[0.3em]
+"
           >
-            Season {s}
-          </button>
-        ))}
-      </div>
+            PPL ARCHIVES
+          </p>
 
-      {/* Pinterest-style Masonry Column Layout */}
-      {filteredImages.length === 0 ? (
-        <div className="text-zinc-600 py-16 text-center font-mono">
-          No photos uploaded for Season {seasonNo} yet.
-        </div>
-      ) : (
-        <div className="w-full columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-          {filteredImages.map((image) => (
-            <div
-              key={image.id}
-              className="break-inside-avoid relative group rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-900 cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-black/50"
+          <h1
+            className="
+mt-5
+text-5xl
+font-black
+uppercase
+leading-none
+"
+          >
+            The
+            <br />
+            <span
+              className="
+bg-black
+text-white
+px-3
+"
             >
-              <img
-                src={image.image_url}
-                alt={image.image_name || `PPL Season ${image.season}`}
-                className="w-full h-auto object-cover rounded-2xl transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
+              Memory
+            </span>
+            <br />
+            Wall
+          </h1>
 
-              {/* Hover Dark Overlay & Title */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-end">
-                <span className="text-xs font-mono text-[#ea5e00] mb-0.5">
-                  S{image.season}
-                </span>
-                <p className="text-sm font-medium text-white truncate">
-                  {image.image_name || "PPL Highlight"}
-                </p>
-              </div>
-            </div>
+          <p
+            className="
+mt-6
+font-bold
+text-lg
+"
+          >
+            Double tap any photo to save the memory.
+          </p>
+        </div>
+
+        {/* SEASONS */}
+
+        <div
+          className="
+flex
+gap-3
+flex-wrap
+mb-12
+"
+        >
+          {seasons.map((season) => (
+            <button
+              key={season}
+              onClick={() => setSeasonNo(season)}
+              className={`
+border-4
+border-black
+
+h-14
+w-14
+
+font-black
+
+shadow-[4px_4px_0_#111]
+
+transition-all
+
+
+${
+  seasonNo === season
+    ? "bg-[#FF7A00] translate-x-1 translate-y-1 shadow-none"
+    : "bg-white hover:-translate-y-1"
+}
+
+`}
+            >
+              {season}
+            </button>
           ))}
         </div>
-      )}
-    </div>
-  );
-};
 
-export default ImageGallery;
+        {/* GALLERY */}
+
+        {filteredImages.length === 0 ? (
+          <div
+            className="
+bg-black
+text-white
+border-4
+border-black
+p-10
+text-center
+font-black
+text-xl
+"
+          >
+            NO MEMORIES YET 📷
+          </div>
+        ) : (
+          <div
+            className="
+columns-1
+sm:columns-2
+lg:columns-3
+gap-8
+space-y-8
+"
+          >
+            {filteredImages.map((image, index) => (
+              <div
+                key={image.id}
+                onDoubleClick={() => downloadImage(image.image_url)}
+                className={`
+
+relative
+
+break-inside-avoid
+
+bg-black
+
+border-4
+
+border-black
+
+p-3
+
+shadow-[8px_8px_0_#111]
+
+cursor-pointer
+
+transition-all
+
+hover:-translate-y-2
+
+${rotations[index % rotations.length]}
+
+`}
+              >
+                {/* season badge */}
+
+                <div
+                  className="
+absolute
+top-5
+left-5
+z-10
+
+bg-[#FFD93D]
+
+border-4
+
+border-black
+
+px-3
+
+py-1
+
+font-black
+
+text-sm
+"
+                >
+                  S{image.season}
+                </div>
+
+                <img
+                  src={image.image_url}
+                  alt="PPL memory"
+                  loading="lazy"
+                  className="
+w-full
+border-2
+border-white
+"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}

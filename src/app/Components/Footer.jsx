@@ -1,137 +1,295 @@
 "use client";
-import { useEffect, useState } from 'react';
+
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { IoLogoYoutube, IoLogoInstagram, IoLogoFacebook } from "react-icons/io5";
+
+import {
+  IoLogoYoutube,
+  IoLogoInstagram,
+  IoLogoFacebook,
+} from "react-icons/io5";
 
 const socials = [
-    {
-        name: "YouTube",
-        href: "https://youtube.com/@pplfulia?si=NnMmQRHxSrm-vqpo",
-        icon: IoLogoYoutube,
-        // Brand-specific accent styling for mobile & desktop
-        iconColor: "text-red-500",
-        borderColor: "border-red-500/30 md:border-neutral-800/90",
-        bgColor: "bg-red-950/20 md:bg-neutral-950/40",
-        glow: "hover:border-red-500/60 hover:shadow-[0_0_25px_rgba(239,68,68,0.35)]",
-    },
-    {
-        name: "Instagram",
-        href: "https://www.instagram.com/pplfulia/profilecard/?igsh=MXNuaHNzaDlyaXB1dg==",
-        icon: IoLogoInstagram,
-        iconColor: "text-pink-500",
-        borderColor: "border-pink-500/30 md:border-neutral-800/90",
-        bgColor: "bg-pink-950/20 md:bg-neutral-950/40",
-        glow: "hover:border-pink-500/60 hover:shadow-[0_0_25px_rgba(236,72,153,0.35)]",
-    },
-    {
-        name: "Facebook",
-        href: "https://www.facebook.com/profile.php?id=61566263444046&mibextid=ZbWKwL",
-        icon: IoLogoFacebook,
-        iconColor: "text-blue-500",
-        borderColor: "border-blue-500/30 md:border-neutral-800/90",
-        bgColor: "bg-blue-950/20 md:bg-neutral-950/40",
-        glow: "hover:border-blue-500/60 hover:shadow-[0_0_25px_rgba(59,130,246,0.35)]",
-    },
+  {
+    name: "YouTube",
+    href: "https://youtube.com/@pplfulia?si=NnMmQRHxSrm-vqpo",
+    icon: IoLogoYoutube,
+    bg: "bg-[#FF5D73]",
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/pplfulia/profilecard/?igsh=MXNuaHNzaDlyaXB1dg==",
+    icon: IoLogoInstagram,
+    bg: "bg-[#FFD93D]",
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61566263444046&mibextid=ZbWKwL",
+    icon: IoLogoFacebook,
+    bg: "bg-[#4F7CFF]",
+  },
 ];
 
 export default function Footer() {
-    const [visits, setVisits] = useState(null);
+   const [visits, setVisits] = useState(null);
 
-    useEffect(() => {
-        fetch('/api/visit')
-            .then((res) => {
-                if (!res.ok) throw new Error('API Error');
-                return res.json();
-            })
-            .then((data) => setVisits(data.visits))
-            .catch((err) => console.error("Failed to fetch visit count:", err));
-    }, []);
+  useEffect(() => {
+    fetch("/api/visit")
+      .then((res) => {
+        if (!res.ok) throw new Error("API Error");
 
-    return (
-        <footer className="relative w-full pt-10 pb-12 px-4 flex flex-col items-center justify-center overflow-x-hidden">
-            {/* Ambient Red Glow Backdrop */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 sm:w-[500px] h-28 bg-red-600/15 blur-[90px] sm:blur-[120px] pointer-events-none rounded-full" />
+        return res.json();
+      })
 
-            {/* Glowing Top Divider Line */}
-            <div className="w-full max-w-xl h-[1px] bg-gradient-to-r from-transparent via-red-800/40 to-transparent mb-8 sm:mb-10" />
+      .then((data) => {
+        setVisits(data.visits);
+      })
 
-            {/* Header Text */}
-            <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="flex items-center gap-2.5 mb-6 sm:mb-8"
-            >
-                <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-                <h2 className="text-[11px] sm:text-xs font-mono tracking-[0.3em] sm:tracking-[0.4em] uppercase text-neutral-400">
-                    Connect With Us
-                </h2>
-                <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-            </motion.div>
+      .catch((err) => {
+        console.error("Failed to fetch visits", err);
+      });
+  }, []);
 
-            {/* Social Buttons Container */}
-            <div className="flex items-center justify-center gap-5 sm:gap-8 z-10 w-full max-w-sm">
-                {socials.map((social, index) => {
-                    const Icon = social.icon;
-                    return (
-                        <motion.a
-                            key={social.name}
-                            href={social.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={social.name}
-                            initial={{ opacity: 0, y: 15 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.08, duration: 0.4 }}
-                            whileHover={{ y: -5, scale: 1.08 }}
-                            whileTap={{ scale: 0.92 }}
-                            className="flex flex-col items-center gap-2 group"
-                        >
-                            <div
-                                className={`
-                                    flex items-center justify-center
-                                    w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-full
-                                    border backdrop-blur-md
-                                    transition-all duration-300
-                                    active:scale-95 active:bg-neutral-900
-                                    ${social.borderColor}
-                                    ${social.bgColor}
-                                    ${social.glow}
-                                `}
-                            >
-                                <Icon className={`text-2xl sm:text-3xl ${social.iconColor} transition-transform duration-300 group-hover:scale-110`} />
-                            </div>
-                            
-                            {/* Mobile-friendly Label */}
-                            <span className="text-[10px] sm:text-xs font-mono text-neutral-400 group-hover:text-white transition-colors">
-                                {social.name}
-                            </span>
-                        </motion.a>
-                    );
-                })}
-            </div>
+  return (
+    <footer
+      className="
+relative
+bg-[#FFF8DC]
+px-6
+pt-20
+pb-10
+overflow-hidden
+"
+    >
+      <div
+        className="
+mx-auto
+max-w-5xl
+"
+      >
+        {/* TITLE */}
 
-            <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="mt-8 z-10 flex flex-col items-center px-5 py-2.5 rounded-xl border border-neutral-800/80 bg-neutral-950/60 backdrop-blur-md shadow-inner"
-            >
-                <span className="text-[10px] font-mono tracking-[0.2em] text-neutral-500 uppercase">
-                    Total Visits
+        <div
+          className="
+text-center
+"
+        >
+          <div
+            className="
+inline-block
+border-4
+border-black
+bg-[#72E06A]
+px-5
+py-2
+font-black
+uppercase
+shadow-[5px_5px_0_#111]
+rotate-2
+"
+          >
+            Follow PPL
+          </div>
+
+          <h2
+            className="
+mt-8
+text-5xl
+font-black
+uppercase
+leading-none
+"
+          >
+            Stay
+            <br />
+            Connected
+          </h2>
+
+          <p
+            className="
+mt-5
+font-bold
+text-lg
+"
+          >
+            More matches. More memories. More chaos.
+          </p>
+        </div>
+
+        {/* SOCIAL CARDS */}
+
+        <div
+          className="
+mt-14
+flex
+justify-center
+gap-5
+"
+        >
+          {socials.map((social, index) => {
+            const Icon = social.icon;
+
+            return (
+              <motion.a
+                key={social.name}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  delay: index * 0.1,
+                }}
+                whileHover={{
+                  y: -8,
+                  rotate: index % 2 === 0 ? 3 : -3,
+                }}
+                className="
+flex
+flex-col
+items-center
+gap-3
+"
+              >
+                <div
+                  className={`
+${social.bg}
+
+h-16
+w-16
+
+flex
+items-center
+justify-center
+
+border-4
+border-black
+
+rounded-2xl
+
+shadow-[6px_6px_0_#111]
+
+`}
+                >
+                  <Icon
+                    className="
+text-3xl
+text-black
+"
+                  />
+                </div>
+
+                <span
+                  className="
+font-black
+uppercase
+text-sm
+"
+                >
+                  {social.name}
                 </span>
-                <span className="text-xl sm:text-2xl font-mono font-bold text-red-500 tracking-wider">
-                    {visits !== null ? visits.toLocaleString() : '...'}
-                </span>
-            </motion.div>
+              </motion.a>
+            );
+          })}
+        </div>
 
-            {/* Minimal Copyright Tagline */}
-            <p className="mt-10 sm:mt-12 text-[10px] sm:text-[11px] font-mono tracking-[0.2em] sm:tracking-[0.25em] text-neutral-400 uppercase text-center">
-                © {new Date().getFullYear()} PPL Fulia <span className="text-red-600">•</span> All Rights Reserved
-            </p>
-        </footer>
-    );
+        {/* VISITOR SCOREBOARD */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.9,
+          }}
+          whileInView={{
+            opacity: 1,
+            scale: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
+          className="
+mx-auto
+mt-16
+max-w-xs
+
+border-4
+border-black
+
+bg-black
+text-white
+
+p-6
+
+shadow-[8px_8px_0_#FF7A00]
+
+text-center
+
+rotate-1
+"
+        >
+          <p
+            className="
+font-mono
+text-sm
+uppercase
+tracking-widest
+text-[#FFD93D]
+"
+          >
+            PPL Visitors
+          </p>
+
+          <div
+            className="
+mt-3
+text-5xl
+font-black
+"
+          >
+            {visits !== null ? visits.toLocaleString() : "..."}
+          </div>
+        </motion.div>
+
+        {/* COPYRIGHT */}
+
+        <div
+          className="
+mt-16
+
+border-t-4
+border-black
+
+pt-6
+
+text-center
+
+font-bold
+
+uppercase
+
+text-sm
+"
+        >
+          © {new Date().getFullYear()} PPL Fulia
+          <br />
+          <span
+            className="
+text-[#FF7A00]
+"
+          >
+            Where Friendship Meets Competition
+          </span>
+        </div>
+      </div>
+    </footer>
+  );
 }

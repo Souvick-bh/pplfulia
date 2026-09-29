@@ -8,11 +8,6 @@ import { useRouter } from "next/navigation";
 import {Heart} from "lucide-react"
 import { supabase2 } from '@/api/user';
 
-import { VT323 } from "next/font/google";
-const vt323 = VT323({
-      subsets:["latin"],
-      weight: "400",
-});
 
 const Profile = () => {
   const { user } = useAuth();
@@ -113,7 +108,7 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col `}>
+      <div className="min-h-screen bg-[#f5f0e8] flex items-center justify-center">
         <div className="flex items-center justify-center h-64">
           <div className="text-lg">Loading...</div>
         </div>
@@ -126,180 +121,801 @@ const Profile = () => {
   };
 
    if (!profile) {
-    return (
-      <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col `}>
-        <div className="flex items-center justify-center h-64">
-          <div className="text-lg">Profile not found</div>
+  return (
+    <div
+      className="
+      min-h-screen
+      w-full
+
+      bg-[#f5f0e8]
+
+      flex
+      items-center
+      justify-center
+
+      px-4
+      "
+    >
+
+      <div
+        className="
+        border-4
+        border-black
+
+        bg-white
+
+        p-10
+
+        text-center
+
+        shadow-[10px_10px_0_black]
+
+        "
+      >
+
+        <h2
+          className="
+          text-4xl
+          font-black
+          uppercase
+          mb-4
+          "
+        >
+          Profile Not Found
+        </h2>
+
+
+        <p
+          className="
+          font-bold
+          uppercase
+          text-sm
+          "
+        >
+          Create your player profile to join PPL
+        </p>
+
+
+        <div
+          className="
+          mt-6
+          inline-block
+
+          border-4
+          border-black
+
+          bg-red-300
+
+          px-4
+          py-2
+
+          font-black
+          uppercase
+          "
+        >
+          Error 404
         </div>
+
       </div>
-    );
-  }
 
-  return(
-    <div className={`${vt323.className} bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center pr-5 pl-5`}>
-        <Link href="/">
-            <button className="absolute mt-5 ml-5 md:ml-10 pt-2 pb-2 pl-4 pr-4 rounded-4xl cursor-pointer bg-[#454545] active:bg-[#1d1c1c] border-2 border-[#252921] top-0 left-0">
-                <RiArrowGoBackLine />
-            </button>
-        </Link>
-        <div className="border-2 border-[#252525] max-w-3xl mt-16 pt-8 pb-8 pr-8 pl-8 rounded-2xl space-y-6">
-        <div className="shadow-cricket">
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <span className='text-[#ea5e00] text-xl'>My Profile</span>
-              {!isEditing ? (
-                <button className='border-1 border-[#252525] py-1 px-3 rounded-lg active:bg-[#3f3f3f]' onClick={handleEdit} >
-                  
-                  Edit Profile
-                </button>
-              ) : (
-                <div className="flex gap-2">
-                  <button  className='border-1 border-[#252525] py-1 px-3 rounded-lg active:bg-[#3f3f3f]' onClick={handleSave} >
-                    
-                    Save
-                  </button>
-                  <button  className='border-1 border-[#252525] py-1 px-3 rounded-lg active:bg-[#3f3f3f]' onClick={handleCancel} >
-                    
-                    Cancel
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="space-y-6">
-            
-            <div className="flex items-center space-x-6">
-              <div className="relative">
-                <div className="relative flex  h-28 w-28 justify-center items-center border-1 border-[#252525] rounded-[50%] overflow-hidden">
-                    <div className="absolute text-2xl">
-                    {profile.display_name?.[0] || user?.email?.[0]?.toUpperCase()}
-                    </div>
-                    <img className={`absolute rounded-[50%] border-4 ${profile.role=='owner'?'border-[#F4A004]':profile.role=='player'?'border-[#beee62]':'border-[#7e52a0]'} `} src={profile.avatar_url || undefined} />
-                    
-                </div>
-                {isEditing && (
-                  <button
-                    className="absolute -top-4 rounded-[50%]  h-28 w-28 p-0"
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={uploading}
-                  >
-                    Change
-                  </button>
-                )}
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAvatarUpload}
-                  className="hidden"
-                />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-2xl font-bold">
-                    {profile.display_name || 'Anonymous Cricket Fan'}
-                  </h2>
-                  {/* <div className={`flex bg-transparent items-center gap-1 ${getRoleColor(profile.role)}`}>
-                    {profile.role.charAt(0).toUpperCase() + profile.role.slice(1)}
-                    {getRoleIcon(profile.role)}
-                  </div> */}
-                </div>
-                <div className="flex flex-col justify-start gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <Heart className="h-4 w-4" />
-                    {profile.likes_count || 0} likes
-                  </div>
-                  <div>Joined {new Date(profile.created_at).toLocaleDateString()}</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Profile Form */}
-            <div className="grid gap-3">
-              <div className="space-x-2 flex">
-                <label className='text-md' htmlFor="display_name">Display Name :</label>
-                {isEditing ? (
-                  <input
-                    id="display_name"
-                    value={formData.display_name}
-                    onChange={(e) => setFormData({ ...formData, display_name: e.target.value })}
-                    placeholder="Your display name"
-                  />
-                ) : (
-                  <p className="bg-transparent ">
-                    {profile.display_name || 'Not set'}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-x-2 flex">
-                <label htmlFor="role">Role : </label>
-                {isEditing ? (
-                  <select className='bg-[#000000]'
-                    value={formData.role}
-                    onChange={e => handleRoleChange(e.target.value as 'member' | 'player' | 'owner')}
-                  >
-                    
-                      <option value="member">Member</option>
-                      <option value="player">Player</option>
-                      <option value="owner">Owner</option>
-                    
-                  </select>
-                ) : (
-                  <div className="">
-                    <div className={`flex bg-transparent items-center gap-1 ${getRoleColor(profile.role)}`}>
-                    {profile.role.charAt(0).toUpperCase() + profile.role.slice(1)}
-                    {getRoleIcon(profile.role)}
-                  </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="space-x-2 flex flex-row justify-start">
-                {profile.bio?(<label className='' htmlFor="bio">#</label>):(<label htmlFor="bio"></label>)}
-                {isEditing ? (
-                        <textarea className='text-center rounded-2xl w-55 overflow-hidden border-1 border-[#252525]'
-                            id="bio"
-                            value={formData.bio}
-                            onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                            placeholder="Tell us about yourself..."
-                            rows={3}
-                        />
-                   
-                  
-                ) : (
-                  <p className="bg-transparent max-w-60 rounded-2xl">
-                    {profile.bio || 'Add bio to show who you are!'}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-x-2 flex flex-row justify-start">
-                {profile.achievements?(<label htmlFor="achievements">#</label>):(<label htmlFor="achievements"></label>)}
-                {isEditing ? (
-                  <textarea className='text-center rounded-2xl w-55 border-1 border-[#252525]'
-                    id="achievements"
-                    value={formData.achievements}
-                    onChange={(e) => setFormData({ ...formData, achievements: e.target.value })}
-                    placeholder="Your cricket achievements..."
-                    rows={3}
-                  />
-                ) : (
-                  <p className="bg-transparent max-w-60 rounded-2xl ">
-                    {profile.achievements || 'No achievements listed'}
-                  </p>
-                )}
-              </div>
-
-              <div className='flex justify-center'>
-                <button className='border-1 border-[#252525] py-1 px-3 rounded-lg active:bg-[#3f3f3f]' onClick={handleSignOut}>Sign out</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  )
+  );
+}
+
+return (
+
+<div
+className="
+min-h-screen
+w-full
+
+bg-[#f5f0e8]
+
+flex
+justify-center
+
+px-4
+py-10
+"
+>
+
+
+<Link href="/">
+
+<button
+
+className="
+fixed
+top-5
+left-5
+
+border-4
+border-black
+
+bg-yellow-300
+
+p-3
+
+shadow-[5px_5px_0_black]
+
+hover:-translate-y-1
+hover:-translate-x-1
+
+transition-all
+
+active:shadow-none
+
+"
+
+>
+
+<RiArrowGoBackLine size={22}/>
+
+</button>
+
+</Link>
+
+
+
+
+<div
+
+className="
+w-full
+max-w-3xl
+
+border-4
+border-black
+
+bg-white
+
+p-6
+md:p-10
+
+shadow-[12px_12px_0_black]
+
+"
+
+>
+
+
+
+<div
+
+className="
+flex
+justify-between
+items-center
+
+border-b-4
+border-black
+
+pb-5
+mb-8
+
+"
+
+>
+
+<h1
+
+className="
+text-4xl
+font-black
+uppercase
+"
+
+>
+
+MY PROFILE
+
+</h1>
+
+
+
+{
+!isEditing ?
+
+<button
+
+onClick={handleEdit}
+
+className="
+border-4
+border-black
+
+bg-yellow-300
+
+px-4
+py-2
+
+font-black
+uppercase
+
+shadow-[4px_4px_0_black]
+
+active:translate-x-1
+active:translate-y-1
+active:shadow-none
+
+"
+
+>
+
+EDIT
+
+</button>
+
+
+:
+
+<div className="flex gap-3">
+
+
+<button
+
+onClick={handleSave}
+
+className="
+border-4
+border-black
+bg-green-300
+px-4
+py-2
+font-black
+shadow-[4px_4px_0_black]
+"
+
+>
+SAVE
+</button>
+
+
+<button
+
+onClick={handleCancel}
+
+className="
+border-4
+border-black
+bg-red-300
+px-4
+py-2
+font-black
+shadow-[4px_4px_0_black]
+"
+
+>
+CANCEL
+</button>
+
+
+</div>
+
+}
+
+
+</div>
+
+
+
+
+
+
+{/* Avatar section */}
+
+
+<div
+className="
+flex
+flex-col
+md:flex-row
+
+items-center
+
+gap-8
+
+"
+
+>
+
+
+<div
+className="
+relative
+"
+
+>
+
+
+<div
+
+className="
+h-32
+w-32
+
+border-4
+border-black
+
+overflow-hidden
+
+bg-yellow-200
+
+shadow-[6px_6px_0_black]
+
+"
+
+>
+
+<img
+
+src={
+profile.avatar_url ||
+"/icons/membermonkey.jpg"
+}
+
+className="
+h-full
+w-full
+object-cover
+"
+
+/>
+
+
+</div>
+
+
+
+
+{
+isEditing && (
+
+<button
+
+onClick={()=>fileInputRef.current?.click()}
+
+className="
+absolute
+bottom-[-15px]
+left-1/2
+
+-translate-x-1/2
+
+border-4
+border-black
+
+bg-red-300
+
+px-3
+py-1
+
+font-black
+text-xs
+
+"
+
+>
+
+CHANGE
+
+</button>
+
+)
+
+}
+
+
+<input
+
+ref={fileInputRef}
+
+type="file"
+
+accept="image/*"
+
+onChange={handleAvatarUpload}
+
+className="hidden"
+
+/>
+
+
+</div>
+
+
+
+
+<div>
+
+
+<h2
+
+className="
+text-3xl
+font-black
+uppercase
+"
+
+>
+
+{
+profile.display_name ||
+"Anonymous Fan"
+}
+
+</h2>
+
+
+
+<div
+
+className="
+mt-3
+
+inline-block
+
+border-4
+border-black
+
+bg-green-300
+
+px-3
+py-1
+
+font-black
+uppercase
+
+"
+
+>
+
+{profile.role}
+
+</div>
+
+
+
+
+<div
+className="
+mt-4
+font-bold
+"
+
+>
+
+❤️ {profile.likes_count || 0} Likes
+
+</div>
+
+
+<div
+className="
+font-bold
+"
+
+>
+
+Joined {new Date(profile.created_at).toLocaleDateString()}
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+{/* Details */}
+
+
+<div
+
+className="
+mt-10
+
+grid
+
+gap-5
+
+"
+
+>
+
+
+
+<div>
+
+<label className="font-black uppercase">
+Name
+</label>
+
+
+{
+isEditing ?
+
+<input
+
+value={formData.display_name}
+
+onChange={(e)=>setFormData({
+...formData,
+display_name:e.target.value
+})}
+
+className="
+mt-2
+
+w-full
+
+border-4
+border-black
+
+p-3
+
+font-bold
+
+bg-yellow-100
+
+"
+
+/>
+
+:
+
+<p className="font-bold mt-2">
+
+{profile.display_name || "Not set"}
+
+</p>
+
+}
+
+</div>
+
+
+
+
+
+
+
+<div>
+
+<label className="font-black uppercase">
+Role
+</label>
+
+
+{
+isEditing ?
+
+<select
+
+value={formData.role}
+
+onChange={e=>handleRoleChange(
+e.target.value as any
+)}
+
+className="
+mt-2
+border-4
+border-black
+p-3
+font-bold
+bg-white
+"
+
+>
+
+<option value="member">
+Member
+</option>
+
+<option value="player">
+Player
+</option>
+
+<option value="owner">
+Owner
+</option>
+
+
+</select>
+
+
+:
+
+<p
+className="
+mt-2
+font-black
+uppercase
+"
+
+>
+
+{profile.role}
+
+</p>
+
+}
+
+</div>
+
+
+
+
+
+
+<div>
+
+
+<label className="font-black uppercase">
+Bio
+</label>
+
+
+{
+isEditing ?
+
+<textarea
+
+rows={3}
+
+value={formData.bio}
+
+onChange={e=>setFormData({
+...formData,
+bio:e.target.value
+})}
+
+className="
+mt-2
+w-full
+
+border-4
+border-black
+
+p-3
+
+font-bold
+
+"
+
+/>
+
+:
+
+<p className="mt-2 font-bold">
+
+{
+profile.bio ||
+"No bio yet"
+}
+
+</p>
+
+}
+
+
+</div>
+
+
+
+
+
+
+<div>
+
+
+<label className="font-black uppercase">
+Achievements
+</label>
+
+
+{
+isEditing ?
+
+<textarea
+
+rows={3}
+
+value={formData.achievements}
+
+onChange={e=>setFormData({
+...formData,
+achievements:e.target.value
+})}
+
+className="
+mt-2
+w-full
+
+border-4
+border-black
+
+p-3
+
+font-bold
+
+"
+
+/>
+
+:
+
+<p className="mt-2 font-bold">
+
+{
+profile.achievements ||
+"No achievements"
+}
+
+</p>
+
+}
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<button
+
+onClick={handleSignOut}
+
+className="
+mt-10
+
+border-4
+border-black
+
+bg-red-400
+
+px-6
+py-3
+
+font-black
+
+uppercase
+
+shadow-[5px_5px_0_black]
+
+hover:-translate-y-1
+
+active:shadow-none
+
+"
+
+>
+
+SIGN OUT
+
+</button>
+
+
+
+
+</div>
+
+
+</div>
+
+)
 };
 
 export default Profile;

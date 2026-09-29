@@ -1,138 +1,387 @@
-"use client"
-import React,{useEffect, useState} from "react"
-import { useRouter } from "next/navigation";
-import { supabase2 } from "@/api/user"
-import { useAuth } from "../contexts/AuthContext"
+"use client";
 
+import React, { useEffect, useState } from "react";
+
+import { useRouter } from "next/navigation";
+
+import { supabase2 } from "@/api/user";
+
+import { useAuth } from "../contexts/AuthContext";
 
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
-  const [wrong,setWrong] = useState(false);
-  const [notice,setNotice] = useState('');
 
-  
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const [fullName, setFullName] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const [wrong, setWrong] = useState(false);
+
+  const [notice, setNotice] = useState("");
+
+  const [resetLoading, setResetLoading] = useState(false);
+
+  const { user } = useAuth();
 
   const router = useRouter();
 
   useEffect(() => {
     if (user) {
-        router.replace('/profile');
+      router.replace("/profile");
     }
-  }, [user,router]);
+  }, [user, router]);
 
-   const handleAuth = async (e: React.FormEvent) => {
-        e.preventDefault();
-        
-        setLoading(true);
+  const handleForgotPassword = async () => {
 
-        try {
-        if (isSignUp) {
-            if(fullName.trim().length < 3) {
-                setNotice('Put name you Bitch')
-                setWrong(true)
-                return;
-            }
-            if(password.trim().length < 6) {
-                setNotice('Password should contain more chars')
-                setWrong(true)
-                return;
-            }
-            const { error } = await supabase2.auth.signUp({
-            email,
-            password,
-            options: {
-                emailRedirectTo: `https://pplfulia.vercel.app/`,
-                data: {
-                full_name: fullName,
-                },
-            },
-            });
+  if (!email) {
+    setNotice("Enter your email first");
+    setWrong(true);
+    return;
+  }
 
-            if (error) throw error;
-            alert('Check your email for the confirmation link.');
+  setResetLoading(true);
+  setWrong(false);
 
-            } else {
-            const { error } = await supabase2.auth.signInWithPassword({
-            email,
-            password,
-            });
+  const { error } = await supabase2.auth.resetPasswordForEmail(
+    email,
+    {
+      redirectTo: `${window.location.origin}/reset-password`
+    }
+  );
 
-            if (error) {
-                setNotice('Incorrect password')
-                setWrong(true);
-                return
-            };
-            
-            router.replace('/profile');
-        } 
-        } catch (error: any) {
-        if (error) throw error;
-        } finally {
-        setLoading(false);
+
+  if (error) {
+    setNotice(error.message);
+    setWrong(true);
+    setResetLoading(false);
+    return;
+  }
+
+
+  setNotice("Password reset link sent. Check your email.");
+  setWrong(true);
+
+  setResetLoading(false);
+};
+
+  const handleAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setLoading(true);
+    setWrong(false);
+
+    try {
+      if (isSignUp) {
+        if (fullName.trim().length < 3) {
+          setNotice("Name should have at least 3 characters");
+          setWrong(true);
+          return;
         }
-    };
 
-  
+        if (password.length < 6) {
+          setNotice("Password should contain 6+ characters");
+          setWrong(true);
+          return;
+        }
 
-  return(
-    <div className={` bg-[#000000] text-[#ffffff] min-h-screen flex flex-col items-center justify-center`}>
-        
-        <div className="flex flex-col justify-center border-2 border-[#252525] pt-12 pb-12 pl-12 pr-12 rounded-2xl text-lg md:text-xl">
+        const { error } = await supabase2.auth.signUp({
+          email,
+          password,
 
-            <div className="text-center text-xl md:text-2xl mb-4">
-                {isSignUp?'Become A Part Of PPL':'Welcome Buddy'}
-            </div>
-            <div className="text-center mb-4">
-                {isSignUp?'Create your account':'Sign in to your club account'}
-            </div>
+          options: {
+            emailRedirectTo: "https://pplfulia.vercel.app/",
 
-            <div className="text-center">
-                {wrong?(
-                    <div className="text-red-500 font-medium mb-4">{notice}</div>
-                ):(null)}
-            </div>
+            data: {
+              full_name: fullName,
+            },
+          },
+        });
 
-            <form onSubmit={handleAuth} className="flex flex-col justify-center items-center">
-                {isSignUp && (
-                    <div className="pt-1 pb-1 pl-3 pr-3 mb-4 rounded-xl border-1 border-[#292929]">
-                        <input  type="text" placeholder="Enter Full Name" className="text-center"
-                          required={isSignUp} value={fullName} 
-                          onChange={(e)=> setFullName(e.target.value)}/>
-                    </div>
-                )}
+        if (error) throw error;
 
-                
-                    <div className="flex justify-center">
-                        <input className="pt-1 pb-1 pl-3 pr-3 mb-4 rounded-xl border-1 border-[#292929] text-center" type="email" placeholder="Enter your email"
-                        
-                        required value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                    </div>
-                
+        alert("Check your email for confirmation");
+      } else {
+        const { error } = await supabase2.auth.signInWithPassword({
+          email,
+          password,
+        });
 
-                <div className="flex justify-center">
-                    <input className="pt-1 pb-1 pl-3 pr-3 mb-4 rounded-xl border-1 border-[#292929] text-center" type="password" placeholder="Enter your password"
-                      required value={password} onChange={(e)=>setPassword(e.target.value)}/>
-                </div>
+        if (error) {
+          setNotice("Incorrect email or password");
+          setWrong(true);
+          return;
+        }
 
-                <button className=" pt-1 pb-1 pl-3 pr-3 w-fit mb-4 rounded-xl border-1 border-[#292929] text-center active:bg-[#3f3f3f]">
-                    {loading?'Please wait...':isSignUp?'Create account':'Sign in'}
-                </button>
-            </form>
+        router.replace("/profile");
+      }
+    } catch (error: any) {
+      setNotice(error.message);
+      setWrong(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            <div className="flex flex-col">
-                <button className="text-[#ea5e00]" onClick={()=>setIsSignUp(!isSignUp)}>
-                    {isSignUp?'Already have an account? Sign in'
-                    : "Don't have an account? Sign up"}
-                </button>
-                    
-            </div>
-        </div>
+  return (
+    <div
+      className="
+min-h-screen
+w-full
 
+bg-[#f5f0e8]
+
+flex
+items-center
+justify-center
+
+px-4
+"
+    >
+      <div
+        className="
+w-full
+max-w-md
+
+border-4
+border-black
+
+bg-white
+
+p-8
+
+shadow-[10px_10px_0_black]
+
+"
+      >
+        <h1
+          className="
+text-center
+
+text-4xl
+
+font-black
+
+uppercase
+
+tracking-tight
+
+mb-2
+"
+        >
+          {isSignUp ? "Join PPL" : "Welcome Buddy"}
+        </h1>
+
+        <p
+          className="
+text-center
+
+font-bold
+
+uppercase
+
+text-sm
+
+mb-8
+"
+        >
+          {isSignUp
+            ? "Become part of the community"
+            : "Sign in to your club account"}
+        </p>
+
+        {wrong && (
+          <div
+            className="
+mb-5
+
+border-4
+border-black
+
+bg-red-300
+
+p-3
+
+font-black
+
+text-sm
+
+uppercase
+
+"
+          >
+            {notice}
+          </div>
+        )}
+
+        <form
+          onSubmit={handleAuth}
+          className="
+flex
+flex-col
+gap-4
+"
+        >
+          {isSignUp && (
+            <input
+              type="text"
+              placeholder="FULL NAME"
+              required
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              className="
+border-4
+border-black
+
+bg-yellow-100
+
+px-4
+py-3
+
+font-bold
+
+uppercase
+
+outline-none
+
+focus:bg-yellow-300
+
+"
+            />
+          )}
+
+          <input
+            type="email"
+            placeholder="EMAIL"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="
+border-4
+border-black
+
+px-4
+py-3
+
+font-bold
+
+outline-none
+
+focus:bg-blue-200
+
+"
+          />
+
+          <input
+            type="password"
+            placeholder="PASSWORD"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="
+border-4
+border-black
+
+px-4
+py-3
+
+font-bold
+
+
+outline-none
+
+focus:bg-blue-200
+
+"
+          />
+
+          <button
+            disabled={loading}
+            className="
+border-4
+border-black
+
+bg-red-400
+
+px-6
+py-3
+
+font-black
+
+uppercase
+
+shadow-[5px_5px_0_black]
+
+transition-all
+
+hover:-translate-x-1
+hover:-translate-y-1
+
+hover:shadow-[8px_8px_0_black]
+
+active:translate-x-1
+active:translate-y-1
+active:shadow-none
+
+"
+          >
+            {loading ? "WAIT..." : isSignUp ? "CREATE ACCOUNT" : "SIGN IN"}
+          </button>
+        </form>
+
+        {!isSignUp && (
+  <button
+    type="button"
+    onClick={handleForgotPassword}
+    disabled={resetLoading}
+    className="
+    mt-4
+    w-full
+    border-4
+    border-black
+    bg-yellow-300
+    px-6
+    py-3
+    font-black
+    uppercase
+    shadow-[5px_5px_0_black]
+    hover:-translate-x-1
+    hover:-translate-y-1
+    "
+  >
+    {resetLoading ? "SENDING..." : "FORGOT PASSWORD?"}
+  </button>
+)}
+
+        <button
+          onClick={() => setIsSignUp(!isSignUp)}
+          className="
+mt-6
+
+w-full
+
+border-t-4
+
+border-black
+
+pt-4
+
+font-black
+
+uppercase
+
+text-sm
+
+hover:text-red-500
+
+"
+        >
+          {isSignUp ? "Already a member? Sign in" : "New here? Create account"}
+        </button>
+      </div>
     </div>
   );
 };

@@ -30,7 +30,7 @@ function Uploading() {
             </Link>
             {!profile?(
               <div >Log in first</div>
-            ):profile.role === 'owner' || profile.role ===  'player'?(
+            ):profile.role === 'owner' || profile.role ===  'player' || profile.role ===  'member'?(
               <ImageUpload  onUploadSuccess={handleUploadSuccess} />
             ):(
               <div >You need to be a Player or Owner to upload images.</div>

@@ -227,6 +227,10 @@ Season 4
 Season 5
 </option>
 
+<option value="6">
+Season 6
+</option>
+
 
 </select>
 

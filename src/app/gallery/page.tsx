@@ -1,15 +1,11 @@
-"use client";
+'use client'
 
-import ImageGallery from "../Components/GalleryComp";
-
+import ImageGallery from '../Components/GalleryComp'
 
 export default function Gallery() {
-
-  const refreshTrigger = 0;
-
+  const refreshTrigger = 0
 
   return (
-
     <main
       className="
       min-h-screen
@@ -18,8 +14,6 @@ export default function Gallery() {
       overflow-hidden
       "
     >
-
-
       {/* Top Archive Banner */}
 
       <section
@@ -28,15 +22,12 @@ export default function Gallery() {
         pt-10
         "
       >
-
         <div
           className="
           mx-auto
           max-w-7xl
           "
         >
-
-
           <div
             className="
             inline-block
@@ -51,12 +42,8 @@ export default function Gallery() {
             -rotate-2
             "
           >
-
             PPL Season Archives
-
           </div>
-
-
 
           <h1
             className="
@@ -68,13 +55,9 @@ export default function Gallery() {
             leading-[0.85]
             "
           >
-
             Every Match.
-
             <br />
-
             Every
-
             <span
               className="
               bg-black
@@ -85,11 +68,7 @@ export default function Gallery() {
             >
               Memory.
             </span>
-
-
           </h1>
-
-
 
           <p
             className="
@@ -99,42 +78,21 @@ export default function Gallery() {
             font-bold
             "
           >
-
-            A collection of legendary moments,
-            chaotic matches and memories from
-            Panchayet Premiere League.
-
+            A collection of legendary moments, chaotic matches and memories from Panchayet Premiere
+            League.
           </p>
-
-
         </div>
-
-
       </section>
 
-
-
-
-
       {/* Gallery */}
-
 
       <section
         className="
         mt-10
         "
       >
-
-        <ImageGallery
-          refreshTrigger={refreshTrigger}
-        />
-
+        <ImageGallery refreshTrigger={refreshTrigger} />
       </section>
-
-
-
     </main>
-
-  );
-
+  )
 }

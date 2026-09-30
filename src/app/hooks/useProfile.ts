@@ -1,51 +1,51 @@
-import { useState, useEffect } from 'react';
-import { supabase2 } from '@/api/user';
-import { useAuth } from '../contexts/AuthContext';
-import { logVisits } from '@/api/logVisits';
+import { useState, useEffect } from 'react'
+import { supabase2 } from '@/api/user'
+import { useAuth } from '../contexts/AuthContext'
+import { logVisits } from '@/api/logVisits'
 
 export interface Profile {
-  id: string;
-  user_id: string;
-  display_name: string | null;
-  bio: string | null;
-  achievements: string | null;
-  role: 'member' | 'player' | 'owner';
-  avatar_url: string | null;
-  created_at: string;
-  updated_at: string;
-  likes_count?: number;
-  is_liked_by_user?: boolean;
+  id: string
+  user_id: string
+  display_name: string | null
+  bio: string | null
+  achievements: string | null
+  role: 'member' | 'player' | 'owner'
+  avatar_url: string | null
+  created_at: string
+  updated_at: string
+  likes_count?: number
+  is_liked_by_user?: boolean
 }
 
 export const useProfile = (userId?: string) => {
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null | any>(null);
-  const { user } = useAuth();
+  const [profile, setProfile] = useState<Profile | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null | any>(null)
+  const { user } = useAuth()
 
-  const targetUserId = userId || user?.id;
+  const targetUserId = userId || user?.id
 
   useEffect(() => {
     if (!targetUserId) {
-      setLoading(false);
-      return;
+      setLoading(false)
+      return
     }
 
-    fetchProfile();
-  }, [targetUserId, user?.id]);
+    fetchProfile()
+  }, [targetUserId, user?.id])
 
   const fetchProfile = async () => {
     try {
-      logVisits();
-      setLoading(true);
-      setError(null);
+      logVisits()
+      setLoading(true)
+      setError(null)
 
       // First get the profile
       const { data: profileData, error: profileError } = await supabase2
         .from('profiles')
         .select('*')
         .eq('user_id', targetUserId!)
-        .single();
+        .single()
 
       if (profileError) {
         if (profileError.code === 'PGRST116') {
@@ -58,19 +58,19 @@ export const useProfile = (userId?: string) => {
               role: 'member',
             })
             .select()
-            .single();
+            .single()
 
-          if (createError) throw createError;
-          
+          if (createError) throw createError
+
           setProfile({
             ...newProfile,
             role: newProfile.role as 'member' | 'player' | 'owner',
             likes_count: 0,
-            is_liked_by_user: false
-          });
-          return;
+            is_liked_by_user: false,
+          })
+          return
         } else {
-          throw profileError;
+          throw profileError
         }
       }
 
@@ -78,19 +78,19 @@ export const useProfile = (userId?: string) => {
       const { count: likesCount } = await supabase2
         .from('likes')
         .select('*', { count: 'exact', head: true })
-        .eq('liked_user_id', targetUserId!);
+        .eq('liked_user_id', targetUserId!)
 
       // Check if current user liked this profile
-      let isLikedByUser = false;
+      let isLikedByUser = false
       if (user?.id) {
         const { data: userLike } = await supabase2
           .from('likes')
           .select('id')
           .eq('liker_id', user.id)
           .eq('liked_user_id', targetUserId!)
-          .maybeSingle();
-        
-        isLikedByUser = !!userLike;
+          .maybeSingle()
+
+        isLikedByUser = !!userLike
       }
 
       setProfile({
@@ -98,57 +98,49 @@ export const useProfile = (userId?: string) => {
         role: profileData.role as 'member' | 'player' | 'owner',
         likes_count: likesCount || 0,
         is_liked_by_user: isLikedByUser,
-      });
-
+      })
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const updateProfile = async (updates: Partial<Profile>) => {
-    if (!user?.id || !profile) return;
+    if (!user?.id || !profile) return
 
     try {
-      const { error } = await supabase2
-        .from('profiles')
-        .update(updates)
-        .eq('user_id', user.id);
+      const { error } = await supabase2.from('profiles').update(updates).eq('user_id', user.id)
 
-      if (error) throw error;
+      if (error) throw error
 
-      setProfile({ ...profile, ...updates });
-      return true;
+      setProfile({ ...profile, ...updates })
+      return true
     } catch (err: any) {
-      setError(err.message);
-      return false;
+      setError(err.message)
+      return false
     }
-  };
+  }
 
   const uploadAvatar = async (file: File) => {
-    if (!user?.id) return null;
+    if (!user?.id) return null
 
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${user.id}/${Math.random()}.${fileExt}`;
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${user.id}/${Math.random()}.${fileExt}`
 
-      const { error: uploadError } = await supabase2.storage
-        .from('avatars')
-        .upload(fileName, file);
+      const { error: uploadError } = await supabase2.storage.from('avatars').upload(fileName, file)
 
-      if (uploadError) throw uploadError;
+      if (uploadError) throw uploadError
 
-      const { data } = supabase2.storage
-        .from('avatars')
-        .getPublicUrl(fileName);
+      const { data } = supabase2.storage.from('avatars').getPublicUrl(fileName)
 
-      return data.publicUrl;
+      return data.publicUrl
     } catch (err: any) {
-      setError(err.message);
-      return null;
+      setError(err.message)
+      return null
     }
-  };
+  }
 
   return {
     profile,
@@ -157,5 +149,5 @@ export const useProfile = (userId?: string) => {
     updateProfile,
     uploadAvatar,
     refetch: fetchProfile,
-  };
-};
+  }
+}

@@ -1,62 +1,56 @@
-"use client";
+'use client'
 
 const chaos = [
   {
-    emoji: "⚡",
-    title: "Match Drama",
-    text: "Every season had controversies, arguments and legendary decisions.",
-    color: "bg-[#FF5D73]",
-    rotate: "rotate-2",
+    emoji: '⚡',
+    title: 'Match Drama',
+    text: 'Every season had controversies, arguments and legendary decisions.',
+    color: 'bg-[#FF5D73]',
+    rotate: 'rotate-2',
   },
   {
-    emoji: "🌧",
-    title: "Rain Chaos",
-    text: "The weather had its own plans. Matches stopped, excuses started.",
-    color: "bg-[#4F7CFF]",
-    rotate: "-rotate-2",
+    emoji: '🌧',
+    title: 'Rain Chaos',
+    text: 'The weather had its own plans. Matches stopped, excuses started.',
+    color: 'bg-[#4F7CFF]',
+    rotate: '-rotate-2',
   },
   {
-    emoji: "😤",
-    title: "Sledging Wars",
-    text: "Friendship lasted until someone got out for a duck.",
-    color: "bg-[#FFD93D]",
-    rotate: "rotate-1",
+    emoji: '😤',
+    title: 'Sledging Wars',
+    text: 'Friendship lasted until someone got out for a duck.',
+    color: 'bg-[#FFD93D]',
+    rotate: 'rotate-1',
   },
   {
-    emoji: "🏆",
-    title: "MVP Moments",
-    text: "Heroes were created. Legends were debated.",
-    color: "bg-[#72E06A]",
-    rotate: "-rotate-1",
+    emoji: '🏆',
+    title: 'MVP Moments',
+    text: 'Heroes were created. Legends were debated.',
+    color: 'bg-[#72E06A]',
+    rotate: '-rotate-1',
   },
   {
-    emoji: "😂",
-    title: "Bloopers",
-    text: "Some moments were better than the actual matches.",
-    color: "bg-[#FF7A00]",
-    rotate: "rotate-2",
+    emoji: '😂',
+    title: 'Bloopers',
+    text: 'Some moments were better than the actual matches.',
+    color: 'bg-[#FF7A00]',
+    rotate: 'rotate-2',
   },
   {
-    emoji: "❤️",
-    title: "Friendship",
-    text: "The real trophy was the memories we created.",
-    color: "bg-white",
-    rotate: "-rotate-2",
+    emoji: '❤️',
+    title: 'Friendship',
+    text: 'The real trophy was the memories we created.',
+    color: 'bg-white',
+    rotate: '-rotate-2',
   },
-];
-
+]
 
 export default function SeasonShowcase() {
-
   return (
-
     <section className="px-6 py-20">
-
-
       {/* Chaos Heading */}
 
       <div className="mx-auto max-w-xl">
-
         <div
           className="
           inline-block
@@ -75,7 +69,6 @@ export default function SeasonShowcase() {
           The Chaos
         </div>
 
-
         <h2
           className="
           mt-8
@@ -87,7 +80,6 @@ export default function SeasonShowcase() {
         >
           Things that made
           <br />
-
           <span
             className="
             bg-[#FF7A00]
@@ -97,15 +89,8 @@ export default function SeasonShowcase() {
           >
             PPL Legendary
           </span>
-
         </h2>
-
-
       </div>
-
-
-
-
 
       {/* Chaos Grid */}
 
@@ -119,9 +104,7 @@ export default function SeasonShowcase() {
         gap-8
       "
       >
-
-        {chaos.map((item)=>(
-
+        {chaos.map((item) => (
           <div
             key={item.title}
             className={`
@@ -134,12 +117,7 @@ export default function SeasonShowcase() {
               shadow-[8px_8px_0_#111]
             `}
           >
-
-
-            <div className="text-5xl">
-              {item.emoji}
-            </div>
-
+            <div className="text-5xl">{item.emoji}</div>
 
             <h3
               className="
@@ -152,7 +130,6 @@ export default function SeasonShowcase() {
               {item.title}
             </h3>
 
-
             <p
               className="
               mt-4
@@ -162,19 +139,9 @@ export default function SeasonShowcase() {
             >
               {item.text}
             </p>
-
-
           </div>
-
         ))}
-
-
       </div>
-
-
-
-
-
 
       {/* Season Showcase */}
 
@@ -186,8 +153,6 @@ export default function SeasonShowcase() {
         max-w-xl
       "
       >
-
-
         {/* Background Shape */}
 
         <div
@@ -201,8 +166,6 @@ export default function SeasonShowcase() {
         "
         />
 
-
-
         <div
           className="
           relative
@@ -215,8 +178,6 @@ export default function SeasonShowcase() {
           text-center
         "
         >
-
-
           <p
             className="
             text-sm
@@ -227,8 +188,6 @@ export default function SeasonShowcase() {
           >
             Still going strong
           </p>
-
-
 
           <div
             className="
@@ -243,9 +202,6 @@ export default function SeasonShowcase() {
             6
           </div>
 
-
-
-
           <h3
             className="
             text-4xl
@@ -256,8 +212,6 @@ export default function SeasonShowcase() {
             Seasons
           </h3>
 
-
-
           <p
             className="
             mt-8
@@ -266,14 +220,8 @@ export default function SeasonShowcase() {
             leading-relaxed
           "
           >
-            Six seasons of cricket,
-            chaos, friendships,
-            rivalries and unforgettable
-            memories.
+            Six seasons of cricket, chaos, friendships, rivalries and unforgettable memories.
           </p>
-
-
-
 
           {/* Mini Stats */}
 
@@ -285,7 +233,6 @@ export default function SeasonShowcase() {
             gap-3
           "
           >
-
             <div
               className="
               rounded-xl
@@ -297,10 +244,9 @@ export default function SeasonShowcase() {
             "
             >
               🏏
-              <br/>
+              <br />
               Matches
             </div>
-
 
             <div
               className="
@@ -313,10 +259,9 @@ export default function SeasonShowcase() {
             "
             >
               🏆
-              <br/>
+              <br />
               Winners
             </div>
-
 
             <div
               className="
@@ -329,23 +274,12 @@ export default function SeasonShowcase() {
             "
             >
               😂
-              <br/>
+              <br />
               Stories
             </div>
-
-
           </div>
-
-
-
         </div>
-
-
       </div>
-
-
-
     </section>
-
-  );
+  )
 }

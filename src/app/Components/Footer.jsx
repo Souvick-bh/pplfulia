@@ -1,54 +1,50 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
-import {
-  IoLogoYoutube,
-  IoLogoInstagram,
-  IoLogoFacebook,
-} from "react-icons/io5";
+import { IoLogoYoutube, IoLogoInstagram, IoLogoFacebook } from 'react-icons/io5'
 
 const socials = [
   {
-    name: "YouTube",
-    href: "https://youtube.com/@pplfulia?si=NnMmQRHxSrm-vqpo",
+    name: 'YouTube',
+    href: 'https://youtube.com/@pplfulia?si=NnMmQRHxSrm-vqpo',
     icon: IoLogoYoutube,
-    bg: "bg-[#FF5D73]",
+    bg: 'bg-[#FF5D73]',
   },
   {
-    name: "Instagram",
-    href: "https://www.instagram.com/pplfulia/profilecard/?igsh=MXNuaHNzaDlyaXB1dg==",
+    name: 'Instagram',
+    href: 'https://www.instagram.com/pplfulia/profilecard/?igsh=MXNuaHNzaDlyaXB1dg==',
     icon: IoLogoInstagram,
-    bg: "bg-[#FFD93D]",
+    bg: 'bg-[#FFD93D]',
   },
   {
-    name: "Facebook",
-    href: "https://www.facebook.com/profile.php?id=61566263444046&mibextid=ZbWKwL",
+    name: 'Facebook',
+    href: 'https://www.facebook.com/profile.php?id=61566263444046&mibextid=ZbWKwL',
     icon: IoLogoFacebook,
-    bg: "bg-[#4F7CFF]",
+    bg: 'bg-[#4F7CFF]',
   },
-];
+]
 
 export default function Footer() {
-   const [visits, setVisits] = useState(null);
+  const [visits, setVisits] = useState(null)
 
   useEffect(() => {
-    fetch("/api/visit")
+    fetch('/api/visit')
       .then((res) => {
-        if (!res.ok) throw new Error("API Error");
+        if (!res.ok) throw new Error('API Error')
 
-        return res.json();
+        return res.json()
       })
 
       .then((data) => {
-        setVisits(data.visits);
+        setVisits(data.visits)
       })
 
       .catch((err) => {
-        console.error("Failed to fetch visits", err);
-      });
-  }, []);
+        console.error('Failed to fetch visits', err)
+      })
+  }, [])
 
   return (
     <footer
@@ -102,7 +98,7 @@ leading-none
           >
             Stay
             <br />
-            Connected
+            Connectedc
           </h2>
 
           <p
@@ -127,7 +123,7 @@ gap-5
 "
         >
           {socials.map((social, index) => {
-            const Icon = social.icon;
+            const Icon = social.icon
 
             return (
               <motion.a
@@ -198,7 +194,7 @@ text-sm
                   {social.name}
                 </span>
               </motion.a>
-            );
+            )
           })}
         </div>
 
@@ -255,7 +251,7 @@ text-5xl
 font-black
 "
           >
-            {visits !== null ? visits.toLocaleString() : "..."}
+            {visits !== null ? visits.toLocaleString() : '...'}
           </div>
         </motion.div>
 
@@ -291,5 +287,5 @@ text-[#FF7A00]
         </div>
       </div>
     </footer>
-  );
+  )
 }

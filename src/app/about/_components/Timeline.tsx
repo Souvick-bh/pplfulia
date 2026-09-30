@@ -1,60 +1,53 @@
-"use client";
+'use client'
 
 const events = [
   {
-    year: "2020",
-    title: "The Beginning",
-    text: "A bunch of school friends decided to stop only arguing about cricket and actually play.",
-    emoji: "🏏",
-    color: "bg-[#FFD93D]",
-    rotate: "-rotate-2",
+    year: '2020',
+    title: 'The Beginning',
+    text: 'A bunch of school friends decided to stop only arguing about cricket and actually play.',
+    emoji: '🏏',
+    color: 'bg-[#FFD93D]',
+    rotate: '-rotate-2',
   },
   {
-    year: "2022",
-    title: "The Chaos Begins",
-    text: "Friendly matches became serious battles. Rivalries were born. Sledging became a tradition.",
-    emoji: "🔥",
-    color: "bg-[#FF7A00]",
-    rotate: "rotate-2",
+    year: '2022',
+    title: 'The Chaos Begins',
+    text: 'Friendly matches became serious battles. Rivalries were born. Sledging became a tradition.',
+    emoji: '🔥',
+    color: 'bg-[#FF7A00]',
+    rotate: 'rotate-2',
   },
   {
-    year: "2025",
-    title: "Season 6",
-    text: "More teams, more drama, more memories. PPL became bigger than anyone imagined.",
-    emoji: "🏆",
-    color: "bg-[#72E06A]",
-    rotate: "-rotate-1",
+    year: '2025',
+    title: 'Season 6',
+    text: 'More teams, more drama, more memories. PPL became bigger than anyone imagined.',
+    emoji: '🏆',
+    color: 'bg-[#72E06A]',
+    rotate: '-rotate-1',
   },
-];
-
+]
 
 const legendaryMoments = [
   {
-    text: "⚡ Match-fixing allegations",
-    color: "bg-[#FF5D73]",
+    text: '⚡ Match-fixing allegations',
+    color: 'bg-[#FF5D73]',
   },
   {
-    text: "🌧 Rain interrupted matches",
-    color: "bg-[#4F7CFF]",
+    text: '🌧 Rain interrupted matches',
+    color: 'bg-[#4F7CFF]',
   },
   {
-    text: "🏆 MVP awards",
-    color: "bg-[#FFD93D]",
+    text: '🏆 MVP awards',
+    color: 'bg-[#FFD93D]',
   },
-];
-
+]
 
 export default function Timeline() {
-
   return (
-
     <section className="relative px-6 py-20">
-
-
       {/* Heading Sticker */}
 
       <div className="mx-auto max-w-xl">
-
         <div
           className="
           inline-block
@@ -74,7 +67,6 @@ export default function Timeline() {
           Our Story
         </div>
 
-
         <h2
           className="
           mt-8
@@ -86,7 +78,6 @@ export default function Timeline() {
         >
           From Gallis
           <br />
-
           <span
             className="
             inline-block
@@ -98,9 +89,7 @@ export default function Timeline() {
           >
             To Glory
           </span>
-
         </h2>
-
 
         <p
           className="
@@ -110,16 +99,10 @@ export default function Timeline() {
           leading-relaxed
         "
         >
-          What started as a friendly neighbourhood tournament
-          slowly transformed into an annual festival of chaos,
-          charisma and cricket.
+          What started as a friendly neighbourhood tournament slowly transformed into an annual
+          festival of chaos, charisma and cricket.
         </p>
-
-
       </div>
-
-
-
 
       {/* Timeline */}
 
@@ -131,8 +114,6 @@ export default function Timeline() {
         max-w-xl
       "
       >
-
-
         {/* Vertical Line */}
 
         <div
@@ -146,13 +127,8 @@ export default function Timeline() {
         "
         />
 
-
-
         <div className="space-y-12">
-
-
-          {events.map((event)=> (
-
+          {events.map((event) => (
             <div
               key={event.year}
               className="
@@ -161,8 +137,6 @@ export default function Timeline() {
               gap-6
             "
             >
-
-
               {/* Dot */}
 
               <div
@@ -185,8 +159,6 @@ export default function Timeline() {
                 {event.emoji}
               </div>
 
-
-
               {/* Card */}
 
               <div
@@ -201,7 +173,6 @@ export default function Timeline() {
                 ${event.rotate}
               `}
               >
-
                 <div
                   className="
                   inline-block
@@ -218,7 +189,6 @@ export default function Timeline() {
                   {event.year}
                 </div>
 
-
                 <h3
                   className="
                   mt-4
@@ -230,7 +200,6 @@ export default function Timeline() {
                   {event.title}
                 </h3>
 
-
                 <p
                   className="
                   mt-3
@@ -240,30 +209,15 @@ export default function Timeline() {
                 >
                   {event.text}
                 </p>
-
-
               </div>
-
-
             </div>
-
           ))}
-
-
         </div>
-
-
       </div>
-
-
-
-
 
       {/* Legendary Moments */}
 
       <div className="mx-auto mt-24 max-w-xl">
-
-
         <h3
           className="
           text-3xl
@@ -274,12 +228,8 @@ export default function Timeline() {
           Things that made PPL AWESOME...
         </h3>
 
-
         <div className="mt-8 space-y-5">
-
-
-          {legendaryMoments.map((item,index)=>(
-
+          {legendaryMoments.map((item, index) => (
             <div
               key={item.text}
               className={`
@@ -292,30 +242,14 @@ export default function Timeline() {
               text-lg
               font-black
               shadow-[6px_6px_0_#111]
-              ${
-                index % 2 === 0
-                ? "rotate-2"
-                : "-rotate-2"
-              }
+              ${index % 2 === 0 ? 'rotate-2' : '-rotate-2'}
             `}
             >
-
               {item.text}
-
             </div>
-
-
           ))}
-
-
         </div>
-
-
       </div>
-
-
-
     </section>
-
-  );
+  )
 }

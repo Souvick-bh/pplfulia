@@ -1,10 +1,10 @@
-'use client';
-import { useEffect } from 'react';
+'use client'
+import { useEffect } from 'react'
 
 export default function VisitTracker() {
   useEffect(() => {
-    fetch('/api/visit', { method: 'POST' }).catch(console.error);
-  }, []);
+    fetch('/api/visit', { method: 'POST' }).catch(console.error)
+  }, [])
 
-  return null;
+  return null
 }

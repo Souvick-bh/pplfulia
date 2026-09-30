@@ -1,5 +1,5 @@
-import HomeContent from "./Pages/HomeContent";
+import HomeContent from './Pages/HomeContent'
 
 export default function Home() {
-  return <HomeContent />;
+  return <HomeContent />
 }

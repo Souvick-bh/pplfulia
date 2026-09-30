@@ -1,28 +1,27 @@
-"use client"
-import React, { useState, useRef } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { useProfile } from '../hooks/useProfile';
-import {RiArrowGoBackLine} from 'react-icons/ri'
-import Link from 'next/link';
-import { useRouter } from "next/navigation";
-import {Heart} from "lucide-react"
-import { supabase2 } from '@/api/user';
-
+'use client'
+import React, { useState, useRef } from 'react'
+import { useAuth } from '../contexts/AuthContext'
+import { useProfile } from '../hooks/useProfile'
+import { RiArrowGoBackLine } from 'react-icons/ri'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Heart } from 'lucide-react'
+import { supabase2 } from '@/api/user'
 
 const Profile = () => {
-  const { user } = useAuth();
-  const { profile, loading, updateProfile, uploadAvatar } = useProfile();
-  const [isEditing, setIsEditing] = useState(false);
+  const { user } = useAuth()
+  const { profile, loading, updateProfile, uploadAvatar } = useProfile()
+  const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
     display_name: '',
     bio: '',
     achievements: '',
     role: 'member' as 'member' | 'player' | 'owner',
-  });
-  const [uploading, setUploading] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  })
+  const [uploading, setUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const router = useRouter();
+  const router = useRouter()
 
   React.useEffect(() => {
     if (profile) {
@@ -31,80 +30,80 @@ const Profile = () => {
         bio: profile.bio || '',
         achievements: profile.achievements || '',
         role: profile.role,
-      });
+      })
     }
-  }, [profile]);
+  }, [profile])
 
   const handleEdit = () => {
-    setIsEditing(true);
-  };
+    setIsEditing(true)
+  }
 
   const handleCancel = () => {
-    setIsEditing(false);
+    setIsEditing(false)
     if (profile) {
       setFormData({
         display_name: profile.display_name || '',
         bio: profile.bio || '',
         achievements: profile.achievements || '',
         role: profile.role,
-      });
+      })
     }
-  };
+  }
 
   const handleSave = async () => {
-    const success = await updateProfile(formData);
+    const success = await updateProfile(formData)
     if (success) {
-      setIsEditing(false);
+      setIsEditing(false)
     }
-  };
+  }
 
   async function handleSignOut() {
-    const {error} = await supabase2.auth.signOut()
-    router.replace('/auth');
+    const { error } = await supabase2.auth.signOut()
+    router.replace('/auth')
     if (error) {
       console.log(error)
     }
   }
 
   const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+    const file = event.target.files?.[0]
+    if (!file) return
 
-    setUploading(true);
+    setUploading(true)
     try {
-      const avatarUrl = await uploadAvatar(file);
+      const avatarUrl = await uploadAvatar(file)
       if (avatarUrl) {
-        await updateProfile({ avatar_url: avatarUrl });
-    } 
+        await updateProfile({ avatar_url: avatarUrl })
+      }
     } catch (error) {
-        console.error(error);
+      console.error(error)
     } finally {
-      setUploading(false);
+      setUploading(false)
     }
-  };
+  }
 
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'owner':
-        return 'text-[#F4A004]';
+        return 'text-[#F4A004]'
       case 'player':
-        return 'text-[#beee62]';
+        return 'text-[#beee62]'
       case 'member':
       default:
-        return 'text-[#7e52a0]';
+        return 'text-[#7e52a0]'
     }
-  };
+  }
 
   const getRoleIcon = (role: string) => {
     switch (role) {
       case 'owner':
-        return <img src='/icons/richmonkey.jpg' className="h-5 w-5 rounded-[50%]" />;
+        return <img src="/icons/richmonkey.jpg" className="h-5 w-5 rounded-[50%]" />
       case 'player':
-        return <img src='/icons/playermonkey.jpg' className="h-5 w-5 rounded-[50%]" />;
+        return <img src="/icons/playermonkey.jpg" className="h-5 w-5 rounded-[50%]" />
       default:
-        return <img src='/icons/membermonkey.jpg' className="h-5 w-5 rounded-[50%]" />;
+        return <img src="/icons/membermonkey.jpg" className="h-5 w-5 rounded-[50%]" />
     }
-  };
+  }
 
   if (loading) {
     return (
@@ -113,17 +112,17 @@ const Profile = () => {
           <div className="text-lg">Loading...</div>
         </div>
       </div>
-    );
+    )
   }
 
   const handleRoleChange = (value: 'member' | 'player' | 'owner') => {
     setFormData({ ...formData, role: value })
-  };
+  }
 
-   if (!profile) {
-  return (
-    <div
-      className="
+  if (!profile) {
+    return (
+      <div
+        className="
       min-h-screen
       w-full
 
@@ -135,10 +134,9 @@ const Profile = () => {
 
       px-4
       "
-    >
-
-      <div
-        className="
+      >
+        <div
+          className="
         border-4
         border-black
 
@@ -151,33 +149,30 @@ const Profile = () => {
         shadow-[10px_10px_0_black]
 
         "
-      >
-
-        <h2
-          className="
+        >
+          <h2
+            className="
           text-4xl
           font-black
           uppercase
           mb-4
           "
-        >
-          Profile Not Found
-        </h2>
+          >
+            Profile Not Found
+          </h2>
 
-
-        <p
-          className="
+          <p
+            className="
           font-bold
           uppercase
           text-sm
           "
-        >
-          Create your player profile to join PPL
-        </p>
+          >
+            Create your player profile to join PPL
+          </p>
 
-
-        <div
-          className="
+          <div
+            className="
           mt-6
           inline-block
 
@@ -192,20 +187,17 @@ const Profile = () => {
           font-black
           uppercase
           "
-        >
-          Error 404
+          >
+            Error 404
+          </div>
         </div>
-
       </div>
+    )
+  }
 
-    </div>
-  );
-}
-
-return (
-
-<div
-className="
+  return (
+    <div
+      className="
 min-h-screen
 w-full
 
@@ -217,14 +209,10 @@ justify-center
 px-4
 py-10
 "
->
-
-
-<Link href="/">
-
-<button
-
-className="
+    >
+      <Link href="/">
+        <button
+          className="
 fixed
 top-5
 left-5
@@ -246,21 +234,13 @@ transition-all
 active:shadow-none
 
 "
+        >
+          <RiArrowGoBackLine size={22} />
+        </button>
+      </Link>
 
->
-
-<RiArrowGoBackLine size={22}/>
-
-</button>
-
-</Link>
-
-
-
-
-<div
-
-className="
+      <div
+        className="
 w-full
 max-w-3xl
 
@@ -275,14 +255,9 @@ md:p-10
 shadow-[12px_12px_0_black]
 
 "
-
->
-
-
-
-<div
-
-className="
+      >
+        <div
+          className="
 flex
 justify-between
 items-center
@@ -294,33 +269,22 @@ pb-5
 mb-8
 
 "
-
->
-
-<h1
-
-className="
+        >
+          <h1
+            className="
 text-4xl
 font-black
 uppercase
 "
+          >
+            MY PROFILE
+          </h1>
 
->
+          {!isEditing ? (
+            <button
+              onClick={handleEdit}
 
-MY PROFILE
-
-</h1>
-
-
-
-{
-!isEditing ?
-
-<button
-
-onClick={handleEdit}
-
-className="
+              className="
 border-4
 border-black
 
@@ -339,24 +303,15 @@ active:translate-y-1
 active:shadow-none
 
 "
+            >
+              EDIT
+            </button>
+          ) : (
+            <div className="flex gap-3">
+              <button
+                onClick={handleSave}
 
->
-
-EDIT
-
-</button>
-
-
-:
-
-<div className="flex gap-3">
-
-
-<button
-
-onClick={handleSave}
-
-className="
+                className="
 border-4
 border-black
 bg-green-300
@@ -365,17 +320,14 @@ py-2
 font-black
 shadow-[4px_4px_0_black]
 "
+              >
+                SAVE
+              </button>
 
->
-SAVE
-</button>
+              <button
+                onClick={handleCancel}
 
-
-<button
-
-onClick={handleCancel}
-
-className="
+                className="
 border-4
 border-black
 bg-red-300
@@ -384,29 +336,17 @@ py-2
 font-black
 shadow-[4px_4px_0_black]
 "
+              >
+                CANCEL
+              </button>
+            </div>
+          )}
+        </div>
 
->
-CANCEL
-</button>
+        {/* Avatar section */}
 
-
-</div>
-
-}
-
-
-</div>
-
-
-
-
-
-
-{/* Avatar section */}
-
-
-<div
-className="
+        <div
+          className="
 flex
 flex-col
 md:flex-row
@@ -416,21 +356,14 @@ items-center
 gap-8
 
 "
-
->
-
-
-<div
-className="
+        >
+          <div
+            className="
 relative
 "
-
->
-
-
-<div
-
-className="
+          >
+            <div
+              className="
 h-32
 w-32
 
@@ -444,38 +377,23 @@ bg-yellow-200
 shadow-[6px_6px_0_black]
 
 "
+            >
+              <img
+                src={profile.avatar_url || '/icons/membermonkey.jpg'}
 
->
-
-<img
-
-src={
-profile.avatar_url ||
-"/icons/membermonkey.jpg"
-}
-
-className="
+                className="
 h-full
 w-full
 object-cover
 "
+              />
+            </div>
 
-/>
+            {isEditing && (
+              <button
+                onClick={() => fileInputRef.current?.click()}
 
-
-</div>
-
-
-
-
-{
-isEditing && (
-
-<button
-
-onClick={()=>fileInputRef.current?.click()}
-
-className="
+                className="
 absolute
 bottom-[-15px]
 left-1/2
@@ -494,63 +412,37 @@ font-black
 text-xs
 
 "
+              >
+                CHANGE
+              </button>
+            )}
 
->
+            <input
+              ref={fileInputRef}
 
-CHANGE
+              type="file"
 
-</button>
+              accept="image/*"
 
-)
+              onChange={handleAvatarUpload}
 
-}
+              className="hidden"
+            />
+          </div>
 
-
-<input
-
-ref={fileInputRef}
-
-type="file"
-
-accept="image/*"
-
-onChange={handleAvatarUpload}
-
-className="hidden"
-
-/>
-
-
-</div>
-
-
-
-
-<div>
-
-
-<h2
-
-className="
+          <div>
+            <h2
+              className="
 text-3xl
 font-black
 uppercase
 "
+            >
+              {profile.display_name || 'Anonymous Fan'}
+            </h2>
 
->
-
-{
-profile.display_name ||
-"Anonymous Fan"
-}
-
-</h2>
-
-
-
-<div
-
-className="
+            <div
+              className="
 mt-3
 
 inline-block
@@ -567,58 +459,33 @@ font-black
 uppercase
 
 "
+            >
+              {profile.role}
+            </div>
 
->
-
-{profile.role}
-
-</div>
-
-
-
-
-<div
-className="
+            <div
+              className="
 mt-4
 font-bold
 "
+            >
+              ❤️ {profile.likes_count || 0} Likes
+            </div>
 
->
-
-❤️ {profile.likes_count || 0} Likes
-
-</div>
-
-
-<div
-className="
+            <div
+              className="
 font-bold
 "
+            >
+              Joined {new Date(profile.created_at).toLocaleDateString()}
+            </div>
+          </div>
+        </div>
 
->
+        {/* Details */}
 
-Joined {new Date(profile.created_at).toLocaleDateString()}
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-{/* Details */}
-
-
-<div
-
-className="
+        <div
+          className="
 mt-10
 
 grid
@@ -626,31 +493,22 @@ grid
 gap-5
 
 "
+        >
+          <div>
+            <label className="font-black uppercase">Name</label>
 
->
+            {isEditing ? (
+              <input
+                value={formData.display_name}
 
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    display_name: e.target.value,
+                  })
+                }
 
-
-<div>
-
-<label className="font-black uppercase">
-Name
-</label>
-
-
-{
-isEditing ?
-
-<input
-
-value={formData.display_name}
-
-onChange={(e)=>setFormData({
-...formData,
-display_name:e.target.value
-})}
-
-className="
+                className="
 mt-2
 
 w-full
@@ -665,46 +523,22 @@ font-bold
 bg-yellow-100
 
 "
+              />
+            ) : (
+              <p className="font-bold mt-2">{profile.display_name || 'Not set'}</p>
+            )}
+          </div>
 
-/>
+          <div>
+            <label className="font-black uppercase">Role</label>
 
-:
+            {isEditing ? (
+              <select
+                value={formData.role}
 
-<p className="font-bold mt-2">
+                onChange={(e) => handleRoleChange(e.target.value as any)}
 
-{profile.display_name || "Not set"}
-
-</p>
-
-}
-
-</div>
-
-
-
-
-
-
-
-<div>
-
-<label className="font-black uppercase">
-Role
-</label>
-
-
-{
-isEditing ?
-
-<select
-
-value={formData.role}
-
-onChange={e=>handleRoleChange(
-e.target.value as any
-)}
-
-className="
+                className="
 mt-2
 border-4
 border-black
@@ -712,72 +546,43 @@ p-3
 font-bold
 bg-white
 "
+              >
+                <option value="member">Member</option>
 
->
+                <option value="player">Player</option>
 
-<option value="member">
-Member
-</option>
-
-<option value="player">
-Player
-</option>
-
-<option value="owner">
-Owner
-</option>
-
-
-</select>
-
-
-:
-
-<p
-className="
+                <option value="owner">Owner</option>
+              </select>
+            ) : (
+              <p
+                className="
 mt-2
 font-black
 uppercase
 "
+              >
+                {profile.role}
+              </p>
+            )}
+          </div>
 
->
+          <div>
+            <label className="font-black uppercase">Bio</label>
 
-{profile.role}
+            {isEditing ? (
+              <textarea
+                rows={3}
 
-</p>
+                value={formData.bio}
 
-}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    bio: e.target.value,
+                  })
+                }
 
-</div>
-
-
-
-
-
-
-<div>
-
-
-<label className="font-black uppercase">
-Bio
-</label>
-
-
-{
-isEditing ?
-
-<textarea
-
-rows={3}
-
-value={formData.bio}
-
-onChange={e=>setFormData({
-...formData,
-bio:e.target.value
-})}
-
-className="
+                className="
 mt-2
 w-full
 
@@ -789,53 +594,29 @@ p-3
 font-bold
 
 "
+              />
+            ) : (
+              <p className="mt-2 font-bold">{profile.bio || 'No bio yet'}</p>
+            )}
+          </div>
 
-/>
+          <div>
+            <label className="font-black uppercase">Achievements</label>
 
-:
+            {isEditing ? (
+              <textarea
+                rows={3}
 
-<p className="mt-2 font-bold">
+                value={formData.achievements}
 
-{
-profile.bio ||
-"No bio yet"
-}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    achievements: e.target.value,
+                  })
+                }
 
-</p>
-
-}
-
-
-</div>
-
-
-
-
-
-
-<div>
-
-
-<label className="font-black uppercase">
-Achievements
-</label>
-
-
-{
-isEditing ?
-
-<textarea
-
-rows={3}
-
-value={formData.achievements}
-
-onChange={e=>setFormData({
-...formData,
-achievements:e.target.value
-})}
-
-className="
+                className="
 mt-2
 w-full
 
@@ -847,38 +628,17 @@ p-3
 font-bold
 
 "
+              />
+            ) : (
+              <p className="mt-2 font-bold">{profile.achievements || 'No achievements'}</p>
+            )}
+          </div>
+        </div>
 
-/>
+        <button
+          onClick={handleSignOut}
 
-:
-
-<p className="mt-2 font-bold">
-
-{
-profile.achievements ||
-"No achievements"
-}
-
-</p>
-
-}
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<button
-
-onClick={handleSignOut}
-
-className="
+          className="
 mt-10
 
 border-4
@@ -900,23 +660,12 @@ hover:-translate-y-1
 active:shadow-none
 
 "
+        >
+          SIGN OUT
+        </button>
+      </div>
+    </div>
+  )
+}
 
->
-
-SIGN OUT
-
-</button>
-
-
-
-
-</div>
-
-
-</div>
-
-)
-};
-
-export default Profile;
-
+export default Profile

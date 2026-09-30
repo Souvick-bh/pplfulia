@@ -1,58 +1,44 @@
-"use client";
+'use client'
 
-import {
-    FaSquareXTwitter,
-    FaGithub,
-    FaInstagram,
-} from "react-icons/fa6";
-
+import { FaSquareXTwitter, FaGithub, FaInstagram } from 'react-icons/fa6'
 
 const socials = [
-    {
-        icon: FaSquareXTwitter,
-        name: "Twitter",
-        link: "https://x.com/SouvickBho17054",
-        color: "bg-[#111111]",
-    },
-    {
-        icon: FaGithub,
-        name: "Github",
-        link: "https://github.com/Souvick-bh",
-        color: "bg-[#4F7CFF]",
-    },
-    {
-        icon: FaInstagram,
-        name: "Instagram",
-        link: "https://www.instagram.com/__souvick_bhowmick__/",
-        color: "bg-[#FF5D73]",
-    },
-];
-
+  {
+    icon: FaSquareXTwitter,
+    name: 'Twitter',
+    link: 'https://x.com/SouvickBho17054',
+    color: 'bg-[#111111]',
+  },
+  {
+    icon: FaGithub,
+    name: 'Github',
+    link: 'https://github.com/Souvick-bh',
+    color: 'bg-[#4F7CFF]',
+  },
+  {
+    icon: FaInstagram,
+    name: 'Instagram',
+    link: 'https://www.instagram.com/__souvick_bhowmick__/',
+    color: 'bg-[#FF5D73]',
+  },
+]
 
 export default function Footer() {
+  return (
+    <section className="px-6 pb-16 pt-10">
+      {/* Final CTA */}
 
-    return (
-
-        <section className="px-6 pb-16 pt-10">
-
-
-
-            {/* Final CTA */}
-
-
-            <div
-                className="
+      <div
+        className="
 mx-auto
 max-w-xl
 relative
 "
-            >
+      >
+        {/* Black Shadow */}
 
-
-                {/* Black Shadow */}
-
-                <div
-                    className="
+        <div
+          className="
 absolute
 inset-0
 translate-x-3
@@ -60,12 +46,10 @@ translate-y-3
 rounded-[3rem]
 bg-black
 "
-                />
+        />
 
-
-
-                <div
-                    className="
+        <div
+          className="
 relative
 
 rounded-[3rem]
@@ -80,11 +64,9 @@ py-12
 
 text-center
 "
-                >
-
-
-                    <div
-                        className="
+        >
+          <div
+            className="
 inline-block
 
 rounded-full
@@ -103,15 +85,12 @@ uppercase
 
 shadow-[4px_4px_0_#111]
 "
-                    >
-                        Welcome
-                    </div>
+          >
+            Welcome
+          </div>
 
-
-
-
-                    <h2
-                        className="
+          <h2
+            className="
 mt-8
 
 text-6xl
@@ -122,31 +101,22 @@ uppercase
 
 leading-[0.85]
 "
-                    >
-
-                        Panchayet
-
-                        <br />
-
-                        <span
-                            className="
+          >
+            Panchayet
+            <br />
+            <span
+              className="
 text-[#FF7A00]
 "
-                        >
-                            Premiere
-                        </span>
+            >
+              Premiere
+            </span>
+            <br />
+            League
+          </h2>
 
-                        <br />
-
-                        League
-
-                    </h2>
-
-
-
-
-                    <p
-                        className="
+          <p
+            className="
 mt-8
 
 text-xl
@@ -155,55 +125,37 @@ font-black
 
 leading-relaxed
 "
-                    >
-                        Where friendship meets
-                        <br />
-                        fierce competition.
-                    </p>
+          >
+            Where friendship meets
+            <br />
+            fierce competition.
+          </p>
 
-
-
-
-                    <div
-                        className="
+          <div
+            className="
 mt-10
 
 text-6xl
 "
-                    >
-                        🏏🔥🏆
-                    </div>
+          >
+            🏏🔥🏆
+          </div>
+        </div>
+      </div>
 
+      {/* Developer Card */}
 
-
-                </div>
-
-
-            </div>
-
-
-
-
-
-
-
-
-            {/* Developer Card */}
-
-
-            <div
-                className="
+      <div
+        className="
 mx-auto
 
 mt-24
 
 max-w-xl
 "
-            >
-
-
-                <div
-                    className="
+      >
+        <div
+          className="
 rounded-[2.5rem]
 
 border-4
@@ -218,12 +170,9 @@ shadow-[8px_8px_0_#111]
 
 rotate-1
 "
-                >
-
-
-
-                    <p
-                        className="
+        >
+          <p
+            className="
 text-center
 
 text-sm
@@ -236,15 +185,12 @@ tracking-[0.3em]
 
 text-zinc-500
 "
-                    >
-                        Built with ❤️ by
-                    </p>
+          >
+            Built with ❤️ by
+          </p>
 
-
-
-
-                    <h3
-                        className="
+          <h3
+            className="
 mt-5
 
 text-center
@@ -255,17 +201,14 @@ font-black
 
 uppercase
 "
-                    >
-                        Souvick
-                        <br />
-                        Bhowmick
-                    </h3>
+          >
+            Souvick
+            <br />
+            Bhowmick
+          </h3>
 
-
-
-
-                    <p
-                        className="
+          <p
+            className="
 mt-4
 
 text-center
@@ -274,20 +217,14 @@ font-bold
 
 text-zinc-600
 "
-                    >
-                        Designing memories,
-                        one line of code at a time.
-                    </p>
+          >
+            Designing memories, one line of code at a time.
+          </p>
 
+          {/* Social Buttons */}
 
-
-
-
-                    {/* Social Buttons */}
-
-
-                    <div
-                        className="
+          <div
+            className="
 mt-8
 
 flex
@@ -296,28 +233,21 @@ justify-center
 
 gap-4
 "
-                    >
+          >
+            {socials.map((social) => {
+              const Icon = social.icon
 
+              return (
+                <a
+                  key={social.name}
 
-                        {
-                            socials.map((social) => {
+                  href={social.link}
 
-                                const Icon = social.icon;
+                  target="_blank"
 
+                  rel="noreferrer"
 
-                                return (
-
-                                    <a
-
-                                        key={social.name}
-
-                                        href={social.link}
-
-                                        target="_blank"
-
-                                        rel="noreferrer"
-
-                                        className={`
+                  className={`
 ${social.color}
 
 flex
@@ -350,41 +280,19 @@ hover:translate-y-1
 
 hover:shadow-none
 `}
+                >
+                  <Icon />
+                </a>
+              )
+            })}
+          </div>
+        </div>
+      </div>
 
-                                    >
+      {/* Bottom Decoration */}
 
-                                        <Icon />
-
-                                    </a>
-
-                                )
-
-                            })
-
-                        }
-
-
-                    </div>
-
-
-
-
-                </div>
-
-
-            </div>
-
-
-
-
-
-
-
-            {/* Bottom Decoration */}
-
-
-            <div
-                className="
+      <div
+        className="
 mt-16
 
 text-center
@@ -395,14 +303,9 @@ font-black
 
 tracking-widest
 "
-            >
-                ✦ ✦ ✦
-            </div>
-
-
-
-        </section>
-
-    )
-
+      >
+        ✦ ✦ ✦
+      </div>
+    </section>
+  )
 }

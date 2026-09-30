@@ -1,81 +1,80 @@
-"use client";
+'use client'
 
-import { useAuth } from "../contexts/AuthContext";
-import { useMembers } from "../hooks/useMembers";
-import { Award, Crown, Heart, TrendingUp } from "lucide-react";
+import { useAuth } from '../contexts/AuthContext'
+import { useMembers } from '../hooks/useMembers'
+import { Award, Crown, Heart, TrendingUp } from 'lucide-react'
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
 type Member = {
-  id: string;
-  user_id: string;
-  display_name: string | null;
-  avatar_url?: string | null;
-  bio?: string | null;
-  achievements?: string | null;
-  role?: string;
-  likes_count?: number;
-  is_liked_by_user?: boolean;
-  created_at: string;
-};
+  id: string
+  user_id: string
+  display_name: string | null
+  avatar_url?: string | null
+  bio?: string | null
+  achievements?: string | null
+  role?: string
+  likes_count?: number
+  is_liked_by_user?: boolean
+  created_at: string
+}
 
-type RoleKey = "owner" | "player" | "member";
+type RoleKey = 'owner' | 'player' | 'member'
 
 type RoleStyle = {
-  label: string;
-  icon: string;
-  text: string;
-  border: string;
-  bg: string;
-  glow: string;
-};
+  label: string
+  icon: string
+  text: string
+  border: string
+  bg: string
+  glow: string
+}
 
-type ToggleLike = (targetUserId: string, currentlyLiked: boolean) => void;
-const SIGNAL = "#FF3B30";
+type ToggleLike = (targetUserId: string, currentlyLiked: boolean) => void
+const SIGNAL = '#FF3B30'
 
 const ROLE_STYLES: Record<RoleKey, RoleStyle> = {
   owner: {
-    label: "OWNER",
-    icon: "/icons/richmonkey.jpg",
-    text: "text-black",
-    border: "border-black",
-    bg: "bg-yellow-300",
-    glow: "",
+    label: 'OWNER',
+    icon: '/icons/richmonkey.jpg',
+    text: 'text-black',
+    border: 'border-black',
+    bg: 'bg-yellow-300',
+    glow: '',
   },
 
   player: {
-    label: "PLAYER",
-    icon: "/icons/playermonkey.jpg",
-    text: "text-black",
-    border: "border-black",
-    bg: "bg-green-300",
-    glow: "",
+    label: 'PLAYER',
+    icon: '/icons/playermonkey.jpg',
+    text: 'text-black',
+    border: 'border-black',
+    bg: 'bg-green-300',
+    glow: '',
   },
 
   member: {
-    label: "MEMBER",
-    icon: "/icons/membermonkey.jpg",
-    text: "text-black",
-    border: "border-black",
-    bg: "bg-blue-300",
-    glow: "",
+    label: 'MEMBER',
+    icon: '/icons/membermonkey.jpg',
+    text: 'text-black',
+    border: 'border-black',
+    bg: 'bg-blue-300',
+    glow: '',
   },
-};
+}
 
 function getRoleBadge(role?: string): RoleStyle {
-  const key = (role?.toLowerCase() ?? "member") as RoleKey;
-  return ROLE_STYLES[key] ?? ROLE_STYLES.member;
+  const key = (role?.toLowerCase() ?? 'member') as RoleKey
+  return ROLE_STYLES[key] ?? ROLE_STYLES.member
 }
 
 function formatJoined(dateString: string) {
-  return new Date(dateString).toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-  });
+  return new Date(dateString).toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+  })
 }
-
 
 function MemberCard({
   member,
@@ -84,37 +83,37 @@ function MemberCard({
   isAuthenticated,
   onToggleLike,
 }: {
-  member: Member;
-  rank: number;
-  currentUserId?: string;
-  isAuthenticated: boolean;
-  onToggleLike: ToggleLike;
+  member: Member
+  rank: number
+  currentUserId?: string
+  isAuthenticated: boolean
+  onToggleLike: ToggleLike
 }) {
-  const roleInfo = getRoleBadge(member.role);
-  const liked = member.is_liked_by_user ?? false;
-  const canLike = isAuthenticated && currentUserId !== member.user_id;
-  const isPodium = rank <= 3;
+  const roleInfo = getRoleBadge(member.role)
+  const liked = member.is_liked_by_user ?? false
+  const canLike = isAuthenticated && currentUserId !== member.user_id
+  const isPodium = rank <= 3
 
   const orderClass = isPodium
     ? rank === 1
-      ? "md:order-2"
+      ? 'md:order-2'
       : rank === 2
-      ? "md:order-1"
-      : "md:order-3"
-    : "";
+        ? 'md:order-1'
+        : 'md:order-3'
+    : ''
   const stepClass = isPodium
     ? rank === 1
-      ? "md:pb-8 md:-translate-y-2"
+      ? 'md:pb-8 md:-translate-y-2'
       : rank === 2
-      ? "md:pb-3"
-      : "md:pb-1 md:translate-y-1"
-    : "";
-  const avatarClass = isPodium ? "h-14 w-14" : "h-10 w-10";
-  const rankNumClass = isPodium ? "text-2xl" : "text-lg";
+        ? 'md:pb-3'
+        : 'md:pb-1 md:translate-y-1'
+    : ''
+  const avatarClass = isPodium ? 'h-14 w-14' : 'h-10 w-10'
+  const rankNumClass = isPodium ? 'text-2xl' : 'text-lg'
 
   return (
     <li
-  className="
+      className="
   group
   relative
   flex
@@ -130,15 +129,11 @@ function MemberCard({
   hover:-translate-y-1
   hover:shadow-[12px_12px_0_#000]
   "
->
-
-<div>
-
-<div className="flex items-center gap-4">
-
-
-<div
-className="
+    >
+      <div>
+        <div className="flex items-center gap-4">
+          <div
+            className="
 h-16
 w-16
 border-4
@@ -146,25 +141,20 @@ border-black
 bg-yellow-200
 overflow-hidden
 "
->
-
-{member.avatar_url ? (
-
-<img
-src={member.avatar_url}
-alt=""
-className="
+          >
+            {member.avatar_url ? (
+              <img
+                src={member.avatar_url}
+                alt=""
+                className="
 h-full
 w-full
 object-cover
 "
-/>
-
-):
-
-(
-<div
-className="
+              />
+            ) : (
+              <div
+                className="
 flex
 h-full
 items-center
@@ -172,33 +162,26 @@ justify-center
 font-black
 text-2xl
 "
->
-{member.display_name?.[0] ?? "?"}
-</div>
-)
+              >
+                {member.display_name?.[0] ?? '?'}
+              </div>
+            )}
+          </div>
 
-}
-
-</div>
-
-
-
-<div>
-
-<h3
-className="
+          <div>
+            <h3
+              className="
 text-xl
 font-black
 uppercase
 tracking-tight
 "
->
-{member.display_name || "Anonymous"}
-</h3>
+            >
+              {member.display_name || 'Anonymous'}
+            </h3>
 
-
-<div
-className={`
+            <div
+              className={`
 inline-flex
 items-center
 gap-2
@@ -212,59 +195,40 @@ text-xs
 uppercase
 ${roleInfo.bg}
 `}
->
+            >
+              <img src={roleInfo.icon} className="h-4 w-4" />
 
-<img
-src={roleInfo.icon}
-className="h-4 w-4"
-/>
+              {roleInfo.label}
+            </div>
+          </div>
+        </div>
 
-{roleInfo.label}
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-{member.bio ? (
-
-<p
-className="
+        {member.bio ? (
+          <p
+            className="
 mt-5
 font-medium
 text-sm
 leading-relaxed
 "
->
-{member.bio}
-</p>
-
-):
-
-(
-<p
-className="
+          >
+            {member.bio}
+          </p>
+        ) : (
+          <p
+            className="
 mt-5
 italic
 text-gray-500
 "
->
-No bio.
-</p>
-)
+          >
+            No bio.
+          </p>
+        )}
 
-}
-
-
-{
-member.achievements && (
-
-<div
-className="
+        {member.achievements && (
+          <div
+            className="
 mt-4
 border-l-4
 border-black
@@ -272,23 +236,14 @@ pl-3
 font-bold
 text-sm
 "
->
+          >
+            🏆 {member.achievements}
+          </div>
+        )}
+      </div>
 
-🏆 {member.achievements}
-
-</div>
-
-)
-
-}
-
-
-</div>
-
-
-
-<div
-className="
+      <div
+        className="
 mt-6
 flex
 items-center
@@ -297,31 +252,22 @@ border-t-4
 border-black
 pt-4
 "
->
-
-
-<div
-className="
+      >
+        <div
+          className="
 font-black
 uppercase
 text-sm
 "
->
+        >
+          ❤️ {member.likes_count ?? 0}
+        </div>
 
-❤️ {member.likes_count ?? 0}
+        {canLike && (
+          <button
+            onClick={() => onToggleLike(member.user_id, liked)}
 
-</div>
-
-
-
-{
-canLike && (
-
-<button
-
-onClick={()=>onToggleLike(member.user_id,liked)}
-
-className={`
+            className={`
 border-4
 border-black
 px-4
@@ -333,32 +279,16 @@ transition
 active:translate-x-1
 active:translate-y-1
 
-${
-liked
-?
-"bg-red-400"
-:
-"bg-white hover:bg-yellow-300"
-}
+${liked ? 'bg-red-400' : 'bg-white hover:bg-yellow-300'}
 
 `}
->
-
-{liked ? "Liked" : "Like"}
-
-</button>
-
-
-)
-
-}
-
-
-</div>
-
-
-</li>
-  );
+          >
+            {liked ? 'Liked' : 'Like'}
+          </button>
+        )}
+      </div>
+    </li>
+  )
 }
 
 // ---------------------------------------------------------------------------
@@ -366,13 +296,13 @@ liked
 // ---------------------------------------------------------------------------
 
 export default function Members() {
-  const { members, loading, toggleLike } = useMembers();
-  const { user } = useAuth();
+  const { members, loading, toggleLike } = useMembers()
+  const { user } = useAuth()
 
   const handleLike: ToggleLike = (targetUserId, currentlyLiked) => {
-    if (!user) return;
-    toggleLike(targetUserId, currentlyLiked);
-  };
+    if (!user) return
+    toggleLike(targetUserId, currentlyLiked)
+  }
 
   if (loading) {
     return (
@@ -382,30 +312,30 @@ export default function Members() {
           Tallying The Roster
         </p>
       </div>
-    );
+    )
   }
 
-  const podium = members.slice(0, 3);
-  const rest = members.slice(3);
-  const totalLikes = members.reduce((sum, m) => sum + (m.likes_count ?? 0), 0);
-  const topMember = members[0];
-  const tickerSource = members.slice(0, Math.min(members.length, 10));
+  const podium = members.slice(0, 3)
+  const rest = members.slice(3)
+  const totalLikes = members.reduce((sum, m) => sum + (m.likes_count ?? 0), 0)
+  const topMember = members[0]
+  const tickerSource = members.slice(0, Math.min(members.length, 10))
 
   return (
     <div
-className="
+      className="
 min-h-screen
 bg-[#f5f0e8]
 text-black
 "
->
+    >
       {/* Ambient grain — the one texture flourish, kept very quiet */}
       <div
         className="pointer-events-none fixed inset-0 z-40 opacity-[0.035]"
         style={{
           backgroundImage:
             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-          mixBlendMode: "overlay",
+          mixBlendMode: 'overlay',
         }}
         aria-hidden="true"
       />
@@ -426,18 +356,16 @@ text-black
             aria-hidden="true"
           >
             {[...tickerSource, ...tickerSource].map((m, i) => {
-              const info = getRoleBadge(m.role);
+              const info = getRoleBadge(m.role)
               return (
                 <span key={i} className="flex items-center gap-2.5">
                   <TrendingUp className="h-3 w-3 text-[#C9A227]" />
                   <span className={info.text}>{info.label.toUpperCase()}</span>
-                  <span className="text-[#EDEAE2]">
-                    {m.display_name || "Anonymous Fan"}
-                  </span>
+                  <span className="text-[#EDEAE2]">{m.display_name || 'Anonymous Fan'}</span>
                   <span>{m.likes_count ?? 0} Likes</span>
                   <span className="text-[#3A3B3F]">/</span>
                 </span>
-              );
+              )
             })}
           </div>
         </div>
@@ -458,9 +386,9 @@ text-black
               uppercase
               tracking-tighter
               "
-              >
+            >
               THE
-              <br/>
+              <br />
               COMMUNITY
             </h1>
           </div>
@@ -471,10 +399,9 @@ text-black
             grid-cols-3
             gap-4
             "
-            >
-
+          >
             <div
-            className="
+              className="
             border-4
             border-black
             bg-yellow-300
@@ -482,20 +409,13 @@ text-black
             shadow-[5px_5px_0_black]
             "
             >
+              <dt className="font-black text-xs">MEMBERS</dt>
 
-            <dt className="font-black text-xs">
-            MEMBERS
-            </dt>
-
-            <dd className="text-4xl font-black">
-            {members.length}
-            </dd>
-
+              <dd className="text-4xl font-black">{members.length}</dd>
             </div>
 
-
             <div
-            className="
+              className="
             border-4
             border-black
             bg-red-300
@@ -503,26 +423,17 @@ text-black
             shadow-[5px_5px_0_black]
             "
             >
+              <dt className="font-black text-xs">LIKES</dt>
 
-            <dt className="font-black text-xs">
-            LIKES
-            </dt>
-
-            <dd className="text-4xl font-black">
-            {totalLikes}
-            </dd>
-
+              <dd className="text-4xl font-black">{totalLikes}</dd>
             </div>
-
-            </dl>
+          </dl>
         </header>
 
         {/* Empty state */}
         {members.length === 0 ? (
           <div className="border border-dashed border-[#232428] py-24 text-center">
-            <h3 className="mb-2 text-xl font-light text-[#8B8D93]">
-              No Entries On The Ledger
-            </h3>
+            <h3 className="mb-2 text-xl font-light text-[#8B8D93]">No Entries On The Ledger</h3>
             <p className="font-mono text-xs uppercase tracking-wider text-[#5C5E63]">
               Be the first to create a profile and claim rank one.
             </p>
@@ -623,5 +534,5 @@ text-black
   }
 `}</style>
     </div>
-  );
+  )
 }

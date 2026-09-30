@@ -1,91 +1,80 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation'
 
-import { supabase2 } from "@/api/user";
+import { supabase2 } from '@/api/user'
 
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from '../contexts/AuthContext'
+
+import { Eye, EyeOff } from "lucide-react";
 
 const Auth = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
 
-  const [email, setEmail] = useState("");
-
-  const [password, setPassword] = useState("");
-
-  const [fullName, setFullName] = useState("");
-
-  const [loading, setLoading] = useState(false);
-
-  const [wrong, setWrong] = useState(false);
-
-  const [notice, setNotice] = useState("");
-
-  const [resetLoading, setResetLoading] = useState(false);
-
-  const { user } = useAuth();
-
-  const router = useRouter();
+  const [isSignUp, setIsSignUp] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [fullName, setFullName] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [wrong, setWrong] = useState(false)
+  const [notice, setNotice] = useState('')
+  const [resetLoading, setResetLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const { user } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
     if (user) {
-      router.replace("/profile");
+      router.replace('/profile')
     }
-  }, [user, router]);
+  }, [user, router])
 
   const handleForgotPassword = async () => {
-
-  if (!email) {
-    setNotice("Enter your email first");
-    setWrong(true);
-    return;
-  }
-
-  setResetLoading(true);
-  setWrong(false);
-
-  const { error } = await supabase2.auth.resetPasswordForEmail(
-    email,
-    {
-      redirectTo: `${window.location.origin}/reset-password`
+    if (!email) {
+      setNotice('Enter your email first')
+      setWrong(true)
+      return
     }
-  );
 
+    setResetLoading(true)
+    setWrong(false)
 
-  if (error) {
-    setNotice(error.message);
-    setWrong(true);
-    setResetLoading(false);
-    return;
+    const { error } = await supabase2.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    })
+
+    if (error) {
+      setNotice(error.message)
+      setWrong(true)
+      setResetLoading(false)
+      return
+    }
+
+    setNotice('Password reset link sent. Check your email.')
+    setWrong(true)
+
+    setResetLoading(false)
   }
-
-
-  setNotice("Password reset link sent. Check your email.");
-  setWrong(true);
-
-  setResetLoading(false);
-};
 
   const handleAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    setLoading(true);
-    setWrong(false);
+    setLoading(true)
+    setWrong(false)
 
     try {
       if (isSignUp) {
         if (fullName.trim().length < 3) {
-          setNotice("Name should have at least 3 characters");
-          setWrong(true);
-          return;
+          setNotice('Name should have at least 3 characters')
+          setWrong(true)
+          return
         }
 
         if (password.length < 6) {
-          setNotice("Password should contain 6+ characters");
-          setWrong(true);
-          return;
+          setNotice('Password should contain 6+ characters')
+          setWrong(true)
+          return
         }
 
         const { error } = await supabase2.auth.signUp({
@@ -93,54 +82,53 @@ const Auth = () => {
           password,
 
           options: {
-            emailRedirectTo: "https://pplfulia.vercel.app/",
+            emailRedirectTo: 'https://pplfulia.vercel.app/',
 
             data: {
               full_name: fullName,
             },
           },
-        });
+        })
 
-        if (error) throw error;
+        if (error) throw error
 
-        alert("Check your email for confirmation");
+        alert('Check your email for confirmation')
       } else {
         const { error } = await supabase2.auth.signInWithPassword({
           email,
           password,
-        });
+        })
 
         if (error) {
-          setNotice("Incorrect email or password");
-          setWrong(true);
-          return;
+          setNotice('Incorrect email or password')
+          setWrong(true)
+          return
         }
 
-        router.replace("/profile");
+        router.replace('/profile')
       }
     } catch (error: any) {
-      setNotice(error.message);
-      setWrong(true);
+      setNotice(error.message)
+      setWrong(true)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div
       className="
-min-h-screen
-w-full
+        min-h-screen
+        w-full
 
-bg-[#f5f0e8]
+        bg-[#f5f0e8]
 
-flex
-items-center
-justify-center
+        flex
+        items-center
+        justify-center
 
-px-4
-"
-    >
+        px-4
+        ">
       <div
         className="
 w-full
@@ -172,7 +160,7 @@ tracking-tight
 mb-2
 "
         >
-          {isSignUp ? "Join PPL" : "Welcome Buddy"}
+          {isSignUp ? 'Join PPL' : 'Welcome Buddy'}
         </h1>
 
         <p
@@ -188,9 +176,7 @@ text-sm
 mb-8
 "
         >
-          {isSignUp
-            ? "Become part of the community"
-            : "Sign in to your club account"}
+          {isSignUp ? 'Become part of the community' : 'Sign in to your club account'}
         </p>
 
         {wrong && (
@@ -260,44 +246,66 @@ focus:bg-yellow-300
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="
-border-4
-border-black
+                    border-4
+                    border-black
 
-px-4
-py-3
+                    px-4
+                    py-3
 
-font-bold
+                    font-bold
 
-outline-none
+                    outline-none
 
-focus:bg-blue-200
+                    focus:bg-blue-200
 
-"
-          />
+                    "
+                              />
 
-          <input
-            type="password"
-            placeholder="PASSWORD"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="
-border-4
-border-black
+          <div className="relative">
+  <input
+    type={showPassword ? "text" : "password"}
+    placeholder="PASSWORD"
+    required
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    className="
+      w-full
+      border-4
+      border-black
+      bg-[#FFF9C4]
+      px-4
+      py-3
+      pr-14
+      font-bold
+      outline-none
+      transition
+      focus:-translate-x-1
+      focus:-translate-y-1
+      focus:shadow-[6px_6px_0px_#000]
+    "
+  />
 
-px-4
-py-3
-
-font-bold
-
-
-outline-none
-
-focus:bg-blue-200
-
-"
-          />
-
+  <button
+    type="button"
+    onClick={() => setShowPassword((prev) => !prev)}
+    className="
+      absolute
+      right-2
+      top-1/2
+      -translate-y-1/2
+      border-2
+      border-black
+      bg-white
+      p-2
+      transition
+      hover:-translate-x-0.5
+      hover:-translate-y-[55%]
+      hover:shadow-[2px_2px_0px_#000]
+    "
+  >
+    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+  </button>
+</div>
           <button
             disabled={loading}
             className="
@@ -328,16 +336,16 @@ active:shadow-none
 
 "
           >
-            {loading ? "WAIT..." : isSignUp ? "CREATE ACCOUNT" : "SIGN IN"}
+            {loading ? 'WAIT...' : isSignUp ? 'CREATE ACCOUNT' : 'SIGN IN'}
           </button>
         </form>
 
         {!isSignUp && (
-  <button
-    type="button"
-    onClick={handleForgotPassword}
-    disabled={resetLoading}
-    className="
+          <button
+            type="button"
+            onClick={handleForgotPassword}
+            disabled={resetLoading}
+            className="
     mt-4
     w-full
     border-4
@@ -351,10 +359,10 @@ active:shadow-none
     hover:-translate-x-1
     hover:-translate-y-1
     "
-  >
-    {resetLoading ? "SENDING..." : "FORGOT PASSWORD?"}
-  </button>
-)}
+          >
+            {resetLoading ? 'SENDING...' : 'FORGOT PASSWORD?'}
+          </button>
+        )}
 
         <button
           onClick={() => setIsSignUp(!isSignUp)}
@@ -379,11 +387,11 @@ hover:text-red-500
 
 "
         >
-          {isSignUp ? "Already a member? Sign in" : "New here? Create account"}
+          {isSignUp ? 'Already a member? Sign in' : 'New here? Create account'}
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Auth;
+export default Auth

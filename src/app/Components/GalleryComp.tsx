@@ -1,66 +1,66 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-import supabase from "../../api/client";
+import supabase from '../../api/client'
 
 interface CricketImage {
-  id: string;
-  season: number;
-  image_url: string;
-  image_name: string;
-  uploaded_at: string;
+  id: string
+  season: number
+  image_url: string
+  image_name: string
+  uploaded_at: string
 }
 
 interface ImageGalleryProps {
-  refreshTrigger?: number;
+  refreshTrigger?: number
 }
 
-const seasons = [1, 2, 3, 4, 5, 6];
+const seasons = [1, 2, 3, 4, 5, 6]
 
-const rotations = ["rotate-1", "-rotate-1", "rotate-2", "-rotate-2"];
+const rotations = ['rotate-1', '-rotate-1', 'rotate-2', '-rotate-2']
 
 export default function ImageGallery({ refreshTrigger }: ImageGalleryProps) {
-  const [images, setImages] = useState<CricketImage[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [seasonNo, setSeasonNo] = useState(1);
+  const [images, setImages] = useState<CricketImage[]>([])
+  const [loading, setLoading] = useState(true)
+  const [seasonNo, setSeasonNo] = useState(1)
 
   async function fetchImages() {
     try {
       const { data, error } = await supabase
-        .from("cricket_images")
-        .select("*")
-        .order("uploaded_at", { ascending: false });
+        .from('cricket_images')
+        .select('*')
+        .order('uploaded_at', { ascending: false })
 
-      if (error) throw error;
+      if (error) throw error
 
-      setImages(data || []);
+      setImages(data || [])
     } catch (error) {
-      console.log(error);
+      console.log(error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   useEffect(() => {
-    fetchImages();
-  }, [refreshTrigger]);
+    fetchImages()
+  }, [refreshTrigger])
 
   function downloadImage(url: string) {
-    const link = document.createElement("a");
+    const link = document.createElement('a')
 
-    link.href = url;
+    link.href = url
 
-    link.download = "PPL-memory.jpg";
+    link.download = 'PPL-memory.jpg'
 
-    document.body.appendChild(link);
+    document.body.appendChild(link)
 
-    link.click();
+    link.click()
 
-    document.body.removeChild(link);
+    document.body.removeChild(link)
   }
 
-  const filteredImages = images.filter((image) => image.season === seasonNo);
+  const filteredImages = images.filter((image) => image.season === seasonNo)
 
   if (loading) {
     return (
@@ -85,7 +85,7 @@ shadow-[6px_6px_0_#111]
           LOADING...
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -181,8 +181,8 @@ transition-all
 
 ${
   seasonNo === season
-    ? "bg-[#FF7A00] translate-x-1 translate-y-1 shadow-none"
-    : "bg-white hover:-translate-y-1"
+    ? 'bg-[#FF7A00] translate-x-1 translate-y-1 shadow-none'
+    : 'bg-white hover:-translate-y-1'
 }
 
 `}
@@ -292,5 +292,5 @@ border-white
         )}
       </div>
     </section>
-  );
+  )
 }

@@ -1,71 +1,64 @@
-"use client";
+'use client'
 
-import { useState, useRef } from "react";
+import { useState, useRef } from 'react'
 
 const history = [
   {
-    title: "Kasukabe Defence Group",
-    date: "21 March 2020",
-    description: "The beginning of the community and foundation.",
-    tag: "Inception",
+    title: 'Kasukabe Defence Group',
+    date: '21 March 2020',
+    description: 'The beginning of the community and foundation.',
+    tag: 'Inception',
   },
   {
-    title: "PPL Season 1",
-    date: "22 October 2020",
-    description: "Inaugural league launch with 3 teams.",
-    tag: "League",
+    title: 'PPL Season 1',
+    date: '22 October 2020',
+    description: 'Inaugural league launch with 3 teams.',
+    tag: 'League',
   },
   {
-    title: "PPL Season 2",
-    date: "11 October 2021",
-    description: "Expanded format and live community streams.",
-    tag: "Major Event",
+    title: 'PPL Season 2',
+    date: '11 October 2021',
+    description: 'Expanded format and live community streams.',
+    tag: 'Major Event',
   },
   {
-    title: "PPL Season 3",
-    date: "1 October 2022",
-    description: "Record prize pool and international reach.",
-    tag: "Milestone",
+    title: 'PPL Season 3',
+    date: '1 October 2022',
+    description: 'Record prize pool and international reach.',
+    tag: 'Milestone',
   },
   {
-    title: "PPL Season 4",
-    date: "20 October 2023",
-    description: "Introduced double-elimination bracket system.",
-    tag: "Tournament",
+    title: 'PPL Season 4',
+    date: '20 October 2023',
+    description: 'Introduced double-elimination bracket system.',
+    tag: 'Tournament',
   },
   {
-    title: "PPL Season 5",
-    date: "9 October 2024",
-    description: "The biggest competitive season to date.",
-    tag: "Current Era",
+    title: 'PPL Season 5',
+    date: '9 October 2024',
+    description: 'The biggest competitive season to date.',
+    tag: 'Current Era',
   },
-];
-
+]
 
 export default function HistoryFramer() {
+  const [showHistory, setShowHistory] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
 
-  const [showHistory, setShowHistory] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-
-  const scrollToNode = (index:number)=>{
-
-    setActiveIndex(index);
+  const scrollToNode = (index: number) => {
+    setActiveIndex(index)
 
     scrollContainerRef.current?.scrollTo({
-      left:index * 294,
-      behavior:"smooth"
-    });
+      left: index * 294,
+      behavior: 'smooth',
+    })
+  }
 
-  };
-
-
-return (
-
-<section
-className="
+  return (
+    <section
+      className="
 mx-auto
 flex
 w-full
@@ -76,14 +69,11 @@ overflow-hidden
 px-4
 py-8
 "
->
+    >
+      <button
+        onClick={() => setShowHistory((v) => !v)}
 
-
-<button
-
-onClick={()=>setShowHistory(v=>!v)}
-
-className="
+        className="
 flex
 items-center
 gap-3
@@ -113,91 +103,62 @@ active:translate-x-1
 active:translate-y-1
 active:shadow-none
 "
-
->
-
-Timeline & History
-
-<span
-className={`
+      >
+        Timeline & History
+        <span
+          className={`
 transition-transform
-${showHistory ? "rotate-180":"rotate-0"}
+${showHistory ? 'rotate-180' : 'rotate-0'}
 `}
->
-↓
-</span>
+        >
+          ↓
+        </span>
+      </button>
 
-</button>
-
-
-
-{showHistory && (
-
-<div
-className="
+      {showHistory && (
+        <div
+          className="
 mt-10
 w-full
 "
->
+        >
+          {/* Progress */}
 
-
-{/* Progress */}
-
-<div
-className="
+          <div
+            className="
 mb-8
 flex
 justify-center
 gap-3
 "
->
+          >
+            {history.map((item, index) => (
+              <button
+                key={item.title}
 
-{
-history.map((item,index)=>(
+                onClick={() => scrollToNode(index)}
 
-<button
-
-key={item.title}
-
-onClick={()=>scrollToNode(index)}
-
-className={`
+                className={`
 h-3
 border-2
 border-black
 
 transition-all
 
-${
-activeIndex===index
-?
-"w-10 bg-red-400"
-:
-"w-3 bg-white"
-}
+${activeIndex === index ? 'w-10 bg-red-400' : 'w-3 bg-white'}
 
 `}
+              />
+            ))}
+          </div>
 
-/>
-
-))
-
-}
-
-</div>
-
-
-
-
-<div
-className="
+          <div
+            className="
 relative
 "
->
-
-
-<div
-className="
+          >
+            <div
+              className="
 absolute
 top-1/2
 left-0
@@ -205,15 +166,12 @@ h-1
 w-full
 bg-black
 "
-/>
+            />
 
+            <div
+              ref={scrollContainerRef}
 
-
-<div
-
-ref={scrollContainerRef}
-
-className="
+              className="
 relative
 flex
 gap-8
@@ -226,26 +184,17 @@ py-6
 
 scrollbar-none
 "
+            >
+              {history.map((item, index) => {
+                const active = activeIndex === index
 
->
+                return (
+                  <div
+                    key={item.title}
 
+                    onClick={() => setActiveIndex(index)}
 
-
-{
-history.map((item,index)=>{
-
-const active=activeIndex===index;
-
-
-return (
-
-<div
-
-key={item.title}
-
-onClick={()=>setActiveIndex(index)}
-
-className="
+                    className="
 snap-center
 shrink-0
 w-[270px]
@@ -253,13 +202,9 @@ w-[270px]
 cursor-pointer
 
 "
-
->
-
-
-<div
-
-className={`
+                  >
+                    <div
+                      className={`
 
 border-4
 border-black
@@ -274,30 +219,20 @@ transition-all
 
 hover:-translate-y-2
 
-${
-active
-?
-"bg-red-200 -translate-y-2"
-:
-""
-}
+${active ? 'bg-red-200 -translate-y-2' : ''}
 
 `}
-
->
-
-
-<div
-className="
+                    >
+                      <div
+                        className="
 flex
 justify-between
 items-center
 mb-4
 "
->
-
-<span
-className="
+                      >
+                        <span
+                          className="
 border-2
 border-black
 
@@ -309,56 +244,44 @@ py-1
 text-xs
 font-black
 "
->
+                        >
+                          #{String(index + 1).padStart(2, '0')}
+                        </span>
 
-#{String(index+1).padStart(2,"0")}
-
-</span>
-
-
-<span
-className="
+                        <span
+                          className="
 font-mono
 text-xs
 font-bold
 "
->
-{item.date}
-</span>
+                        >
+                          {item.date}
+                        </span>
+                      </div>
 
-
-</div>
-
-
-
-
-<h3
-className="
+                      <h3
+                        className="
 text-xl
 font-black
 uppercase
 leading-tight
 "
->
-{item.title}
-</h3>
+                      >
+                        {item.title}
+                      </h3>
 
-
-<p
-className="
+                      <p
+                        className="
 mt-3
 text-sm
 font-medium
 "
->
-{item.description}
-</p>
+                      >
+                        {item.description}
+                      </p>
 
-
-
-
-<div
-className="
+                      <div
+                        className="
 mt-5
 
 border-t-4
@@ -370,10 +293,9 @@ flex
 justify-between
 items-center
 "
->
-
-<span
-className="
+                      >
+                        <span
+                          className="
 bg-green-300
 
 border-2
@@ -386,61 +308,30 @@ text-xs
 font-black
 uppercase
 "
->
+                        >
+                          {item.tag}
+                        </span>
 
-{item.tag}
-
-</span>
-
-
-
-<div
-className={`
+                        <div
+                          className={`
 h-4
 w-4
 border-2
 border-black
 
-${
-active
-?
-"bg-red-500"
-:
-"bg-white"
-}
+${active ? 'bg-red-500' : 'bg-white'}
 
 `}
-/>
-
-
-</div>
-
-
-
-</div>
-
-</div>
-
-)
-
-})
-
-}
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-)}
-
-
-</section>
-
-);
-
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  )
 }

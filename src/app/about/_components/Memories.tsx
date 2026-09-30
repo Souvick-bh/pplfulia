@@ -1,54 +1,44 @@
-"use client";
-
+'use client'
 
 const memories = [
-    {
-        emoji: "📸",
-        title: "Photos",
-        text: "Every celebration, every victory pose, every funny moment.",
-        color: "bg-[#FFD93D]",
-        rotate: "-rotate-2",
-    },
-    {
-        emoji: "📖",
-        title: "Stories",
-        text: "Match reports, rivalries and legendary incidents.",
-        color: "bg-[#72E06A]",
-        rotate: "rotate-2",
-    },
-    {
-        emoji: "😂",
-        title: "Bloopers",
-        text: "Because mistakes sometimes become the best memories.",
-        color: "bg-[#FF5D73]",
-        rotate: "-rotate-1",
-    },
-    {
-        emoji: "🏆",
-        title: "Records",
-        text: "Winners, MVPs and moments worth remembering.",
-        color: "bg-[#4F7CFF]",
-        rotate: "rotate-1",
-    },
-];
-
+  {
+    emoji: '📸',
+    title: 'Photos',
+    text: 'Every celebration, every victory pose, every funny moment.',
+    color: 'bg-[#FFD93D]',
+    rotate: '-rotate-2',
+  },
+  {
+    emoji: '📖',
+    title: 'Stories',
+    text: 'Match reports, rivalries and legendary incidents.',
+    color: 'bg-[#72E06A]',
+    rotate: 'rotate-2',
+  },
+  {
+    emoji: '😂',
+    title: 'Bloopers',
+    text: 'Because mistakes sometimes become the best memories.',
+    color: 'bg-[#FF5D73]',
+    rotate: '-rotate-1',
+  },
+  {
+    emoji: '🏆',
+    title: 'Records',
+    text: 'Winners, MVPs and moments worth remembering.',
+    color: 'bg-[#4F7CFF]',
+    rotate: 'rotate-1',
+  },
+]
 
 export default function Memories() {
+  return (
+    <section className="px-6 py-20">
+      <div className="mx-auto max-w-xl">
+        {/* Heading */}
 
-    return (
-
-        <section className="px-6 py-20">
-
-
-            <div className="mx-auto max-w-xl">
-
-
-
-                {/* Heading */}
-
-
-                <div
-                    className="
+        <div
+          className="
 inline-block
 rounded-xl
 border-4
@@ -61,79 +51,60 @@ uppercase
 shadow-[5px_5px_0_#111]
 rotate-2
 "
-                >
-                    Why this website?
-                </div>
+        >
+          Why this website?
+        </div>
 
-
-
-
-                <h2
-                    className="
+        <h2
+          className="
 mt-8
 text-5xl
 font-black
 uppercase
 leading-none
 "
-                >
-                    Because
-                    <br />
-
-                    <span
-                        className="
+        >
+          Because
+          <br />
+          <span
+            className="
 bg-black
 px-3
 text-[#FFF8DC]
 "
-                    >
-                        memories
-                    </span>
+          >
+            memories
+          </span>
+          <br />
+          should stay.
+        </h2>
 
-                    <br />
-
-                    should stay.
-                </h2>
-
-
-
-
-                <p
-                    className="
+        <p
+          className="
 mt-8
 text-lg
 font-bold
 leading-relaxed
 "
-                >
-                    Years pass, players change, but the stories
-                    remain. This website is our little digital
-                    stadium where every PPL memory gets a place.
-                </p>
+        >
+          Years pass, players change, but the stories remain. This website is our little digital
+          stadium where every PPL memory gets a place.
+        </p>
 
+        {/* Memory Grid */}
 
-
-
-
-                {/* Memory Grid */}
-
-
-                <div
-                    className="
+        <div
+          className="
 mt-14
 grid
 grid-cols-1
 gap-8
 "
-                >
-
-
-                    {
-                        memories.map((item) => (
-
-                            <div
-                                key={item.title}
-                                className={`
+        >
+          {memories.map((item) => (
+            <div
+              key={item.title}
+              className={`
 ${item.color}
 ${item.rotate}
 
@@ -144,84 +115,58 @@ p-6
 
 shadow-[8px_8px_0_#111]
 `}
-                            >
-
-
-                                <div
-                                    className="
+            >
+              <div
+                className="
 text-5xl
 "
-                                >
-                                    {item.emoji}
-                                </div>
+              >
+                {item.emoji}
+              </div>
 
-
-
-                                <h3
-                                    className="
+              <h3
+                className="
 mt-5
 text-3xl
 font-black
 uppercase
 "
-                                >
-                                    {item.title}
-                                </h3>
+              >
+                {item.title}
+              </h3>
 
-
-
-                                <p
-                                    className="
+              <p
+                className="
 mt-3
 font-bold
 leading-relaxed
 "
-                                >
-                                    {item.text}
-                                </p>
-
-
-                            </div>
-
-                        ))
-                    }
-
-
-
-                </div>
-
-
-
+              >
+                {item.text}
+              </p>
             </div>
+          ))}
+        </div>
+      </div>
 
+      {/* Quote Poster */}
 
-
-
-
-
-            {/* Quote Poster */}
-
-
-            <div
-                className="
+      <div
+        className="
 mx-auto
 mt-32
 max-w-xl
 "
-            >
-
-
-                <div
-                    className="
+      >
+        <div
+          className="
 relative
 "
-                >
+        >
+          {/* Shadow Layer */}
 
-
-                    {/* Shadow Layer */}
-
-                    <div
-                        className="
+          <div
+            className="
 absolute
 inset-0
 translate-x-3
@@ -229,12 +174,10 @@ translate-y-3
 rounded-[2.5rem]
 bg-black
 "
-                    />
+          />
 
-
-
-                    <div
-                        className="
+          <div
+            className="
 relative
 
 rounded-[2.5rem]
@@ -250,21 +193,17 @@ py-12
 text-center
 
 "
-                    >
-
-
-                        <div
-                            className="
+          >
+            <div
+              className="
 text-6xl
 "
-                        >
-                            🏏
-                        </div>
+            >
+              🏏
+            </div>
 
-
-
-                        <p
-                            className="
+            <p
+              className="
 mt-8
 
 text-4xl
@@ -275,23 +214,16 @@ uppercase
 
 leading-tight
 "
-                        >
+            >
+              "Remember when
+              <br />
+              we thought
+              <br />
+              we were IPL stars?"
+            </p>
 
-                            "Remember when
-                            <br />
-
-                            we thought
-
-                            <br />
-
-                            we were IPL stars?"
-
-                        </p>
-
-
-
-                        <div
-                            className="
+            <div
+              className="
 mt-8
 
 inline-block
@@ -312,27 +244,12 @@ font-black
 
 shadow-[4px_4px_0_#111]
 "
-                        >
-                            😂 Still do.
-                        </div>
-
-
-
-                    </div>
-
-
-                </div>
-
-
-
+            >
+              😂 Still do.
             </div>
-
-
-
-
-
-        </section>
-
-    )
-
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }

@@ -1,23 +1,23 @@
-"use client";
+'use client'
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden px-6 pt-12 pb-20">
-
       {/* Floating Decorations */}
 
       {/* Top Left Star */}
-      <div className="
+      <div
+        className="
         absolute
         left-5
         top-10
         text-5xl
         rotate-12
         animate-bounce
-      ">
+      "
+      >
         ⭐
       </div>
-
 
       {/* Top Right Cricket Ball */}
       <div
@@ -42,7 +42,6 @@ export default function Hero() {
         🏏
       </div>
 
-
       {/* Bottom Left Sticker */}
 
       <div
@@ -66,7 +65,6 @@ export default function Hero() {
         Since 2020 🔥
       </div>
 
-
       {/* Bottom Right Sticker */}
 
       <div
@@ -88,13 +86,9 @@ export default function Hero() {
         Season 6 🏆
       </div>
 
-
-
       {/* Main Content */}
 
       <div className="mx-auto max-w-xl">
-
-
         {/* Label */}
 
         <div
@@ -116,8 +110,6 @@ export default function Hero() {
           🏏 About PPL
         </div>
 
-
-
         {/* Main Heading */}
 
         <h1
@@ -134,7 +126,6 @@ export default function Hero() {
         >
           Panchayet
           <br />
-
           <span
             className="
               inline-block
@@ -148,13 +139,9 @@ export default function Hero() {
           >
             Premiere
           </span>
-
           <br />
-
           League
         </h1>
-
-
 
         {/* Intro Card */}
 
@@ -173,13 +160,10 @@ export default function Hero() {
             rotate-1
           "
         >
-
-          What happens when a bunch of high school friends,
-          some cricket talent, and unlimited free time collide?
-
+          What happens when a bunch of high school friends, some cricket talent, and unlimited free
+          time collide?
           <br />
           <br />
-
           <span
             className="
               inline-block
@@ -192,10 +176,7 @@ export default function Hero() {
           >
             PPL happens.
           </span>
-
         </div>
-
-
 
         {/* Bottom Hero Message */}
 
@@ -212,10 +193,7 @@ export default function Hero() {
             uppercase
           "
         >
-
-          <span className="text-4xl">
-            🤝
-          </span>
+          <span className="text-4xl">🤝</span>
 
           <span>
             Friends.
@@ -225,15 +203,9 @@ export default function Hero() {
             Chaos.
           </span>
 
-          <span className="text-4xl">
-            🔥
-          </span>
-
+          <span className="text-4xl">🔥</span>
         </div>
-
-
       </div>
-
 
       {/* Decorative Lines */}
 
@@ -250,8 +222,6 @@ export default function Hero() {
       >
         ✦ ✦ ✦
       </div>
-
-
     </section>
-  );
+  )
 }

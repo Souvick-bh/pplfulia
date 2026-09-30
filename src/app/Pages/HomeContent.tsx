@@ -1,10 +1,7 @@
-import HistoryFramer from "../Components/HistoryFramer";
-
+import HistoryFramer from '../Components/HistoryFramer'
 
 export default function HomeContent() {
-
   return (
-
     <main
       className="
       min-h-screen
@@ -14,7 +11,6 @@ export default function HomeContent() {
       py-12
       "
     >
-
       <section
         className="
         mx-auto
@@ -25,8 +21,6 @@ export default function HomeContent() {
         gap-10
         "
       >
-
-
         {/* Video */}
 
         <div
@@ -39,9 +33,7 @@ export default function HomeContent() {
 
           "
         >
-
           <video
-
             src="/videos/ppl.mp4"
 
             autoPlay
@@ -56,12 +48,8 @@ export default function HomeContent() {
             w-full
             object-cover
             "
-
           />
-
         </div>
-
-
 
         {/* Story */}
 
@@ -80,7 +68,6 @@ export default function HomeContent() {
 
           "
         >
-
           <p
             className="
             max-w-5xl
@@ -98,12 +85,9 @@ export default function HomeContent() {
             tracking-tight
             "
           >
-
-            Wanna watch how a bunch of friends started their own cricket league
-            to keep nostalgic memories alive?
-
+            Wanna watch how a bunch of friends started their own cricket league to keep nostalgic
+            memories alive?
           </p>
-
 
           <div
             className="
@@ -120,15 +104,9 @@ export default function HomeContent() {
             uppercase
             "
           >
-
             A story of friendship • cricket • memories
-
           </div>
-
-
         </div>
-
-
 
         {/* Timeline */}
 
@@ -140,17 +118,9 @@ export default function HomeContent() {
           pt-10
           "
         >
-
           <HistoryFramer />
-
         </div>
-
-
       </section>
-
-
     </main>
-
-  );
-
+  )
 }

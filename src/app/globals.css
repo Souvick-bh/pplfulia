@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo+Black&display=swap');
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@import "tw-animate-css";
-
+@import 'tw-animate-css';
 
 /* Smooth scrolling */
 
@@ -11,45 +10,33 @@ html {
   scroll-behavior: smooth;
 }
 
-
-
 /* =========================
    PPL NEOBRUTALIST THEME
 ========================= */
 
-
 :root {
-
-  --ppl-paper: #FFF8DC;
+  --ppl-paper: #fff8dc;
 
   --ppl-black: #111111;
 
-  --ppl-orange: #FF7A00;
+  --ppl-orange: #ff7a00;
 
-  --ppl-yellow: #FFD93D;
+  --ppl-yellow: #ffd93d;
 
-  --ppl-green: #72E06A;
+  --ppl-green: #72e06a;
 
-  --ppl-blue: #4F7CFF;
+  --ppl-blue: #4f7cff;
 
-  --ppl-pink: #FF5D73;
-
+  --ppl-pink: #ff5d73;
 
   --background: var(--ppl-paper);
 
   --foreground: var(--ppl-black);
 
-
   --radius: 1rem;
-
 }
 
-
-
-
-
 body {
-
   margin: 0;
 
   min-height: 100vh;
@@ -58,232 +45,114 @@ body {
 
   color: var(--ppl-black);
 
-
-  font-family:
-    "Space Grotesk",
-    sans-serif;
-
+  font-family: 'Space Grotesk', sans-serif;
 
   font-weight: 500;
-
 
   /*
     subtle paper texture
   */
 
-  background-image:
-    radial-gradient(
-      #111 0.6px,
-      transparent 0.6px
-    );
-
+  background-image: radial-gradient(#111 0.6px, transparent 0.6px);
 
   background-size: 10px 10px;
-
 }
-
-
-
-
 
 /* =========================
    Typography
 ========================= */
 
-
 h1,
 h2,
 h3,
 h4 {
+  font-family: 'Archivo Black', sans-serif;
 
-  font-family:
-    "Archivo Black",
-    sans-serif;
-
-
-  letter-spacing:
-    -0.04em;
-
+  letter-spacing: -0.04em;
 }
-
-
 
 ::selection {
-
   background: var(--ppl-orange);
 
-  color:white;
-
+  color: white;
 }
-
-
-
-
-
 
 /* =========================
    Neobrutal Utilities
 ========================= */
 
-
-
 .brutal-card {
+  border: 4px solid var(--ppl-black);
 
-  border:
-    4px solid var(--ppl-black);
+  border-radius: 1.5rem;
 
-
-  border-radius:
-    1.5rem;
-
-
-  box-shadow:
-    8px 8px 0 var(--ppl-black);
-
+  box-shadow: 8px 8px 0 var(--ppl-black);
 }
-
-
 
 .brutal-small {
+  border: 3px solid var(--ppl-black);
 
-  border:
-    3px solid var(--ppl-black);
-
-
-  box-shadow:
-    4px 4px 0 var(--ppl-black);
-
+  box-shadow: 4px 4px 0 var(--ppl-black);
 }
-
-
 
 .brutal-button {
+  border: 4px solid var(--ppl-black);
 
-  border:
-    4px solid var(--ppl-black);
+  box-shadow: 5px 5px 0 var(--ppl-black);
 
-
-  box-shadow:
-    5px 5px 0 var(--ppl-black);
-
-
-  transition:
-    all .15s ease;
-
+  transition: all 0.15s ease;
 }
-
-
 
 .brutal-button:hover {
+  transform: translate(4px, 4px);
 
-  transform:
-    translate(
-      4px,
-      4px
-    );
-
-
-  box-shadow:
-    0 0 0 var(--ppl-black);
-
+  box-shadow: 0 0 0 var(--ppl-black);
 }
-
-
-
 
 /* =========================
    Scrollbar
 ========================= */
 
-
 ::-webkit-scrollbar {
-
   width: 12px;
-
 }
-
 
 ::-webkit-scrollbar-track {
-
-  background:
-    var(--ppl-paper);
-
+  background: var(--ppl-paper);
 }
-
 
 ::-webkit-scrollbar-thumb {
+  background: var(--ppl-black);
 
-  background:
-    var(--ppl-black);
-
-
-  border:
-    3px solid var(--ppl-paper);
-
+  border: 3px solid var(--ppl-paper);
 }
-
-
-
-
 
 /* =========================
    Tailwind theme bridge
 ========================= */
 
-
 @theme inline {
+  --color-background: var(--background);
 
+  --color-foreground: var(--foreground);
 
-  --color-background:
-    var(--background);
+  --color-ppl-orange: var(--ppl-orange);
 
+  --color-ppl-yellow: var(--ppl-yellow);
 
-  --color-foreground:
-    var(--foreground);
+  --color-ppl-green: var(--ppl-green);
 
+  --color-ppl-blue: var(--ppl-blue);
 
-  --color-ppl-orange:
-    var(--ppl-orange);
-
-
-  --color-ppl-yellow:
-    var(--ppl-yellow);
-
-
-  --color-ppl-green:
-    var(--ppl-green);
-
-
-  --color-ppl-blue:
-    var(--ppl-blue);
-
-
-  --color-ppl-pink:
-    var(--ppl-pink);
-
-
+  --color-ppl-pink: var(--ppl-pink);
 }
-
-
-
-
 
 @layer base {
+  * {
+    @apply border-black;
+  }
 
-
-* {
-
-  @apply border-black;
-
-}
-
-
-
-body {
-
-  @apply bg-background text-foreground;
-
-}
-
-
+  body {
+    @apply bg-background text-foreground;
+  }
 }

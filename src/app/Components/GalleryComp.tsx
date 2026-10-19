@@ -16,7 +16,7 @@ interface ImageGalleryProps {
   refreshTrigger?: number
 }
 
-const seasons = [1, 2, 3, 4, 5, 6]
+const seasons = [1, 2, 3, 4, 5, 6, 7]
 
 const rotations = ['rotate-1', '-rotate-1', 'rotate-2', '-rotate-2']
 

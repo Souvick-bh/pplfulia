@@ -125,6 +125,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadSuccess }) => {
             <option value="5">Season 5</option>
 
             <option value="6">Season 6</option>
+
+            <option value="6">Season 7</option>
           </select>
         </div>
 
